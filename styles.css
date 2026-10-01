@@ -1,0 +1,975 @@
+/* css styles */
+
+/* ---------------------------------------------------------------- */
+/* Theme tokens                                                      */
+/* ---------------------------------------------------------------- */
+
+/* Accents for cards, rules and tints, derived from the active Bootswatch
+   theme (Superhero: navy #0f2537 surface, orange #df6919 primary).
+
+   On a dark theme, tints are white-alpha rather than grey-alpha: mid-grey over
+   navy desaturates it to a muddy slate, while white-alpha lightens while keeping
+   the hue. Re-theming later means editing only this block. */
+:root {
+  --accent: #df6919;                          /* theme primary - card accent */
+  --accent-soft: rgba(223, 105, 25, 0.55);
+  --accent-faint: rgba(223, 105, 25, 0.13);
+
+  --surface-1: rgba(255, 255, 255, 0.045);    /* card fill */
+  --surface-2: rgba(255, 255, 255, 0.075);    /* nested block fill */
+  --surface-3: rgba(255, 255, 255, 0.11);     /* image placeholder */
+
+  --rule: rgba(255, 255, 255, 0.13);          /* hairline borders */
+  --rule-strong: rgba(255, 255, 255, 0.26);   /* hover borders */
+
+  --shadow: rgba(0, 0, 0, 0.42);
+
+  /* Width of Quarto's body-content grid track, so the navbar can line up with
+     the page text instead of running to the screen edges. Matches the
+     `minmax(500px, calc(1050px - 3em))` track in the generated page grid. */
+  --page-body-width: calc(1050px - 3em);
+}
+
+/* ---------------------------------------------------------------- */
+/* Navbar alignment                                                  */
+/* ---------------------------------------------------------------- */
+
+.navbar > .navbar-container {
+  max-width: var(--page-body-width);
+  margin-inline: auto;
+  padding-inline: 0;
+}
+
+
+.icon-bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-bottom: 0rem;
+}
+
+.icon-bullet i {
+  margin-top: 0.2rem;
+}
+
+/* social icon bar */
+.custom-social-bar {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 0rem;
+}
+
+/* icons */
+.custom-social-bar img {
+  height: 32px;
+  width: 32px;
+  opacity: 0.9;
+  transition: all 0.2s ease;
+}
+
+/* hover animation */
+.custom-social-bar img:hover {
+  opacity: 1;
+  transform: translateY(-2px) scale(1.1);
+}
+
+#about-entity ~ .custom-social-bar {
+  margin-top: -1.5rem;
+}
+
+/* ------------------- */
+/* Research Highlights */
+/* ------------------- */
+
+.highlight-section-head {
+  margin-top: 3.5rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.5rem;
+}
+
+.highlight-section-head h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  border-bottom: none;
+}
+
+.highlight-section-head a {
+  font-size: 0.9rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Card density knobs. Tune these five values to make the whole grid tighter
+   or roomier -- nothing below hard-codes these numbers. */
+.highlight-grid {
+  --card-min: 210px;        /* column width before the grid reflows */
+  --card-gap: 1rem;         /* space between cards */
+  --card-pad: 0.7rem;       /* inner padding of the card body */
+  --card-media: 2 / 1;      /* image aspect ratio; larger = shorter image */
+  --card-desc-lines: 3;     /* description is clamped to this many lines */
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--card-min), 1fr));
+  gap: var(--card-gap);
+  margin-top: 1rem;
+}
+
+.highlight-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--surface-1);
+  transition: box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.highlight-card:hover,
+.highlight-card:focus-within {
+  box-shadow: 0 10px 24px var(--shadow);
+  border-color: var(--accent-soft);
+}
+
+/* Stretched link: the whole card is clickable, but the accessible name stays
+   on the actual anchor text rather than on a wrapper swallowing the card. */
+.highlight-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.highlight-card-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.highlight-card-link:hover {
+  text-decoration: none;
+  color: var(--accent);
+}
+
+.highlight-card-media {
+  aspect-ratio: var(--card-media);
+  overflow: hidden;
+  background: var(--surface-3);
+}
+
+.highlight-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.highlight-card-body {
+  padding: var(--card-pad) calc(var(--card-pad) + 0.15rem);
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.highlight-card-meta {
+  font-size: 0.67rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin: 0 0 0.2rem;
+}
+
+.highlight-card-title {
+  font-size: 0.95rem;
+  line-height: 1.25;
+  margin: 0 0 0.15rem;
+}
+
+.highlight-card-subtitle {
+  font-size: 0.79rem;
+  line-height: 1.3;
+  opacity: 0.75;
+  margin: 0 0 0.35rem;
+}
+
+.highlight-card-desc {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  opacity: 0.85;
+  margin-bottom: 0.55rem;
+
+  /* Clamp to --card-desc-lines. Grid rows stretch to the tallest card, so an
+     unclamped description makes every card in the row taller. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--card-desc-lines);
+  line-clamp: var(--card-desc-lines);
+  overflow: hidden;
+}
+
+.highlight-card-desc p {
+  margin-bottom: 0;
+}
+
+.highlight-card-cta {
+  margin: auto 0 0;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.highlight-card-arrow {
+  display: inline-block;
+  margin-left: 0.3rem;
+  transition: transform 0.18s ease;
+}
+
+.highlight-card:hover .highlight-card-arrow,
+.highlight-card:focus-within .highlight-card-arrow {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .highlight-card,
+  .highlight-card-arrow {
+    transition: none;
+  }
+  .highlight-card:hover .highlight-card-arrow,
+  .highlight-card:focus-within .highlight-card-arrow {
+    transform: none;
+  }
+}
+
+/* --------- */
+/* Interests */
+/* --------- */
+
+/* A plain markdown list inside `::: {.interest-tags}` renders as tag pills,
+   so the source stays editable as a normal bullet list. */
+.interest-tags ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0.4rem;
+  margin-bottom: 0;
+}
+
+.interest-tags li {
+  display: inline-block;
+  padding: 0.28rem 0.7rem;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--surface-1);
+  white-space: nowrap;
+}
+
+/* Long interests should wrap rather than overflow on narrow screens. */
+@media (max-width: 575px) {
+  .interest-tags li {
+    white-space: normal;
+  }
+}
+
+/* ------------ */
+/* Contact line */
+/* ------------ */
+
+/* Quarto renders the document `subtitle` between the name and the social
+   links in the about block, which is where the contact line lives. Default
+   `.lead` styling is too large for an email address, so tone it down. */
+.quarto-about-trestles .about-entity .subtitle {
+  font-size: 0.82rem;
+  font-weight: 400;
+  line-height: 1.4;
+  opacity: 0.8;
+  margin: 0.4rem 0 0.1rem;
+  text-align: center;
+  overflow-wrap: anywhere;   /* a long address must not widen the column */
+}
+
+.quarto-about-trestles .about-entity .subtitle i {
+  margin-right: 0.3rem;
+  opacity: 0.7;
+}
+
+.quarto-about-trestles .about-entity .subtitle a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.quarto-about-trestles .about-entity .subtitle a:hover {
+  border-bottom-color: currentColor;
+}
+
+/* Cards without a `image:` in front matter have no media block. Give them a
+   thin accent bar so they read as a deliberate variant next to imaged cards
+   rather than looking like a failed image load. */
+.highlight-card:not(:has(.highlight-card-media)) {
+  border-top: 3px solid var(--accent);
+}
+
+.highlight-card:not(:has(.highlight-card-media)) .highlight-card-body {
+  padding-top: calc(var(--card-pad) + 0.2rem);
+}
+
+/* ----------------------- */
+/* Highlights as full rows */
+/* ----------------------- */
+
+/* Same cards, same template -- wrapping a listing in `::: {.highlight-rows}`
+   relays the grid into full-width rows with the image beside the text.
+   The homepage keeps the plain grid; only the hub page opts in. */
+
+.highlight-rows .highlight-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-gap);
+}
+
+.highlight-rows .highlight-card {
+  --row-height: 170px;
+  flex-direction: row;
+  /* Constant height: every row matches, regardless of its image or text length. */
+  height: var(--row-height);
+}
+
+/* Image column: proportional, but clamped so it never dominates or vanishes.
+   position:relative plus an absolutely positioned image takes the picture out of
+   flow, so it cannot stretch the row -- the row's fixed height wins and the
+   image is cropped to fit it. */
+.highlight-rows .highlight-card-media {
+  flex: 0 0 clamp(150px, 28%, 280px);
+  aspect-ratio: auto;
+  position: relative;
+  align-self: stretch;
+}
+
+.highlight-rows .highlight-card-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* A fixed row height means long titles must be bounded too. */
+.highlight-rows .highlight-card-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.highlight-rows .highlight-card-body {
+  padding: 0.9rem 1.15rem;
+  justify-content: center;
+}
+
+/* In the grid the CTA is pinned to the card bottom; in a row the content
+   should group together instead. */
+.highlight-rows .highlight-card-cta {
+  margin: 0.45rem 0 0;
+}
+
+/* Rows are much wider than grid cards, so 2 lines holds more text than 3 did. */
+.highlight-rows .highlight-card-desc {
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  margin-bottom: 0;
+}
+
+/* An accent on the leading edge reads better than a top bar in row form. */
+.highlight-rows .highlight-card:not(:has(.highlight-card-media)) {
+  border-top: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+}
+
+/* Too narrow for side-by-side: fall back to the stacked card. */
+@media (max-width: 575px) {
+  .highlight-rows .highlight-card {
+    flex-direction: column;
+    height: auto;
+  }
+  .highlight-rows .highlight-card-media {
+    flex: none;
+    aspect-ratio: var(--card-media);
+  }
+  .highlight-rows .highlight-card-body {
+    justify-content: flex-start;
+  }
+}
+
+/* ----- */
+/* Media */
+/* ----- */
+
+.media-rows-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+/* Information left, video right. */
+.media-row {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.media-row-body {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.media-row-video {
+  flex: 0 0 clamp(260px, 45%, 460px);
+}
+
+.media-row-meta {
+  font-size: 0.67rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin: 0 0 0.2rem;
+}
+
+.media-row-title {
+  font-size: 1.05rem;
+  line-height: 1.25;
+  margin: 0 0 0.15rem;
+}
+
+.media-row-subtitle {
+  font-size: 0.85rem;
+  opacity: 0.75;
+  margin: 0 0 0.45rem;
+}
+
+.media-row-desc {
+  font-size: 0.86rem;
+  line-height: 1.45;
+  opacity: 0.85;
+  margin-bottom: 0.5rem;
+}
+
+.media-row-desc p {
+  margin-bottom: 0;
+}
+
+/* Spatial audio downmixed to laptop speakers misrepresents the work. */
+.media-row-note {
+  font-size: 0.76rem;
+  opacity: 0.7;
+  margin: 0 0 0.5rem;
+}
+
+.media-row-note::before {
+  content: "\F4C4";
+  font-family: "bootstrap-icons";
+  margin-right: 0.35rem;
+}
+
+.media-row-link {
+  font-size: 0.82rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.media-row-link a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.media-row-link a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.media-row-arrow {
+  margin-left: 0.3rem;
+}
+
+/* Click-to-load facade: a local poster standing in for the YouTube player. */
+.video-facade {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface-3);
+  cursor: pointer;
+}
+
+.video-facade img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-facade-play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.62);
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.video-facade-play::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: 11px 0 11px 18px;
+  border-color: transparent transparent transparent #fff;
+}
+
+.video-facade:hover .video-facade-play {
+  background: var(--accent);
+  transform: scale(1.06);
+}
+
+/* The iframe that replaces the facade on click. */
+.media-row-video iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 8px;
+  display: block;
+}
+
+@media (max-width: 767px) {
+  .media-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.9rem;
+  }
+  .media-row-video {
+    flex: none;
+    order: -1;   /* video first when stacked */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video-facade-play {
+    transition: none;
+  }
+  .video-facade:hover .video-facade-play {
+    transform: none;
+  }
+}
+
+/* ---------------- */
+/* Student positions */
+/* ---------------- */
+
+.position-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  margin-top: 1rem;
+}
+
+.position-card {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--surface-1);
+}
+
+/* Left column: the readable content. */
+.position-main {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0.9rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Facts row: type, start, duration, location, deadline reading across. */
+.position-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.7rem;
+  border-radius: 7px;
+  background: var(--surface-2);
+}
+
+.position-title {
+  font-size: 1rem;
+  line-height: 1.3;
+  margin: 0 0 0.15rem;
+}
+
+.position-subtitle {
+  font-size: 0.83rem;
+  opacity: 0.75;
+  margin: 0 0 0.4rem;
+}
+
+.position-desc {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  opacity: 0.85;
+  margin-bottom: 0.7rem;
+}
+
+.position-desc p {
+  margin-bottom: 0;
+}
+
+/* Timeline facts grouped into a single block, so start/duration/deadline read
+   together rather than as loose lines. */
+.position-fact {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.position-fact-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.position-fact-value {
+  font-size: 0.83rem;
+  font-weight: 500;
+}
+
+/* Actions grouped together. */
+.position-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.9rem;
+  margin: auto 0 0;
+  padding-top: 0.5rem;
+}
+
+/* Both actions share one style: "Go to application" and "Read more". */
+.position-link {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.position-link:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.position-arrow {
+  display: inline-block;
+  margin-left: 0.3rem;
+  transition: transform 0.18s ease;
+}
+
+.position-link:hover .position-arrow {
+  transform: translateX(3px);
+}
+
+/* Title sits at the very top of the card now that kind has moved down. */
+.position-title {
+  margin-top: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .position-arrow {
+    transition: none;
+  }
+  .position-link:hover .position-arrow {
+    transform: none;
+  }
+}
+
+/* Focus Venn: three overlapping circles, one hue each, sized by emphasis.
+   Part names are configured once via the listing's template-params.
+
+   Colours are categorical slots 1-3 of the validated default data-viz palette
+   (blue / orange / aqua). Those three clear the all-pairs CVD and normal-vision
+   separation gates in both light and dark -- which matters here because all three
+   circles touch each other. Dark steps are chosen for the dark surface, not an
+   automatic flip. Aqua sits below 3:1 on the light surface, so the relief rule
+   applies: the legend beside the figure direct-labels every part, and identity is
+   never carried by colour alone. */
+.position-focus {
+  --focus-1: #2a78d6;   /* categorical slot 1 - blue */
+  --focus-2: #eb6834;   /* categorical slot 2 - orange */
+  --focus-3: #1baf7a;   /* categorical slot 3 - aqua */
+
+  flex: 0 0 clamp(210px, 32%, 290px);
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.65rem 0.9rem;
+  border-left: 1px solid var(--rule);
+  background: var(--surface-2);
+}
+
+body.quarto-dark .position-focus {
+  --focus-1: #3987e5;
+  --focus-2: #d95926;
+  --focus-3: #199e70;
+}
+
+/* Heading: one word naming the area, sitting beside its label and centred. */
+.focus-heading {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.1rem 0.4rem;
+  text-align: center;
+}
+
+/* Label matches the value's font; only opacity separates them. */
+.focus-heading-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.3;
+  opacity: 0.65;
+}
+
+.focus-heading-value {
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+/* Figure row: diagram beside its legend, taking the height left over. */
+.focus-figure {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.focus-venn-wrap {
+  flex: 0 0 46%;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  /* floor so a short card still shows a legible figure */
+  min-height: 96px;
+}
+
+.focus-venn {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+
+/* Partial transparency so overlaps read as mixed regions; a surface-coloured
+   ring keeps adjacent fills from bleeding into one another. */
+.focus-circle {
+  fill-opacity: 0.55;
+  stroke-width: 1.5;
+  stroke-opacity: 0.9;
+  paint-order: stroke fill;
+}
+
+.focus-circle-1 { fill: var(--focus-1); stroke: var(--focus-1); }
+.focus-circle-2 { fill: var(--focus-2); stroke: var(--focus-2); }
+.focus-circle-3 { fill: var(--focus-3); stroke: var(--focus-3); }
+
+.focus-legend {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  align-self: center;
+}
+
+.focus-legend-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  font-size: 0.73rem;
+  line-height: 1.25;
+}
+
+/* The dot carries identity; the name stays in text ink, never the series hue. */
+.focus-dot {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  margin-top: 0.22em;
+  border-radius: 50%;
+  align-self: flex-start;
+}
+
+.focus-dot-1 { background: var(--focus-1); }
+.focus-dot-2 { background: var(--focus-2); }
+.focus-dot-3 { background: var(--focus-3); }
+
+/* Emphasis mirrors the circle sizing, so legend and figure agree. A part set to
+   `none` draws no circle, so its dot is hollow. */
+.focus-level-0 { opacity: 0.5; }
+.focus-level-0 .focus-dot {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px currentColor;
+}
+.focus-level-1 .focus-dot { transform: scale(0.6); }
+.focus-level-2 .focus-dot { transform: scale(0.8); }
+.focus-level-3 { font-weight: 500; }
+
+@media (max-width: 767px) {
+  .position-card {
+    flex-direction: column;
+  }
+  .position-focus {
+    align-self: auto;
+    justify-content: flex-start;
+    border-left: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .position-focus {
+    flex: none;
+  }
+  .focus-figure {
+    flex: 0 0 auto;
+  }
+  .focus-venn-wrap {
+    flex: 0 0 auto;
+    align-self: auto;
+    min-height: 0;
+  }
+  .focus-venn {
+    height: 80px;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Category filter                                                   */
+/* ---------------------------------------------------------------- */
+
+/* Quarto renders listing categories into the narrow right margin sidebar.
+   partials/listing-categories.html relocates them into #category-filter above
+   the listing; these rules turn them into a row of clickable pills matching the
+   interest tags on the landing page. */
+
+#category-filter.has-categories {
+  margin-bottom: 1.5rem;
+}
+
+#category-filter .quarto-listing-category-title {
+  font-size: 0.67rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin: 0 0 0.5rem;
+}
+
+#category-filter .quarto-listing-category {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
+}
+
+#category-filter .quarto-listing-category .category {
+  display: inline-block;
+  padding: 0.28rem 0.75rem;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--surface-1);
+  cursor: pointer;
+  text-decoration: none;
+  opacity: 1;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+#category-filter .quarto-listing-category .category:hover {
+  border-color: var(--accent-soft);
+  text-decoration: none;
+}
+
+/* Quarto marks the selected filter with .active. */
+#category-filter .quarto-listing-category .category.active {
+  background: var(--accent-faint);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 500;
+}
+
+#category-filter .quarto-category-count {
+  opacity: 0.6;
+  font-size: 0.92em;
+}
+
+/* Once the filter has moved out, the margin sidebar is empty. */
+body:has(#category-filter.has-categories) #quarto-margin-sidebar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #category-filter .quarto-listing-category .category {
+    transition: none;
+  }
+}
+
+/* Standing invitation under the Student Positions heading. Always present --
+   vacancies answer "is there an opening?", this answers "can I approach you?" */
+.positions-invite {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  opacity: 0.85;
+  margin-bottom: 1.1rem;
+  max-width: 62ch;
+}
+
+.positions-invite p {
+  margin-bottom: 0;
+}
+
+.positions-invite a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent-soft);
+}
+
+.positions-invite a:hover {
+  border-bottom-color: var(--accent);
+}

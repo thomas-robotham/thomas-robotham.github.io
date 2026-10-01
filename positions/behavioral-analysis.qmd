@@ -1,0 +1,50 @@
+---
+# An open student position. Delete this file when the position is filled --
+# the whole section disappears from the landing page once none remain.
+
+title: "Analysis of 6-DoF Exploration Data Captured in Complex Environments "   # shown on the card
+description: >                      # 1-2 sentences, shown on the card
+  Extending and validating 6-DoF behavioral evaluation metrics. 
+
+date: 2026-01-01                    # date posted; newest first
+kind: Thesis | HiWi | Internship               # Bachelor's Thesis | Master's Thesis | HiWi | Internship
+# Timeline block -- any you set are grouped together on the card.
+start: "Flexible"
+duration: "t.b.d"                        # e.g. "6 months" -- fill in or delete
+location: "Erlangen, Germany"
+deadline: ""                        # shown as "Apply by" -- fill in or delete
+
+# ONE WORD naming the area (e.g. Perceptual, Technical, Software, Design).
+# Rendered beside the "Focus" label above the Venn.
+focus: "Perceptual"
+
+# The Venn: how effort splits across the three parts named by
+# `balance-labels` in index.qmd, in that order.
+# Values: none | low | medium | high  (or 0-3). Delete the key for no Venn.
+balance: [low, high, medium]
+
+apply: "mailto:thomas.robotham@audiolabs-erlangen.de?subject=Application:%206-DoF%20Exploration%20Data"
+
+categories: [Open Position]
+---
+
+## The topic
+
+What the project is about, in two or three sentences.
+
+![Six degrees of freedom around a listener's head](/images/positions/head_6dof.png){width=60%}
+
+## What you would do
+
+- First concrete task
+- Second concrete task
+
+## What you should bring
+
+- Relevant background or coursework
+- Any required tools or languages
+
+## How to apply
+
+Email me at [thomas.robotham@audiolabs-erlangen.de](mailto:thomas.robotham@audiolabs-erlangen.de)
+with a short note about your background and a CV.

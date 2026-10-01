@@ -1,0 +1,54 @@
+---
+title: "QoEVAVE & EVOLVE-QoE"
+subtitle: "A QoE framework for interactive audiovisual scenes"
+description: >
+  A DFG-funded collaboration building methods, tools, and open content. (last update, May 2026)
+date: 2026-06-01
+image: /images/cards/datasets.png
+image-alt: "Rendered interior of the Mansion interactive virtual environment"
+categories: [Project, QoE, Virtual Reality, Spatial Audio]
+kind: Project
+venue: "DFG"
+---
+
+Quality evaluation methods inherited from stereo and multichannel listening
+tests assume a seated, passive listener. Interactive virtual environments break
+that assumption: participants move, look around, and their exploration
+behaviour is itself evidence about what they perceive.
+
+**QoEVAVE** and its successor **EVOLVE-QoE** exist to close that gap — building
+a methodological framework for evaluating quality of experience in interactive
+audiovisual scenes, together with the tooling and open content other labs need
+to apply it.
+
+## My role
+
+I joined as the PhD student on the project and now continue on it as a
+postdoctoral researcher. My work runs from the evaluation methodology itself
+through to the software and content that make it reproducible. I also
+co-authored the EVOLVE-QoE funding application with the partner principal
+investigator, and helped conceptualise the project's focus.
+
+EVOLVE-QoE is a three-year collaborative project with a partner university,
+funded by the German Research Foundation (DFG).
+
+## Outputs
+
+The project website is the canonical home for all of these:
+
+- **QExE Tool** — a Quality of Experience evaluation toolkit
+  ([project site](https://qoevave.github.io/qexe/))
+- **QoEVAVE Database** — evaluation content for interactive virtual environments
+  ([project site](https://qoevave.github.io/database/))
+- **Cave, Cinema, and Mansion** — CGI scenes for interactive audio research
+  ([AES](https://www.aes.org/e-lib/browse.cfm?elib=22518))
+- **Audiovisual 360° database** — 360° video with higher-order ambisonics
+  ([DOI](https://doi.org/10.1109/qomex55416.2022.9900893))
+- **Influence of multi-modal interactive formats** on audio quality and
+  exploration behaviour ([DOI](https://doi.org/10.1145/3573381.3596155))
+
+[Visit the project website →](https://qoevave.github.io/)
+
+::: {.callout-note appearance="simple"}
+Full citations for the outputs above are in the [CV](../cv.qmd#publications).
+:::

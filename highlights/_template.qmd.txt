@@ -1,0 +1,31 @@
+---
+# A research highlight. Fill in the fields and delete these comments.
+# Required: title, date, image. Everything else is optional.
+
+title: "Short headline"            # shown on the card
+subtitle: "One-line qualifier"     # OPTIONAL - delete the line to omit it
+description: >                     # OPTIONAL - delete both lines to omit it
+  One or two sentences, shown on the card.
+
+date: 2026-01-01                   # publication date; controls ordering (newest first)
+image: /images/cards/<slug>.jpg    # 16:9, ~900px wide (see scripts/make-card-image.sh)
+image-alt: "Describe the image for screen readers"
+
+categories: [Paper, Spatial Audio] # shown as filters on highlights.qmd
+kind: Paper                        # Paper | Tool | Dataset | Project — card eyebrow
+venue: "QoMEX 2026"                # card eyebrow; falls back to the year if omitted
+
+# STUB ENTRY: uncomment to make the card link straight out. The body below is
+# then ignored, and anyone landing on this page is forwarded to the same URL.
+# redirect: https://doi.org/10.xxxx/xxxxx
+---
+
+<!-- FULL WRITE-UP: delete this body entirely if you set `redirect:` above. -->
+
+Opening paragraph: the problem this work addresses.
+
+## Why it exists
+
+## What it does
+
+## References

@@ -1,0 +1,19 @@
+---
+# A video or demo. Scaffold with: ./scripts/new-media.sh <slug> <youtube-url>
+
+title: "Short headline"            # shown beside the video
+subtitle: "One-line qualifier"     # OPTIONAL - delete the line to omit it
+description: >                     # OPTIONAL - 1-3 sentences beside the video
+  What the viewer is looking at, and why it matters.
+
+date: 2026-01-01                   # newest first
+video: <video-id>                  # YouTube ID only, not the full URL
+poster: /images/media/<slug>.jpg   # fetched by the scaffold script
+
+kind: Demo                         # Demo | Talk | Walkthrough | Presentation
+venue: ""                          # OPTIONAL - duration, event or year
+headphones: true                   # OPTIONAL - shows a "headphones" note
+categories: [Media]
+---
+
+Optional longer write-up shown on this entry's own page.

@@ -1,0 +1,19 @@
+[
+  {
+    "title": "Cave, Cinema, and Mansion: Interactive Virtual Environments",
+    "image": "images/mansion.png",
+    "links": [
+      { "text": "Read more", "url": "/projects/alpha" },
+      { "text": "GitHub", "url": "https://github.com/username/project-alpha" }
+    ],
+    "description": "A short description of Project Alpha, highlighting key aspects."
+  },
+  {
+    "title": "3-DoF Audiovisual Recordings",
+    "image": "images/Ambisonics",
+    "links": [
+      { "text": "View Paper", "url": "/publications/beta" }
+    ],
+    "description": "A short summary of the publication, context, or impact."
+  }
+]

@@ -1,0 +1,14 @@
+---
+title: Thomas M. Robotham 
+image: images/profile.jpg
+about:
+  template: solana
+  links:
+    - icon: github
+      text: GitHub
+      href: https://github.com/yourname
+    - icon: linkedin
+      text: LinkedIn
+      href: https://linkedin.com/in/yourname
+---
+

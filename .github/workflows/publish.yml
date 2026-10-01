@@ -1,0 +1,60 @@
+# Build the Quarto site in CI and publish it to GitHub Pages.
+#
+# There is deliberately no gh-pages branch: the Pages source is set to
+# "GitHub Actions" in the repository settings, so the rendered site is uploaded
+# as a build artifact and served from there. Nothing rendered is ever committed,
+# which is why /_site/ is gitignored.
+name: Publish site
+
+on:
+  push:
+    branches: [main]
+  # Lets you re-publish from the Actions tab without pushing a commit.
+  workflow_dispatch:
+
+permissions:
+  contents: read      # read the sources
+  pages: write        # publish to Pages
+  id-token: write     # required by deploy-pages for OIDC
+
+# One publish at a time; don't cancel a deploy half-way.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out sources
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          # Pin the version so a Quarto release cannot silently change output.
+          version: 1.7.28
+
+      # No R or Python setup needed: stickers.qmd (the only page with executable
+      # chunks) is excluded from the render list in _quarto.yml.
+      - name: Render site
+        run: quarto render
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload rendered site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,122 @@
+---
+title: "Thomas M. Robotham"
+affiliation: International Audio Laboratories Erlangen
+subtitle: "<i class='bi bi-envelope'></i> [thomas.robotham@audiolabs-erlangen.de](mailto:thomas.robotham@audiolabs-erlangen.de)"
+image: images/profile.jpg
+about:
+  id: hero-heading
+  template: trestles
+  image-width: 15em
+  image-shape: round
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/thomasrobotham/
+    - text: '<i class="ai ai-google-scholar"></i> Scholar'
+      href: https://scholar.google.de/citations?user=rEZgo9cAAAAJ&hl=en&authuser=1
+    - text: '<i class="ai ai-orcid"></i> 0000-0002-2899-2916'
+      href: https://orcid.org/my-orcid?orcid=0000-0002-2899-2916
+    - text: '<i class="ai ai-researchgate"></i> Research Gate'
+      href: https://www.researchgate.net/profile/Thomas-Robotham/research
+    - icon: house
+      text: Institution
+      href: https://www.audiolabs-erlangen.de/fau/assistant/robotham
+listing:
+  - id: media
+    contents: media
+    template: _templates/media-row.ejs
+    sort: "date desc"
+    categories: false
+    feed: false
+  - id: positions
+    contents: positions
+    template: _templates/position-row.ejs
+    template-params:
+      # Rename the three Venn parts here -- one place, applies to every position.
+      balance-labels: ["Theory", "Development", "Evaluation"]
+    sort: "date desc"
+    categories: false
+    feed: false
+  - id: research
+    contents: highlights
+    template: _templates/highlight-card.ejs
+    sort: "date desc"
+    max-items: 3
+    categories: false
+    feed: false
+toc: false
+format: 
+  html: 
+    include-after-body:
+      - partials/video-facade.html
+    include-in-header:
+      - text: |
+          <link rel="stylesheet"
+                href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    grid:
+      sidebar-width: 200px
+      body-width: 1000px
+      margin-width: 100px
+    css: styles.css
+    filters: 
+      - carousel
+      - filters/hide-empty-sections.lua
+---
+
+
+::: {#about-entity}
+
+:::
+
+::: {#hero-heading}
+
+### Biography
+
+I am currently a postdoctoral researcher at the **International Audio Laboratories Erlangen**, a joint institution between the Friedrich-Alexander Universität Erlangen-Nürnberg and Fraunhofer Institute for Integrated Circuits. 
+
+My research focuses on the perceptual and cognitive evaluation of how humans experience and interpret spatialized sound. During my PhD, my research has revolved around the perceptual evaluation of spatial audio in complex multimodal interactive virtual reality environments.
+
+### Interests
+
+::: {.interest-tags}
+- Auditory Perception & Cognition
+- Virtual & Augmented Reality
+- Multisensory Integration
+- Virtual Acoustics
+- Evaluation Methodologies
+- Behavioral Evaluation
+:::
+
+:::
+
+::: {.highlight-section-head}
+## Recent Highlights
+
+[All Projects/Works →](highlights.qmd)
+:::
+
+::: {#research}
+:::
+
+::: {.highlight-section-head}
+## Student Positions
+:::
+
+::: {.positions-invite}
+I am always open to Bachelor's and Master's thesis topics, HiWi roles, and internships in spatial audio, evaluation, and interactive XR environments. 
+Whether or not something is listed below, feel free to reach out via my email.
+:::
+
+::: {#positions}
+:::
+
+:::: {.media-section}
+::: {.highlight-section-head}
+## Media
+:::
+
+::: {#media}
+:::
+::::
+
+

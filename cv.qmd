@@ -1,0 +1,118 @@
+---
+title: "Extended CV"
+bibliography: data/publications.bib
+csl: data/cv-initials.csl
+description: Thomas M. Robotham
+title-block-banner: true
+citeproc: false
+nocite: |
+  @*
+filters: 
+  - _extensions/chronobib
+format:
+  html: 
+    grid:
+      sidebar-width: 200px
+      body-width: 1000px
+      margin-width: 50px
+toc: true
+toc-location: left
+---
+
+Contact: *thomas.robotham@audiolabs-erlangen.de*
+
+Download a PDF version of the CV
+
+## Education
+
+| Dates | Degree | Institution | 
+|---|---|---|
+| 2021–2026 | PhD Student | Friedrich-Alexander Universität Erlangen-Nürnberg </br><span style="font-size:0.9em;"> International Audio Laboratories Erlangen</span> </br> <span style="font-size:0.8em;"> Dissertation: *Spatial Audio Perception in Interactive Virtual Reality: Quality Evaluation with Behavioral and Cognitive Insightss* </span>| 
+| 2014–2016 | M.Sc. (Res) Acoustics & Psychoacoustics | University of Huddersfield </br><span style="font-size:0.9em;"> Applied Psychoacoustics Lab</span> </br> <span style="font-size:0.8em;"> Thesis: *The Effects of a Vertical Reflection on the Relationship Between Listener Preference and Timbral and Spatial Attributes* </span>| 
+| 2010–2014 | B.Sc. Music Technology & Audio Systems | University of Huddersfield </br><span style="font-size:0.9em;"> School of Computing and Engineering</span> </br> <span style="font-size:0.8em;"> Thesis: *An Investigation Into the Validity and Effectiveness of Thiele and Small Parameters in the Design and Manufacture of a Vented Loudspeaker Cabinet* </span>| 
+
+: {tbl-colwidths="[13,32,55]"}
+
+## Work Experience
+
+| Dates | Title | Institution | Key Responsibilities |
+|---|---|---|---|
+| 2026 - Present | Post-doctoral Researcher | AudioLabs Erlangen (FAU) |  |
+| 2020–2021 | Senior Engineer | Fraunhofer IIS | Organization and coordination of listening tests for MPEG-I standardization |
+| 2017–2020 | Research Associate | Fraunhofer IIS | Research on auditory perception and behaviour in 6-DoF VR environments |
+| 2016–2017 | Research Intern | Fraunhofer IIS | Experimental design and statistical analysis for subjective audio quality evaluation |
+| 2014–2015 | Part-time Academic | University of Huddersfield | Delivered seminars and lab sessions for audio technology courses |
+| 2012–2014 | Audio Engineer | The Leadmill Ltd. | Live audio and lighting engineering for events |
+
+: {tbl-colwidths="[13,17,15,55]"}
+
+
+## Talks, Presentations, and Demonstrations
+
+| Year | Event | Location | Talk | 
+|---|---|---|---|
+| 2026 | PhD Defense | Erlangen, Germany |  Spatial Audio Perception in Interactive Virtual Reality: Quality Evaluation with Behavioral and Cognitive Insights | 
+| 2025 | Lange Nacht der Wissenschaft | Erlangen, Germany |  Seeing Sound - An Interactive Experience in Augmented Reality Experience Viewing a Modal Sound Field |
+| 2023 | AUDICTIVE | Aachen, Germany | Quality of Experience in Interactive Virtual Environments | 
+| 2022 | Microsoft Research Colloquium | Redmond, USA | QoE and Spatial Audio Evaluation in Interactive Virtual Environments | 
+| 2022 | IEEE Visualization and Visual Analytics | Oklahoma, USA | Comparing Direct and Indirect Methods of Audio Quality Evaluation in Virtual Reality | 
+
+: {tbl-colwidths="[13,17,15,55]"}
+
+## Standardization Activities
+
+| Dates | Organization | Role | Contributions |
+|---|---|---|---|
+| 2018–2021 | MPEG (Moving Picture Experts Group) | XR Evaluation Specialist | Development of a framework for immersive audio evaluation |
+| 2016–2017 | ITU-R | Delegate | Technical input into advanced audio rendering evaluations |
+
+: {tbl-colwidths="[13,17,15,55]"}
+
+
+## Teaching & Supervision
+
+| Year | Institution | Activity |
+|---|---|---|
+| 2026 | Audiolabs Erlangen (IIS) | Master Thesis Supervision (joint w/ Dr. Albert G. Prinn) </br><span style="font-size:0.8em;"> *Objective and Perceptual Evaluation of a Virtual Acoustic Model of the Fraunhofer IIS Digital Cinema* </span> | 
+| 2025, 2026 | Audiolabs Erlangen (FAU) | Guest lecture: Virtual Acoustics </br><span style="font-size:0.8em;"> *Perceptual Evaluation of Virtual Acoustics + interactive demonstration* </span> | 
+| 2021–2023, 2026 | Audiolabs Erlangen (FAU) | Audio Processing Seminar supervision | 
+| 2023 | Audiolabs Erlangen (FAU) | Bachelor Thesis supervision </br><span style="font-size:0.8em;"> *Influence of Cognitive Load on the Formation of Quality Judgment in Interactive VR Environments* </span>  | 
+| 2022 | Audiolabs Erlangen (FAU) | Master Thesis supervision </br><span style="font-size:0.8em;"> *The Influence of Spatial and Stereo Background Music on Cognitive Load* </span>  | 
+| 2021 | Audiolabs Erlangen (FAU) | Bachelor Thesis supervision (joint w/ Dr.-Ing Alexander Adami) </br><span style="font-size:0.8em;"> *Prototyping a Collaborative Interface for Augmented Reality Research* </span> | 
+| 2021 | Audiolabs Erlangen (IIS) | Student research placement </br><span style="font-size:0.8em;"> *VR implementation for evaluation framework* </span> | 
+| 2020-2021 | Audiolabs Erlangen (IIS) | Student research placement </br><span style="font-size:0.8em;"> *VR implementation of evaluation framework* mechanics </span> | 
+| 2019-2020 | Audiolabs Erlangen (IIS) | Student research placement </br><span style="font-size:0.8em;"> *XR software development for interactive evaluations* </span> | 
+| 2018-2019 | Audiolabs Erlangen (IIS) | Student research placement </br><span style="font-size:0.8em;"> *Perceptual evaluations of advanced audio rendering systems* </span> | 
+| 2017-2018 | Audiolabs Erlangen (IIS) | Student research placement </br><span style="font-size:0.8em;"> *Perceptual evaluations of advanced audio rendering systems* </span> | 
+
+: {tbl-colwidths="[13,32,55]"}
+
+## Awards & Honors
+
+| Year | Organization | Award |
+|---|---|---|
+| 2022 | ETRA Symposium on Eye Tracking Research | Best Paper Award </br><span style="font-size:0.9em;"> Pupillary light reflex correction for robust pupillometry in virtual reality</span> |
+| 2022 | IEEE VR TVCG | Best Journal Paper Nominee </br><span style="font-size:0.9em;"> Comparing direct and indirect methods of audio quality evaluation in virtual reality scenes of varying complexity</span> |
+| 2021 | AES Convention, NY, New York USA | Best Paper Award </br><span style="font-size:0.9em;"> Perceptual evaluation of interior panning algorithms using static auditory events</span> |
+| 2018 | AES Conference on Audio for VR/AR | Best Paper Award </br><span style="font-size:0.9em;"> Audio Quality Evaluation in Virtual Reality: Multiple Stimulus Ranking with Behavior Tracking</span>|
+| 2014 | University of Huddersfield | Best Final Year Thesis | 
+
+: {tbl-colwidths="[13,32,55]"}
+
+## Acquired Funding
+
+| Year | Grant | Description |
+|---|---|---|
+| 2023 | German Research Foundation (DFG) </br><span style="font-size:0.8em;"> within the AUDICTIVE priority program</span> | **Project**: *[Ecological Validity Evaluation of Interactive Virtual Environments: A QoE Framework for Audiovisual Scenes (EVOLVE-QoE)](https://gepris.dfg.de/gepris/projekt/444832250?language=en)* </br> **Financing**: Funding for 2 PhD students, multiple internships, publication costs, and travel expenses for a 3 year collaborative project with partner university. </br> **Contribution**: Conceptualization of project focus and co-writing of application with partner principle investigator. |
+
+: {tbl-colwidths="[13,32,55]"}
+
+
+# Professional Service
+
+| Role | Description |
+|---|---|
+| Peer Reviewer | AES, Acta Acustica, ACM IMX, IEEE ISMAR, IEEE VR, Elsevier Displays |
+
+# Publications
+

@@ -1,0 +1,27 @@
+---
+title: "Spatial Audio Perception in Interactive Virtual Reality: Quality Evaluation
+with Behavioral and Cognitive Insights"
+description: >
+  Quality evaluation of spatial audio in interactive VR, combining behavioural
+  and cognitive measures with conventional perceptual ratings.
+date: 2026-02-14
+image: /images/cards/thesis.jpeg
+image-alt: "Diagram of the thesis structure"
+categories: [Dissertation, QoE, Virtual Reality, Spatial Audio]
+kind: Dissertation
+---
+
+Conventional audio quality evaluation asks listeners to rate what they hear.
+In interactive virtual reality that is only part of the picture: participants
+move through the scene, and where they go, what they look at, and how hard they
+are working are all evidence about what they perceive.
+
+This thesis develops and validates evaluation methods for spatial audio in
+interactive virtual environments, treating exploration behaviour and cognitive
+load as measurements in their own right rather than as noise to be controlled
+away. It spans direct and indirect evaluation methods, the influence of visual
+content and scene complexity on audio quality judgments, and the methodological
+framework needed to make such experiments reproducible.
+
+Supervised at the **International Audio Laboratories Erlangen**, a joint
+institution of Friedrich-Alexander-Universität Erlangen-Nürnberg and Fraunhofer IIS.

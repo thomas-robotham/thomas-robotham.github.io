@@ -1,0 +1,22 @@
+<script>
+// Move the listing's category filter out of the narrow right margin sidebar and
+// into a full-width container above the listing, where it can be styled as a row
+// of pills. Quarto assigns onclick directly to each `.category` element and
+// queries them via `.quarto-listing-category .category`, so relocating the whole
+// wrapper keeps both the handlers and the selector intact.
+window.document.addEventListener("DOMContentLoaded", function () {
+  var target = document.querySelector("#category-filter");
+  if (!target) return;
+
+  var sidebar = document.querySelector("#quarto-margin-sidebar");
+  if (!sidebar) return;
+
+  var title = sidebar.querySelector(".quarto-listing-category-title");
+  var group = sidebar.querySelector(".quarto-listing-category");
+  if (!group) return;
+
+  if (title) target.appendChild(title);
+  target.appendChild(group);
+  target.classList.add("has-categories");
+});
+</script>

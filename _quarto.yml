@@ -1,0 +1,34 @@
+project:
+  type: website
+  render:
+    - "**/*.qmd"
+    # stickers.qmd runs R (hexSticker/showtext) -- it is a local generation
+    # tool, not a page, and excluding it keeps R out of the CI build.
+    - "!stickers.qmd"
+    # about.qmd still holds placeholder github.com/yourname links.
+    - "!about.qmd"
+
+website:
+  title: "T. M. Robotham"
+  image: ./images/profile.jpg
+  navbar:
+    right:
+      - href: index.qmd
+        text: Home
+      - href: highlights.qmd
+        text: Highlights
+      - href: cv.qmd
+        text: CV
+
+format:
+  html:
+    theme:
+      light: superhero
+      dark: superhero
+    css: styles.css
+    toc: true
+    include-in-header:
+          - text: |
+              <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  

@@ -1,0 +1,40 @@
+<%
+/* Card grid for research highlights.
+
+   Three constraints shape the odd formatting below:
+
+   1. Quarto's EJS supports neither `-%>` newline-trimming nor `<%#` comments,
+      so every control tag starts a line and is followed by real content. That
+      keeps the emitted HTML flush-left and free of blank lines, which Pandoc
+      needs in order to pass it through untouched.
+
+   CATEGORY FILTERING: the grid carries the `list` class and each card a
+   `data-categories` attribute (base64 of the URI-encoded, comma-joined names).
+   Quarto's listing JS attaches List.js to `#listing-<id> .list` and filters on
+   that attribute -- without either, the category pills do nothing.
+
+   2. Pandoc only recognises BLOCK-level tags at the start of a line. An <a>
+      wrapping the whole card is inline, so Pandoc re-balances it and duplicates
+      the last one. Hence the stretched-link pattern: the card is a <div>, and a
+      single <a> inside it is stretched over the card by CSS.
+
+   3. `description` and `subtitle` are OPTIONAL. Omitting `description:` does
+      not leave the field empty -- Quarto injects a placeholder token
+      (`<!-- desc(HASH)[max=175]:page.html -->`) that it intends to swap for an
+      auto-excerpt of the body during post-processing. That swap never happens
+      here, because Pandoc's smart punctuation rewrites the token's `--` and
+      Quarto can no longer find it, so the token would show up as visible junk
+      on the card. Stripping it below is what makes the field truly optional.
+      A whitespace-only value counts as absent for both fields. */
+%><div class="highlight-grid list">
+<% for (const item of items) { const external = Boolean(item.redirect); const href = external ? item.redirect : item.path; const d = item.date ? new Date(item.date) : null; const year = (d && !isNaN(d.valueOf())) ? d.getFullYear() : ""; const meta = [item.kind, item.venue || year].filter(Boolean).join(" · "); const cats = Array.isArray(item.categories) ? item.categories : (item.categories ? [item.categories] : []); const catData = cats.length ? btoa(encodeURIComponent(cats.join(","))) : ""; const subtitle = String(item.subtitle || "").trim(); item.desc = String(item.description || "").replace(/<!--[\s\S]*?-->/g, "").trim(); %><div class="highlight-card" data-categories="<%= catData %>">
+<% if (item.image) { %><div class="highlight-card-media"><img src="<%- item.image %>" alt="<%= item['image-alt'] || item.title %>" loading="lazy"></div>
+<% } %><div class="highlight-card-body">
+<% if (meta) { %><p class="highlight-card-meta"><%= meta %></p>
+<% } %><h3 class="highlight-card-title"><%= item.title %></h3>
+<% if (subtitle) { %><p class="highlight-card-subtitle"><%= subtitle %></p>
+<% } %><% if (item.desc) { %><div class="highlight-card-desc"><%- item.desc %></div>
+<% } %><p class="highlight-card-cta"><a class="highlight-card-link" href="<%- href %>"<% if (external) { %> target="_blank" rel="noopener"<% } %>><%= external ? "View publication" : "Read more" %><span class="highlight-card-arrow"><%= external ? "↗" : "→" %></span></a></p>
+</div>
+</div>
+<% } %></div>

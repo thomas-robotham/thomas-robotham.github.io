@@ -1,0 +1,20 @@
+# Quarto build output — rendered in CI, never committed
+/_site/
+/.quarto/
+*_files/
+*.knit.md
+*.html
+
+# Keep hand-written HTML partials and extension assets
+!partials/*.html
+!_extensions/**/*.html
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# R / editor cruft
+.Rproj.user/
+.Rhistory
+.RData
+.Renviron

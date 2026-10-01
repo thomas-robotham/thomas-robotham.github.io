@@ -1,0 +1,13 @@
+---
+title: "AudioLabs Seminar Room"
+subtitle: "Virtual acoustics"
+description: >
+  A virtual acoustic rendering of the AudioLabs Seminar Room. The environment was built for as a demonstation of interactive spatial audio for the Virtual Acoustics lecture series led by Dr. Albert Prinn at the International Audio Laboratories Erlangen.
+date: 2026-09-24
+video: cospLqW0yiU
+poster: /images/media/seminar-room-virtual-acoustics.jpg
+kind: Demo
+venue: ""
+headphones: true
+categories: [Media, Virtual Acoustics]
+---

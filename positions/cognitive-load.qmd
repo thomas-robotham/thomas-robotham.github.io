@@ -1,0 +1,55 @@
+---
+# An open student position. Delete this file when the position is filled --
+# the whole section disappears from the landing page once none remain.
+
+title: "Physiological Signals as a Measure of Cognitive Load in Virtual Reality"   # shown on the card
+description: >                         # OPTIONAL - 1-2 sentences on the card
+  What the student would work on and what they would get out of it.
+
+date: 2026-01-01                       # date posted; controls ordering
+
+kind: Thesis | HiWi | Internship                  # eyebrow: Bachelor's / Master's Thesis, HiWi, Internship
+
+# Facts block -- any you set are grouped together on the card.
+start: "Flexible"                      # OPTIONAL
+duration: "t.b.d"                   # OPTIONAL
+location: "Erlangen, Germany"          # OPTIONAL
+deadline: ""                           # OPTIONAL - shown as "Apply by"
+
+# ONE WORD naming the area (e.g. Perceptual, Technical, Software, Design).
+# Rendered beside the "Focus" label above the Venn.
+focus: "Cognition"
+
+# The Venn: how effort splits across the three parts named by
+# `balance-labels` in index.qmd, in that order.
+# Values: none | low | medium | high  (or 0-3). Delete the key for no Venn.
+balance: [medium, medium, medium]
+
+# Actions block. `apply` renders "Go to application"; "Read more" always links
+# to this position's own page.
+apply: "mailto:thomas.robotham@audiolabs-erlangen.de?subject=Application:%20TOPIC%20HERE"
+
+categories: [Open Position]
+---
+
+## The topic
+
+What the project is about, in two or three sentences.
+
+<!-- Cards are text only. Add any figure here, as ordinary markdown:
+     ![Alt text](/images/positions/<file>.png){width=60%} -->
+
+## What you would do
+
+- First concrete task
+- Second concrete task
+
+## What you should bring
+
+- Relevant background or coursework
+- Any required tools or languages
+
+## How to apply
+
+Email me at [thomas.robotham@audiolabs-erlangen.de](mailto:thomas.robotham@audiolabs-erlangen.de)
+with a short note about your background and a CV.

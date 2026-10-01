@@ -1,0 +1,24 @@
+<%
+/* Media rows: information on the left, video on the right.
+
+   Same Pandoc constraints as the highlight template -- Quarto's EJS has no
+   newline-trimming tag, and Pandoc reads indentation as a code block, blank lines as
+   paragraph breaks, and only recognises BLOCK-level tags at the start of a
+   line. So each control tag starts a line followed by real content, and every
+   line begins with div/p/h3, never <a> or <button>.
+
+   The video is a click-to-load facade (see partials/video-facade.html): a local
+   poster until pressed, so nothing is requested from Google on page load. */
+%><div class="media-rows-list">
+<% for (const item of items) { const vid = String(item.video || "").trim(); const meta = [item.kind, item.venue].filter(Boolean).join(" · "); const subtitle = String(item.subtitle || "").trim(); item.desc = String(item.description || "").replace(/<!--[\s\S]*?-->/g, "").trim(); %><div class="media-row">
+<div class="media-row-body">
+<% if (meta) { %><p class="media-row-meta"><%= meta %></p>
+<% } %><h3 class="media-row-title"><%= item.title %></h3>
+<% if (subtitle) { %><p class="media-row-subtitle"><%= subtitle %></p>
+<% } %><% if (item.desc) { %><div class="media-row-desc"><%- item.desc %></div>
+<% } %><% if (item.headphones) { %><p class="media-row-note">Headphones recommended</p>
+<% } %><p class="media-row-link"><a href="https://www.youtube.com/watch?v=<%= vid %>" target="_blank" rel="noopener">Watch on YouTube<span class="media-row-arrow">&#8599;</span></a></p>
+</div>
+<div class="media-row-video"><div class="video-facade" data-video-id="<%= vid %>" data-video-title="<%= item.title %>" role="button" tabindex="0" aria-label="Play video: <%= item.title %>"><img src="<%- item.poster %>" alt="" loading="lazy"><span class="video-facade-play" aria-hidden="true"></span></div></div>
+</div>
+<% } %></div>

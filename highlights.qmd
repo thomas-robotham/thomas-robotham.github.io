@@ -1,0 +1,28 @@
+---
+title: "Research Highlights"
+description: "Selected projects, tools, datasets, and papers."
+listing:
+  - id: all-highlights
+    contents: highlights
+    template: _templates/highlight-card.ejs
+    sort: "date desc"
+    categories: true
+    feed: false
+toc: false
+format:
+  html:
+    include-after-body:
+      - partials/listing-categories.html
+    grid:
+      sidebar-width: 200px
+      body-width: 1000px
+      margin-width: 100px
+---
+
+:::: {#category-filter}
+::::
+
+::: {.highlight-rows}
+::: {#all-highlights}
+:::
+:::

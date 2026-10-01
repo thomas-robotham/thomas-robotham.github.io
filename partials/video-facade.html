@@ -1,0 +1,37 @@
+<script>
+// Click-to-load video facade.
+//
+// Videos render as a local poster image until a visitor presses play, at which
+// point the YouTube iframe is built on demand. Nothing is requested from Google
+// before then: no cookies, and none of the ~1 MB of player script that an
+// ordinary embed pulls on page load. The iframe uses youtube-nocookie.com.
+(function () {
+  function mount(facade) {
+    var id = facade.getAttribute("data-video-id");
+    if (!id) return;
+
+    var frame = document.createElement("iframe");
+    frame.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0";
+    frame.title = facade.getAttribute("data-video-title") || "Video";
+    frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+    frame.allowFullscreen = true;
+    frame.setAttribute("frameborder", "0");
+    facade.replaceWith(frame);
+    frame.focus();
+  }
+
+  document.addEventListener("click", function (e) {
+    var facade = e.target.closest && e.target.closest(".video-facade");
+    if (facade) mount(facade);
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    var facade = e.target.closest && e.target.closest(".video-facade");
+    if (facade) {
+      e.preventDefault();
+      mount(facade);
+    }
+  });
+})();
+</script>

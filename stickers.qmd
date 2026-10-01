@@ -1,0 +1,70 @@
+---
+title: "Untitled"
+format: html
+---
+
+
+```{r}
+library(hexSticker)
+library(showtext)
+
+font_add_google("Ubuntu")
+```
+
+## QExE tool
+```{r}
+sticker(
+  subplot = "images/QExE_Splash.png",   # your image
+  package = "QExE Tool",
+  p_size = 22,
+  p_color = "white",
+  p_family = "Ubuntu",
+  p_y = 1.45,
+  s_x = 1,
+  s_y = 0.8,
+  s_width = 0.8,
+  h_fill = "#7BA08C",
+  h_color = "#8D6377",
+  filename = "images/hexStickers/qexe_tool.png",
+  dpi = 400
+)
+```
+
+## Ambisonics
+```{r}
+sticker(
+  subplot = "images/Ambisonics.png",   # your image
+  package = "360",
+  p_size = 22,
+  p_color = "gray",
+  p_family = "Ubuntu",
+  s_x = 1,
+  s_y = 0.8,
+  p_y = 1.55,
+  s_width = 0.65,
+  h_fill = "#ffffffff",
+  h_color = "#e6a728ff",
+  filename = "images/hexStickers/360.png",
+  dpi = 400
+)
+```
+
+## Mansion
+```{r}
+sticker(
+  subplot = "images/Mansion.png",   # your image
+  package = "CGI IVEs",
+  p_size = 22,
+  p_color = "white",
+  p_family = "Ubuntu",
+  s_x = 1,
+  s_y = 0.85,
+  p_y = 1.55,
+  s_width = 0.95,
+  h_fill = "#a4bacfff",
+  h_color = "#405c83ff",
+  filename = "images/hexStickers/CGI.png",
+  dpi = 400
+)
+```
+

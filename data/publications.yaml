@@ -1,0 +1,330 @@
+publications:
+- id: Torcoli.2022
+  type: unknown
+  title: '{Dialogue enhancement and listening effort in broadcast audio: A multimodal
+    evaluation'
+  year: '2022'
+  authors:
+  - Torcoli, Matteo
+  - Robotham, Thomas
+  - Habets, Emanuël A P
+  booktitle: Proc. 14th Int. Conf. QoMEX
+  doi: 10.1109/qomex55416.2022.9900884
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2022/Dialogue%20enhancement%20and%20listening%20effort%20in%20broadcast%20audio-%20A%20multimodal%20evaluation/Torcoli-2022-Dialogue%20enhancement%20and%20listening%20effort%20in%20broadcast%20audio-%20A%20multimodal%20evaluation_1.pdf
+
+- id: Singla.2023
+  type: unknown
+  title: '{Saliency of omnidirectional videos with different audio presentations:
+    Analyses and dataset'
+  year: '2023'
+  authors:
+  - Singla, Ashutosh
+  - Robotham, Thomas
+  - Bhattacharya, Abhinav
+  - Menz, William
+  - Habets, Emanuël A. P.
+  - Raake, Alexander
+  booktitle: Proc. 15th Int. Conf. QoMEX
+  doi: 10.1109/qomex58391.2023.10178588
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2023/Saliency%20of%20omnidirectional%20videos%20with%20different%20audio%20presentations-%20Analyses%20and%20dataset/Singla-2023-Saliency%20of%20omnidirectional%20videos%20with%20different%20audio%20presentations-%20Analyses%20and%20dataset.pdf
+
+- id: go
+  type: unknown
+  title: '{Two congruent cues are better than one: Impact of ITD–ILD combinations
+    on reaction time for sound lateralization'
+  year: '2023'
+  authors:
+  - Sharma, Neeraj Kumar
+  - Gaznepoglu, Ünal Ege
+  - Robotham, Thomas
+  - Habets, Emanuël A. P.
+  journal: JASA Express Letters
+  doi: 10.1121/10.0017936
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2023/Two%20congruent%20cues%20are%20better%20than%20one-%20Impact%20of%20ITD–ILD%20combinations%20on%20reaction%20time%20for%20sound%20lateralization/Sharma-2023-Two%20congruent%20cues%20are%20better%20than%20one-%20Impact%20of%20ITD–ILD%20combinations%20on%20reaction%20time%20for%20sound%20lateralization_1.pdf
+
+- id: Rummukainen.2021
+  type: unknown
+  title: '{Head-related transfer functions for dynamic listeners in virtual reality'
+  year: '2021'
+  authors:
+  - Rummukainen, Olli S.
+  - Robotham, Thomas
+  - Habets, Emanuël A. P.
+  journal: Appl. Sci.
+  doi: 10.3390/app11146646
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2021/Head-related%20transfer%20functions%20for%20dynamic%20listeners%20in%20virtual%20reality/Rummukainen-2021-Head-related%20transfer%20functions%20for%20dynamic%20listeners%20in%20virtual%20reality_1.pdf
+
+- id: Rummukainen.2019
+  type: unknown
+  title: '{Listening Tests with Individual versus Generic Head-Related Transfer Functions
+    in Six-Degrees-of-Freedom Virtual Reality'
+  year: '2019'
+  authors:
+  - Rummukainen, Olli S.
+  - Robotham, Thomas
+  - Plinge, Axel
+  - Wefers, Frank
+  - Herre, Jürgen
+  - Habets, Emanuël A. P.
+  booktitle: ICSA 2019
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2019/Listening%20Tests%20with%20Individual%20versus%20Generic%20Head-Related%20Transfer%20Functions%20in%20Six-Degrees-of-Freedom%20Virtual%20Reality/Rummukainen-2019-Listening%20Tests%20with%20Individual%20versus%20Generic%20Head-Related%20Transfer%20Functions%20in%20Six-Degrees-of-Freedom%20Virtual%20Reality_1.pdf
+
+- id: Rummukainen.2019
+  type: unknown
+  title: '{Perceptual study of near-field binaural audio rendering in six-degrees-of-freedom
+    virtual reality'
+  year: '2019'
+  authors:
+  - Rummukainen, Olli S.
+  - Schlecht, Sebastian J.
+  - Robotham, Thomas
+  - Plinge, Axel
+  - Habets, Emanuel A. P.
+  booktitle: Proc. IEEE Conf. VR
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2019/Perceptual%20study%20of%20near-field%20binaural%20audio%20rendering%20in%20six-degrees-of-freedom%20virtual%20reality/Rummukainen-2019-Perceptual%20study%20of%20near-field%20binaural%20audio%20rendering%20in%20six-degrees-of-freedom%20virtual%20reality_1.pdf
+
+- id: Rummukainen.2018bp
+  type: unknown
+  title: '{Influence of visual content on the perceived audio quality in virtual reality'
+  year: '2018'
+  authors:
+  - Rummukainen, Olli
+  - Wang, Jing
+  - Li, Zhitong
+  - Robotham, Thomas
+  - Yan, Zhaoyu
+  - Li, Zhuoran
+  - Xie, Xiang
+  - Nagel, Frederik
+  - Habets, Emanuel A. P.
+  booktitle: Proc. AES 145th Conv.
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2018/Influence%20of%20visual%20content%20on%20the%20perceived%20audio%20quality%20in%20virtual%20reality/Rummukainen-2018-Influence%20of%20visual%20content%20on%20the%20perceived%20audio%20quality%20in%20virtual%20reality_1.pdf
+
+- id: Rummukainen.2018
+  type: unknown
+  title: '{Audio quality evaluation in virtual reality: Multiple stimulus ranking
+    with behavior tracking'
+  year: '2018'
+  authors:
+  - Rummukainen, Olli
+  - Robotham, Thomas
+  - Schlecht, Sebastian J.
+  - Plinge, Axel
+  - Herre, Jürgen
+  - Habets, Emanuël A. P.
+  booktitle: Proc. AES Conf. AVAR
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2018/Audio%20quality%20evaluation%20in%20virtual%20reality-%20Multiple%20stimulus%20ranking%20with%20behavior%20tracking/Rummukainen-2018-Audio%20quality%20evaluation%20in%20virtual%20reality-%20Multiple%20stimulus%20ranking%20with%20behavior%20tracking.pdf
+
+- id: Robotham.2022
+  type: unknown
+  title: '{Comparing direct and indirect methods of audio quality evaluation in virtual
+    reality scenes of varying complexity'
+  year: '2022'
+  authors:
+  - Robotham, Thomas
+  - Rummukainen, Olli S.
+  - Kurz, Miriam
+  - Eckert, Marie
+  - Habets, Emanuël A. P.
+  journal: IEEE Trans. TVCG
+  doi: 10.1109/tvcg.2022.3150491
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2022/Comparing%20direct%20and%20indirect%20methods%20of%20audio%20quality%20evaluation%20in%20virtual%20reality%20scenes%20of%20varying%20complexity/Robotham-2022-Comparing%20direct%20and%20indirect%20methods%20of%20audio%20quality%20evaluation%20in%20virtual%20reality%20scenes%20of%20varying%20complexity_1.pdf
+
+- id: Robotham.2024
+  type: unknown
+  title: '{CGI scenes for interactive audio research and development: Cave, cinema,
+    and mansion'
+  year: '2024'
+  authors:
+  - Robotham, Thomas
+  - Rebmann, Daniela
+  - Fintineanu-Anghelescu, Dominik O.
+  - Raake, Alexander
+  - Habets, Emanuël A. P.
+  booktitle: Proc. AES Int. Conf. on Audio for Games
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2024/CGI%20scenes%20for%20interactive%20audio%20research%20and%20development-%20Cave,%20cinema,%20and%20mansion/Robotham-2024-CGI%20scenes%20for%20interactive%20audio%20research%20and%20development-%20Cave,%20cinema,%20and%20mansion_1.pdf
+
+- id: Robotham.2018rei
+  type: unknown
+  title: '{Online vs. ofﬂine multiple stimulus audio quality evaluation for virtual
+    reality'
+  year: '2018'
+  authors:
+  - Robotham, Thomas
+  - Rummukainen, Olli
+  - Herre, Jürgen
+  - Habets, Emanuël A. P.
+  booktitle: Proc. AES 145th Conv.
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2018/Online%20vs.%20ofﬂine%20multiple%20stimulus%20audio%20quality%20evaluation%20for%20virtual%20reality/Robotham-2018-Online%20vs.%20ofﬂine%20multiple%20stimulus%20audio%20quality%20evaluation%20for%20virtual%20reality_1.pdf
+
+- id: Robotham.2018
+  type: unknown
+  title: '{Evaluation of binaural renderers in virtual reality environments: Platform
+    and examples'
+  year: '2018'
+  authors:
+  - Robotham, Thomas
+  - Rummukainen, Olli
+  - Herre, Jürgen
+  - Habets, Emanuel A. P.
+  booktitle: Proc. AES 145th Conv.
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2018/Evaluation%20of%20binaural%20renderers%20in%20virtual%20reality%20environments-%20Platform%20and%20examples/Robotham-2018-Evaluation%20of%20binaural%20renderers%20in%20virtual%20reality%20environments-%20Platform%20and%20examples.pdf
+
+- id: Robotham.2022vh
+  type: unknown
+  title: '{Audiovisual database with 360 video and higher-order ambisonics audio for
+    perception, cognition, behavior, and QoE evaluation research'
+  year: '2022'
+  authors:
+  - Robotham, Thomas
+  - Singla, Ashutosh
+  - Rummukainen, Olli S.
+  - Raake, Alexander
+  - Habets, Emanuël A. P.
+  booktitle: Proc. 14th Int. Conf. QoMEX
+  doi: 10.1109/qomex55416.2022.9900893
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2022/Audiovisual%20database%20with%20360%20video%20and%20higher-order%20ambisonics%20audio%20for%20perception,%20cognition,%20behavior,%20and%20QoE%20evaluation%20research/Robotham-2022-Audiovisual%20database%20with%20360%20video%20and%20higher-order%20ambisonics%20audio%20for%20perception,%20cognition,%20behavior,%20and%20QoE%20evaluation%20research_1.pdf
+
+- id: Robotham.2023
+  type: unknown
+  title: '{Influence of multi-modal interactive formats on subjective audio quality
+    and exploration behavior'
+  year: '2023'
+  authors:
+  - Robotham, Thomas
+  - Singla, Ashutosh
+  - Raake, Alexander
+  - Rummukainen, Olli S.
+  - Habets, Emanuel A. P.
+  booktitle: Proc. ACM IMX
+  doi: 10.1145/3573381.3596155
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2023/Influence%20of%20multi-modal%20interactive%20formats%20on%20subjective%20audio%20quality%20and%20exploration%20behavior/Robotham-2023-Influence%20of%20multi-modal%20interactive%20formats%20on%20subjective%20audio%20quality%20and%20exploration%20behavior_1.pdf
+
+- id: Robotham.2025b
+  type: unknown
+  title: '{QoEVAVE Database: Evaluation Content for Interactive Virtual Environments'
+  year: '2025'
+  authors:
+  - Robotham, Thomas
+  url: https://qoevave.github.io/database/
+
+- id: Robotham.2025
+  type: unknown
+  title: '{QExE Tool: A Quality of Experience Evaluation Toolkit'
+  year: '2025'
+  authors:
+  - Robotham, Thomas
+  url: https://qoevave.github.io/qexe/
+
+- id: Robotham.2023b
+  type: unknown
+  title: '{Quality of Experience in Interactive Virtual Environments: Contributions
+    Towards a Methodological Framework'
+  year: '2023'
+  authors:
+  - Robotham, Thomas
+  - Menz, William
+  - Singla, Ashutosh
+  - Raake, Alexander
+  - Habets, Emanuël A. P.
+  booktitle: 1st AUDICTIVE Conference
+  doi: 10.18154/rwth-2023-08865
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2023/Quality%20of%20Experience%20in%20Interactive%20Virtual%20Environments-%20Contributions%20Towards%20a%20Methodological%20Framework/Robotham-2023-Quality%20of%20Experience%20in%20Interactive%20Virtual%20Environments-%20Contributions%20Towards%20a%20Methodological%20Framework.pdf
+
+- id: Robotham.2021
+  type: unknown
+  title: '{Perceptual evaluation of interior panning algorithms using static auditory
+    events'
+  year: '2021'
+  authors:
+  - Robotham, Thomas
+  - Silzle, Andreas
+  - Nastasa, Anamaria
+  - Pawlak, Alan
+  - Herre, Jürgen
+  booktitle: Proc. AES 151st Conv.
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2021/Perceptual%20evaluation%20of%20interior%20panning%20algorithms%20using%20static%20auditory%20events/Robotham-2021-Perceptual%20evaluation%20of%20interior%20panning%20algorithms%20using%20static%20auditory%20events.pdf
+
+- id: Robotham.2019
+  type: unknown
+  title: '{Towards the Perception of Sound Source Directivity Inside Six-Degrees-of-Freedom
+    Virtual Reality'
+  year: '2019'
+  authors:
+  - Robotham, Thomas
+  - Rummukainen, Olli S
+  - Habets, Emanuel A P
+  booktitle: 5th International Conference on Spatial Audio
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2019/Towards%20the%20Perception%20of%20Sound%20Source%20Directivity%20Inside%20Six-Degrees-of-Freedom%20Virtual%20Reality/Robotham-2019-Towards%20the%20Perception%20of%20Sound%20Source%20Directivity%20Inside%20Six-Degrees-of-Freedom%20Virtual%20Reality_1.pdf
+
+- id: Robotham.2016
+  type: unknown
+  title: '{The Effect of a Vertical Reflection on the Relationship between Preference
+    and Perceived Change in Timbre and Spatial Attributes'
+  year: '2016'
+  authors:
+  - Robotham, Thomas
+  - Stephenson, Matthew
+  - Lee, Hyunkook
+  booktitle: Audio Engineering Society 140th Convention
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2016/The%20Effect%20of%20a%20Vertical%20Reflection%20on%20the%20Relationship%20between%20Preference%20and%20Perceived%20Change%20in%20Timbre%20and%20Spatial%20Attributes/Robotham-2016-The%20Effect%20of%20a%20Vertical%20Reflection%20on%20the%20Relationship%20between%20Preference%20and%20Perceived%20Change%20in%20Timbre%20and%20Spatial%20Attributes.pdf
+
+- id: Raake.2021
+  type: unknown
+  title: '{QoEvaVE - QoE Evaluation of Interactive Virtual Environments with Audiovisual
+    Scenes'
+  year: '2021'
+  authors:
+  - Raake, Alexander
+  - Rummukainen, Olli S.
+  - Habets, Emanuël A. P.
+  - Robotham, Thomas
+  - Singla, Ashutosh
+  booktitle: Jahrestagung fuer Akustik (DAGA)
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2021/QoEvaVE%20-%20QoE%20Evaluation%20of%20Interactive%20Virtual%20Environments%20with%20Audiovisual%20Scenes/Raake-2021-QoEvaVE%20-%20QoE%20Evaluation%20of%20Interactive%20Virtual%20Environments%20with%20Audiovisual%20Scenes_1.pdf
+
+- id: Plinge.2018
+  type: unknown
+  title: '{Six-degrees-of-freedom binaural audio reproduction of first-order ambisonics
+    with distance information'
+  year: '2018'
+  authors:
+  - Plinge, Axel
+  - schlecht, Sebastian J
+  - Thiergart, Oliver
+  - Robotham, Thomas
+  - Rummukainen, Olli
+  - Habets, Emanuel A. P.
+  booktitle: Proc. AES Conf. AVAR
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2018/Six-degrees-of-freedom%20binaural%20audio%20reproduction%20of%20first-order%20ambisonics%20with%20distance%20information/Plinge-2018-Six-degrees-of-freedom%20binaural%20audio%20reproduction%20of%20first-order%20ambisonics%20with%20distance%20information.pdf
+
+- id: Menz.2025
+  type: unknown
+  title: '{Influence of 4th-Order Ambisonics Audio on the Perceived Quality and Exploration
+    Behavior of 360° Videos'
+  year: '2025'
+  authors:
+  - Menz, William
+  - Bhattacharya, Abhinav
+  - Rao, Rakesh Rao Ramachandra
+  - Robotham, Thomas
+  - Immohr, Felix
+  - Göring, Steve
+  - Habets, Emanuël A. P.
+  - Raake, Alexander
+  booktitle: Proc. IEEE MetaCom
+  doi: 10.1109/metacom65502.2025.00065
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2025/Influence%20of%204th-Order%20Ambisonics%20Audio%20on%20the%20Perceived%20Quality%20and%20Exploration%20Behavior%20of%20360°%20Videos/Menz-2025-Influence%20of%204th-Order%20Ambisonics%20Audio%20on%20the%20Perceived%20Quality%20and%20Exploration%20Behavior%20of%20360°%20Videos.pdf
+
+- id: Eckert.2022
+  type: unknown
+  title: '{Pupillary light reflex correction for robust pupillometry in virtual reality'
+  year: '2022'
+  authors:
+  - Eckert, Marie
+  - Robotham, Thomas
+  - Habets, Emanuël A. P.
+  - Rummukainen, Olli S.
+  journal: Proc. ACM Comput. Graph. Interact. Tech.
+  doi: 10.1145/3530798
+  url: file://localhost/Users/rbo/Documents/Papers%20Library/2022/Pupillary%20light%20reflex%20correction%20for%20robust%20pupillometry%20in%20virtual%20reality/Eckert-2022-Pupillary%20light%20reflex%20correction%20for%20robust%20pupillometry%20in%20virtual%20reality.pdf
