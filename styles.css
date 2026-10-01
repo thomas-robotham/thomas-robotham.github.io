@@ -4,30 +4,62 @@
 /* Theme tokens                                                      */
 /* ---------------------------------------------------------------- */
 
-/* Accents for cards, rules and tints, derived from the active Bootswatch
-   theme (Superhero: navy #0f2537 surface, orange #df6919 primary).
+/* Accents for cards, rules and tints. Light values are the default; dark mode
+   overrides them under body.quarto-dark, which Quarto sets via its theme
+   toggle. See theme-light.scss / theme-dark.scss for the Bootstrap side.
 
-   On a dark theme, tints are white-alpha rather than grey-alpha: mid-grey over
-   navy desaturates it to a muddy slate, while white-alpha lightens while keeping
-   the hue. Re-theming later means editing only this block. */
+   Tints are alpha over the page colour, so they follow whichever field is
+   active: black-alpha on the light theme, white-alpha on the dark one. Using a
+   fixed mid-grey instead would desaturate the dark theme's blue-grey into mud.
+
+   The two modes use different accent HUES, not merely different shades: a deep
+   green on the light field, orange on the dark one. No single orange works on
+   both -- the dark-mode orange reaches only 2.6:1 on the light surface, and the
+   light-mode green only 2.2:1 on the dark one. */
 :root {
-  --accent: #df6919;                          /* theme primary - card accent */
-  --accent-soft: rgba(223, 105, 25, 0.55);
-  --accent-faint: rgba(223, 105, 25, 0.13);
+  --accent: #157a4f;                        /* light-mode primary - green */
+  --accent-soft: rgba(21, 122, 79, 0.5);
+  --accent-faint: rgba(21, 122, 79, 0.12);
 
-  --surface-1: rgba(255, 255, 255, 0.045);    /* card fill */
-  --surface-2: rgba(255, 255, 255, 0.075);    /* nested block fill */
-  --surface-3: rgba(255, 255, 255, 0.11);     /* image placeholder */
+  --surface-1: rgba(0, 0, 0, 0.035);        /* card fill */
+  --surface-2: rgba(0, 0, 0, 0.055);        /* nested block fill */
+  --surface-3: rgba(0, 0, 0, 0.09);         /* image placeholder */
 
-  --rule: rgba(255, 255, 255, 0.13);          /* hairline borders */
-  --rule-strong: rgba(255, 255, 255, 0.26);   /* hover borders */
+  --rule: rgba(0, 0, 0, 0.13);              /* hairline borders */
+  --rule-strong: rgba(0, 0, 0, 0.3);        /* hover borders */
 
-  --shadow: rgba(0, 0, 0, 0.42);
+  --shadow: rgba(0, 0, 0, 0.14);
 
   /* Width of Quarto's body-content grid track, so the navbar can line up with
      the page text instead of running to the screen edges. Matches the
      `minmax(500px, calc(1050px - 3em))` track in the generated page grid. */
   --page-body-width: calc(1050px - 3em);
+}
+
+body.quarto-dark {
+  --accent: #e2762a;                        /* dark-mode primary - orange */
+  --accent-soft: rgba(226, 118, 42, 0.55);
+  --accent-faint: rgba(226, 118, 42, 0.13);
+
+  --surface-1: rgba(255, 255, 255, 0.05);
+  /* capped at 0.07: any lighter and the Venn's orange circle falls below 3:1
+     against the focus column it sits on */
+  --surface-2: rgba(255, 255, 255, 0.07);
+  --surface-3: rgba(255, 255, 255, 0.12);
+
+  --rule: rgba(255, 255, 255, 0.14);
+  --rule-strong: rgba(255, 255, 255, 0.28);
+
+  --shadow: rgba(0, 0, 0, 0.38);
+}
+
+/* Quarto's navbar derives its hover/active colour by tinting the theme primary,
+   which lands on a washed-out orange. Pin it to the accent so the navbar
+   matches the links in the body, in both modes. */
+.navbar {
+  --bs-navbar-hover-color: var(--accent);
+  --bs-navbar-active-color: var(--accent);
+  --bs-navbar-brand-hover-color: var(--accent);
 }
 
 /* ---------------------------------------------------------------- */
@@ -480,25 +512,9 @@
   margin-right: 0.35rem;
 }
 
-.media-row-link {
-  font-size: 0.82rem;
-  font-weight: 500;
-  margin: 0;
-}
-
-.media-row-link a {
-  color: inherit;
-  text-decoration: none;
-  border-bottom: 1px solid var(--rule-strong);
-}
-
-.media-row-link a:hover {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
-}
-
-.media-row-arrow {
-  margin-left: 0.3rem;
+/* Last element in the text column now that the YouTube link is gone. */
+.media-row-note:last-child {
+  margin-bottom: 0;
 }
 
 /* Click-to-load facade: a local poster standing in for the YouTube player. */

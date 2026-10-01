@@ -11,17 +11,24 @@ categories: [Dissertation, QoE, Virtual Reality, Spatial Audio]
 kind: Dissertation
 ---
 
-Conventional audio quality evaluation asks listeners to rate what they hear.
-In interactive virtual reality that is only part of the picture: participants
-move through the scene, and where they go, what they look at, and how hard they
-are working are all evidence about what they perceive.
+DOI: [10.25593/open-fau-2888](https://doi.org/10.25593/open-fau-2888)
 
-This thesis develops and validates evaluation methods for spatial audio in
-interactive virtual environments, treating exploration behaviour and cognitive
-load as measurements in their own right rather than as noise to be controlled
-away. It spans direct and indirect evaluation methods, the influence of visual
-content and scene complexity on audio quality judgments, and the methodological
-framework needed to make such experiments reproducible.
+Subjective evaluations are considered the gold standard in audiovisual multimedia research and development. For virtual reality (VR) applications, subjective audio quality evaluations must adapt to a multimodal, interactive environment where audiovisual sensory information is updated in real-time to reflect user exploration, thereby engaging perceptual, cognitive, and behavioral processes. This thesis contributes to multiple aspects of an evaluation methodology targeted towards interactive VR environments (IVEs). Specifically, the evaluation tools and content, the use of direct and indirect evaluation methods, and human perception of binaurally rendered spatial audio in audiovisual settings. 
 
-Supervised at the **International Audio Laboratories Erlangen**, a joint
-institution of Friedrich-Alexander-Universität Erlangen-Nürnberg and Fraunhofer IIS.
+**Part I**
+
+Part~I contributes to the design and implementation of tools for capturing multimodal data in VR. The Quality and Experience Evaluation (QExE) tool enables the deployment of quality evaluation questionnaires while simultaneously logging several behavioral and interactive metrics during user exploration. The QExE tool, used throughout this thesis, serves as an open-source resource for communities conducting human evaluations in IVEs. Additional tools are described to calibrate pupil diameter changes under dynamic lighting, inferring cognitive load in demanding interactive tasks.  
+
+**Part II**
+
+Part II contributes two open-source IVE datasets. The first dataset contains 24 360$^{\circ}$ video sequences with up to 4th-order Ambisonics recordings from real-life-like settings for three-degrees-of-freedom (3-DoF) VR applications. The second dataset comprises three computer-generated imagery (CGI) scenes targeted towards high-quality six-degrees-of-freedom (6-DoF), each featuring interactive objects, complex acoustic geometry, and task-based evaluation scenarios. Both datasets are complemented by behavioral analyses that highlight salient content characteristics.
+
+**Part III**
+
+Part III reports two experiments investigating the influence of real-time evaluations and assessment methods on spatial-audio quality judgments. First, a real-time framework is demonstrated that couples sensory-synchronized audiovisual stimuli with user actions to elicit spatial-audio quality judgments. Subsequently, four evaluation methods are investigated in the context of 6-DoF using scenes of varying interactivity and complexity, revealing the cognitive, behavioral, and perceptual differences among scaling approaches.
+
+**Part IV**
+
+Finally, Part IV describes three studies that deepen our understanding of perceptual evaluation and spatial audio in 3-DoF and 6-DoF VR. Firstly, various quality dimensions for generic and individualized head-related transfer functions are evaluated, incorporating subjects’ self-motion and source interaction as behavioral factors and visual stimuli for audiovisual integration. Secondly, a psychoacoustic study is conducted to understand the impact of user self-motion on thresholds of perceived loudness changes as a function of source directivity. Lastly, three combinations of sensory-coupled stimuli are assessed to understand the impact of modality integration between audio, visual, and self-motion cues on the perceptual quality of 3-DoF Ambisonics with respect to bitrate and Ambisonics order.    
+
+Collectively, these contributions provide the tools and methodological basis for future multifaceted evaluations of spatial audio, in complex audiovisual IVEs.  

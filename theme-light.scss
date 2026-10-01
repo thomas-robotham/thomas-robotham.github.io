@@ -1,0 +1,36 @@
+/*-- scss:defaults --*/
+
+// LIGHT MODE — warm off-white with a deep green accent.
+//
+// The two modes use different accent HUES, not just different shades: green on
+// the light field, orange on the dark one. A single hue cannot serve both —
+// the dark-mode orange manages only 2.6:1 on this background, well under the
+// 4.5 needed for link text.
+//
+// Measured on the resulting surfaces:
+//   body text #212529 on card -> 13.1:1
+//   accent    #157a4f on card ->  4.5:1   (clears 4.5 for text)
+//
+// The green is held clear of the Venn diagram's aqua (#1baf7a) at ΔE 15.8 in
+// normal vision -- above the 15 floor, so the accent does not read as a data
+// colour. This is the most saturated green that still clears 4.5:1 for link
+// text; anything more vivid drops below it.
+//
+// Lato is set explicitly to match Superhero, so switching modes changes colour
+// without also changing typography.
+
+$font-family-sans-serif: Lato, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
+
+$body-bg:    #f7f5f2;   // warm off-white, softer than pure white
+$body-color: #212529;
+
+$primary:    #157a4f;
+$secondary:  #5d6b7a;
+
+$navbar-bg:  #eceae5;
+
+// NOTE: the navbar hover/active colour is NOT set here. Bootswatch assigns its
+// own $navbar-*-color values after scss:defaults, so overriding them at this
+// layer has no effect (verified: they still compiled to the tinted shade).
+// It is pinned to the accent in styles.css instead, via the .navbar rule, which
+// loads after Bootstrap and therefore wins.

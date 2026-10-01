@@ -17,8 +17,7 @@
 <% if (subtitle) { %><p class="media-row-subtitle"><%= subtitle %></p>
 <% } %><% if (item.desc) { %><div class="media-row-desc"><%- item.desc %></div>
 <% } %><% if (item.headphones) { %><p class="media-row-note">Headphones recommended</p>
-<% } %><p class="media-row-link"><a href="https://www.youtube.com/watch?v=<%= vid %>" target="_blank" rel="noopener">Watch on YouTube<span class="media-row-arrow">&#8599;</span></a></p>
-</div>
+<% } %></div>
 <div class="media-row-video"><div class="video-facade" data-video-id="<%= vid %>" data-video-title="<%= item.title %>" role="button" tabindex="0" aria-label="Play video: <%= item.title %>"><img src="<%- item.poster %>" alt="" loading="lazy"><span class="video-facade-play" aria-hidden="true"></span></div></div>
 </div>
 <% } %></div>

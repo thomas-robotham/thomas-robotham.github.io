@@ -23,8 +23,9 @@ website:
 format:
   html:
     theme:
-      light: superhero
-      dark: superhero
+      # The first entry is the default mode; dark leads so the site opens dark.
+      dark: [superhero, theme-dark.scss]
+      light: [superhero, theme-light.scss]
     css: styles.css
     toc: true
     include-in-header:

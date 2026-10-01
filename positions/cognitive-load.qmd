@@ -34,20 +34,19 @@ categories: [Open Position]
 
 ## The topic
 
-What the project is about, in two or three sentences.
+you will be involved in performing empirical research on the perception and cognition of audio in an interactive virtual environment. One of the goals is to understand how physiological signals can be used to assess the cognitive load of processing speech information. Specifically, a study will be conducted to assess eye data such as pupillometry and gaze-tracking while people perform mind-wandering and N-back tasks. A controlled virtual reality environment will be developed to induce different cognitive states in a systematic manner using different speech passages, enabling research into mental demand in a reproducible environment. 
 
-<!-- Cards are text only. Add any figure here, as ordinary markdown:
-     ![Alt text](/images/positions/<file>.png){width=60%} -->
+## The research provides a unique opportunity to combine:
+- Creative Design and Implementation: You will design and implement an audiovisual environment in a virtual reality environment and integrate tools to record physiological signals.
+- Gathering Ground Truth Data: You will coordinate and conduct an empirical research experiment to collect data from participants reflecting cognitive states throughout various tasks.
+- Data Analysis: You will perform statistical analysis of data following publishing methods in addition to supporting new modelling methods.
+- Scientific Writing: You will be given the chance to contribute to publishing the research through scientific journals or conferences, in addition to showcasing your results through online datasets.       
 
-## What you would do
 
-- First concrete task
-- Second concrete task
-
-## What you should bring
-
-- Relevant background or coursework
-- Any required tools or languages
+## What you contribute
+- You are currently studying either a bachelor’s or master’s degree related to cognitive sciences, sensory sciences, or a related field.         
+- Enjoying creative and collaborative work in a multidisciplinary field and are eager to learn about topics such as virtual reality and auditory cognition.
+- Strong command of English for working in an international environment.
 
 ## How to apply
 

@@ -1,31 +1,31 @@
 ---
-# A research highlight. Fill in the fields and delete these comments.
-# Required: title, date, image. Everything else is optional.
+title: "Perceptual Comparison of Modal Fields"
+description: >
+  A loudness-matching task run in a real room and its virtual replica, testing
+  whether listeners perceive a modal sound field that geometric acoustic
+  rendering cannot reproduce.
 
-title: "Perceptual Comparison of Modal Fields"            # shown on the card
-subtitle: ""     # OPTIONAL - delete the line to omit it
-description: >                     # OPTIONAL - delete both lines to omit it
-  One or two sentences, shown on the card.
+date: 2026-09-10
+image: /images/cards/forum-acusticum.png
+image-alt: >
+  Cutaway render of the AudioLabs seminar room with three horizontal slices
+  showing simulated modal sound-pressure distribution, and magenta markers at
+  the listening positions.
 
-date: 2026-09-10                   # publication date; controls ordering (newest first)
-image: /images/cards/forum-acusticum.png    # 16:9, ~900px wide (see scripts/make-card-image.sh)
-image-alt: "Describe the image for screen readers"
-
-categories: [Paper, Perception] # shown as filters on highlights.qmd
-kind: Paper                        # Paper | Tool | Dataset | Project — card eyebrow
-venue: "Forum Acusticum '26"                # card eyebrow; falls back to the year if omitted
-
-# STUB ENTRY: uncomment to make the card link straight out. The body below is
-# then ignored, and anyone landing on this page is forwarded to the same URL.
-# redirect: https://doi.org/10.xxxx/xxxxx
+categories: [Paper, Perception, Virtual Acoustics]
+kind: Paper
+venue: "Forum Acusticum 2026 · Graz"
 ---
 
-<!-- FULL WRITE-UP: delete this body entirely if you set `redirect:` above. -->
+*The perceptual comparison of modal fields using an ecological task-based
+scenario in real and virtual environments*
 
-Opening paragraph: the problem this work addresses.
+**Thomas M. Robotham**, Albert G. Prinn, Emanuël A. P. Habets —
+International Audio Laboratories Erlangen (FAU / Fraunhofer IIS).
+Presented at Forum Acusticum 2026, Graz, Austria
 
-## Why it exists
+## Abstract
 
-## What it does
+Modal sound fields arise from wave interference in enclosed spaces and dominate the low-frequency acoustic response of a room. Capturing this behavior in virtual acoustic environments requires numerical wave methods, which remain computationally expensive for real-time interactive applications. Geometrical methods achieve this necessary efficiency but may not incorporate accurate modal information. This study examines the perceptual impact of omitting a modal sound field in an interactive virtual environment (IVE) through a loudness-matching task. Participants equalized the perceived loudness of a sound field at positions throughout an interactive real environment (IRE) and an IVE using controlled stimuli. Relative level differences of stimuli achieved over related positions in the IRE were analyzed and compared to the same evaluation in the IVE, which does not support a modal field. The matched levels throughout the different position and frequency combinations demonstrate the presence of perceived modal-field in the IRE, while the IVE does not produce comparable trends. Furthermore, listeners were markedly less consistent in the IVE than in the IRE. These results suggest that geometrical method-based auralization does not convey the perceived spatial structure of a modal sound field.
 
-## References
+![Simulated modal sound-pressure distribution in the AudioLabs seminar room, shown as three horizontal slices, with the listening positions marked in magenta.](/images/cards/forum-acusticum.png){width=90%}

@@ -16,7 +16,7 @@ deadline: ""                        # shown as "Apply by" -- fill in or delete
 
 # ONE WORD naming the area (e.g. Perceptual, Technical, Software, Design).
 # Rendered beside the "Focus" label above the Venn.
-focus: "Perceptual"
+focus: "Behavioral"
 
 # The Venn: how effort splits across the three parts named by
 # `balance-labels` in index.qmd, in that order.
@@ -30,19 +30,22 @@ categories: [Open Position]
 
 ## The topic
 
-What the project is about, in two or three sentences.
+You will be involved in performing empirical research on the perception and cognition of audio in an interactive virtual environment. In virtual reality, people can explore the simulated environment in both position and orientation, such that no two users produce the same trajectory. In this position, you will develop and evaluate current behavioral evaluation models to assess how groups of users explore complex audiovisual environments. Your work will then be used to analyze the exploration of participants in an empirical study, recording their movements, in a virtual reality setting while being exposed to different auditory signals. 
 
-![Six degrees of freedom around a listener's head](/images/positions/head_6dof.png){width=60%}
+## Specifically, your role will entail:
 
-## What you would do
+- Dataset Analysis: You will apply measures of behavioural analysis measures to datasets of human exploration captured in virtual reality to identify current gaps.
+- Proposing New Methods: You will contribute to ideas about behavioural analysis capturing temporal and dimensions and entropy-related measures.
+- Empirical Research: You will design and conduct empirical research to gather new 6-DoF behavioural data.   
+- Validation: You will perform statistical analysis of results against baseline data. 
+- Scientific Writing: You will be given the chance to contribute to publishing the research through scientific journals or conferences, in addition to showcasing your results through online datasets.  
 
-- First concrete task
-- Second concrete task
+## What you contribute
+- You are currently studying either a bachelor’s or master’s degree related to virtual reality, behavioural sciences, sensory sciences, or a related field.         
+- Enjoying creative and collaborative work in a multidisciplinary field and are eager to learn about topics such as virtual reality and auditory cognition.
+- Strong command of English for working in an international environment.
 
-## What you should bring
 
-- Relevant background or coursework
-- Any required tools or languages
 
 ## How to apply
 

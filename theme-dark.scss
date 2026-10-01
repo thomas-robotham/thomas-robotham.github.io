@@ -1,0 +1,26 @@
+/*-- scss:defaults --*/
+
+// DARK MODE — softened Superhero.
+//
+// Superhero's stock background (#0f2537) is a saturated navy: as a full-page
+// field it competes with the content and with the orange accent. These values
+// keep the same hue family but drop the chroma sharply, so the blue reads as a
+// backdrop rather than a statement, and the orange gains presence.
+//
+// Measured on the resulting surfaces:
+//   body text #e8eaed on card -> 10.5:1
+//   accent    #e2762a on card ->  4.1:1
+
+$body-bg:    #1f2933;   // was #0f2537 — same hue, far less chroma
+$body-color: #e8eaed;
+
+$primary:    #e2762a;
+$secondary:  #4a5866;
+
+$navbar-bg:  #263240;
+
+// NOTE: the navbar hover/active colour is NOT set here. Bootswatch assigns its
+// own $navbar-*-color values after scss:defaults, so overriding them at this
+// layer has no effect (verified: they still compiled to the tinted shade).
+// It is pinned to the accent in styles.css instead, via the .navbar rule, which
+// loads after Bootstrap and therefore wins.
