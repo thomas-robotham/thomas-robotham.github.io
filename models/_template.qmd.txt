@@ -1,0 +1,21 @@
+---
+# An interactive 3D model. Scaffold with:
+#   ./scripts/new-model.sh <slug> <path-to.obj> [path-to.mtl]
+
+title: "Short headline"             # shown beside the viewer
+subtitle: "One-line qualifier"      # OPTIONAL - delete the line to omit it
+description: >                      # OPTIONAL - 1-3 sentences beside the viewer
+  What the model shows and why it matters.
+
+date: 2026-01-01                    # newest first
+
+model: /assets/models/<slug>.obj    # required
+mtl: /assets/models/<slug>.mtl      # OPTIONAL - materials; delete if none
+poster: /images/models/<slug>.jpg   # shown until the viewer is clicked
+
+kind: Model                         # Model | Scene | Prototype
+venue: ""                           # OPTIONAL - year, project or context
+categories: [Model]
+---
+
+Optional longer write-up shown on this entry's own page.

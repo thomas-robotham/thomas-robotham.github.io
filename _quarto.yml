@@ -7,6 +7,10 @@ project:
     - "!stickers.qmd"
     # about.qmd still holds placeholder github.com/yourname links.
     - "!about.qmd"
+  resources:
+    - assets/models/**
+    # Only the web-encoded clips; the source WAVs stay out of the site.
+    - assets/audio/**/*.m4a
 
 website:
   title: "T. M. Robotham"

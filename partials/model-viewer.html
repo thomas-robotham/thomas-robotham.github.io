@@ -1,0 +1,316 @@
+<script type="module">
+// Click-to-load three.js viewer for OBJ models.
+//
+// Nothing is fetched until a visitor presses play: not three.js (~600 KB), not
+// the model, not its textures. Until then the page shows a local poster. This
+// matters more here than for video, because an OBJ is plain text and can run to
+// tens of megabytes.
+//
+// Each viewer is a .model-viewer element carrying data-model (required),
+// data-mtl (optional) and data-poster.
+//
+// NO IMPORT MAP: Quarto loads quarto.js and tabsets.js as module scripts in
+// <head>, long before anything we can inject. Once module loading has begun a
+// later import map is ignored (Firefox is strictest about this), so bare "three"
+// specifiers never resolved. Instead these import jsDelivr's +esm builds, which
+// resolve the bare specifier server-side.
+//
+// All four MUST come from the same /npm/three@VERSION/+esm URL that the addon
+// builds themselves import, or the loaders would get a second copy of three and
+// its classes would not match the scene's.
+
+const DPR_CAP = 2;   // retina is enough; beyond this costs frames for nothing
+
+function frameObject(THREE, object, camera, controls) {
+  // Fit the camera to the object's bounding sphere, so any model arrives
+  // centred and fully in view regardless of its authored scale or origin.
+  const box = new THREE.Box3().setFromObject(object);
+  if (box.isEmpty()) return;
+
+  const sphere = box.getBoundingSphere(new THREE.Sphere());
+  const fov = camera.fov * (Math.PI / 180);
+  const distance = (sphere.radius / Math.sin(fov / 2)) * 1.15;
+
+  camera.position.copy(sphere.center).add(
+    new THREE.Vector3(distance * 0.7, distance * 0.45, distance * 0.7)
+  );
+  camera.near = Math.max(distance / 1000, 0.01);
+  camera.far = distance * 10;
+  camera.updateProjectionMatrix();
+
+  controls.target.copy(sphere.center);
+  controls.maxDistance = distance * 4;
+  controls.update();
+}
+
+function parseSeats(host) {
+  try {
+    // URI-encoded by the template: Quarto's EJS does not escape quotes, and
+    // Pandoc mangles raw JSON inside an attribute.
+    const seats = JSON.parse(decodeURIComponent(host.getAttribute("data-seats") || "[]"));
+    return seats.filter((s) => Array.isArray(s.position) && s.position.length === 3 && s.audio);
+  } catch (err) {
+    console.error("[model-viewer] bad data-seats:", err);
+    return [];
+  }
+}
+
+// Listening positions: a marker floats over each seat, and picking one plays
+// that seat's clip. The clips are the same passage heard from different seats,
+// so switching seats carries the playback position over (with a short
+// crossfade) rather than restarting -- that A/B comparison is the point.
+//
+// Audio is fetched per seat on first pick, never on page or model load.
+function setupSeats(THREE, host, seats, scene, camera, renderer, object) {
+  const size = new THREE.Box3().setFromObject(object)
+    .getBoundingSphere(new THREE.Sphere()).radius;
+  const accent = getComputedStyle(host).getPropertyValue("--accent").trim() || "#4fa3e0";
+  const idle = new THREE.Color(accent);
+  const playing = getComputedStyle(host).getPropertyValue("--seat-playing").trim() || "#0d9488";
+  const active = new THREE.Color(playing);
+
+  // depthTest off so markers stay visible through the lighting rig and rows.
+  const geometry = new THREE.SphereGeometry(size * 0.018, 20, 14);
+  const markers = seats.map((seat, i) => {
+    const m = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({
+      color: idle, depthTest: false, transparent: true, opacity: 0.9,
+    }));
+    m.position.fromArray(seat.position);
+    m.renderOrder = 10;
+    m.userData.seat = i;
+    scene.add(m);
+    return m;
+  });
+
+  // Seat buttons: the keyboard and screen-reader route, and a legend for the
+  // markers.
+  const panel = document.createElement("div");
+  panel.className = "model-seats";
+  const buttons = seats.map((seat, i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "model-seat";
+    b.textContent = seat.label || `Seat ${i + 1}`;
+    b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", () => select(i));
+    panel.appendChild(b);
+    return b;
+  });
+  host.appendChild(panel);
+
+  let ctx = null, gain = null, source = null, current = -1, startedAt = 0;
+  const buffers = new Map();
+  const FADE = 0.08;
+
+  const load = (url) => {
+    if (!buffers.has(url)) {
+      buffers.set(url, fetch(url)
+        .then((r) => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
+        .then((data) => ctx.decodeAudioData(data))
+        .catch((err) => { buffers.delete(url); throw err; }));
+    }
+    return buffers.get(url);
+  };
+
+  const show = (i) => {
+    markers.forEach((m, j) => {
+      m.material.color.copy(j === i ? active : idle);
+      m.scale.setScalar(j === i ? 1.5 : 1);
+    });
+    buttons.forEach((b, j) => b.setAttribute("aria-pressed", String(j === i)));
+  };
+
+  const stop = () => {
+    if (source) {
+      gain.gain.setTargetAtTime(0, ctx.currentTime, FADE / 3);
+      source.stop(ctx.currentTime + FADE);
+    }
+    source = null;
+    current = -1;
+    show(-1);
+  };
+
+  async function select(i) {
+    ctx ??= new AudioContext();
+    if (ctx.state === "suspended") await ctx.resume();
+    if (i === current) { stop(); return; }
+
+    const button = buttons[i];
+    button.classList.add("is-loading");
+    let buffer;
+    try {
+      buffer = await load(seats[i].audio);
+    } catch (err) {
+      console.error("[model-viewer] could not load", seats[i].audio, err);
+      button.classList.remove("is-loading");
+      return;
+    }
+    button.classList.remove("is-loading");
+
+    // Measured after the await, so the new seat picks up from where the
+    // passage is now, not where it was when the button was pressed.
+    const resumeAt = source ? ctx.currentTime - startedAt : 0;
+    if (source) {
+      gain.gain.setTargetAtTime(0, ctx.currentTime, FADE / 3);
+      source.stop(ctx.currentTime + FADE);
+    }
+
+    const at = resumeAt < buffer.duration ? resumeAt : 0;
+    const s = ctx.createBufferSource();
+    const g = ctx.createGain();
+    s.buffer = buffer;
+    g.gain.setValueAtTime(0, ctx.currentTime);
+    g.gain.setTargetAtTime(1, ctx.currentTime, FADE / 3);
+    s.connect(g).connect(ctx.destination);
+    s.onended = () => { if (source === s) { source = null; current = -1; show(-1); } };
+    s.start(0, at);
+
+    source = s; gain = g; current = i;
+    startedAt = ctx.currentTime - at;
+    show(i);
+  }
+
+  // Picking: a click on a marker selects it, but only if the pointer barely
+  // moved -- otherwise it was an orbit drag that happened to end on a marker.
+  const raycaster = new THREE.Raycaster();
+  const ndc = new THREE.Vector2();
+  const hit = (e) => {
+    const r = renderer.domElement.getBoundingClientRect();
+    ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    raycaster.setFromCamera(ndc, camera);
+    return raycaster.intersectObjects(markers)[0]?.object.userData.seat ?? -1;
+  };
+
+  let down = null;
+  renderer.domElement.addEventListener("pointerdown", (e) => { down = [e.clientX, e.clientY]; });
+  renderer.domElement.addEventListener("pointerup", (e) => {
+    if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 5) return;
+    const i = hit(e);
+    if (i >= 0) select(i);
+  });
+  renderer.domElement.addEventListener("pointermove", (e) => {
+    if (e.buttons) return;
+    host.classList.toggle("is-over-seat", hit(e) >= 0);
+  });
+}
+
+async function mount(host) {
+  const modelUrl = host.getAttribute("data-model");
+  if (!modelUrl) return;
+
+  host.classList.add("is-loading");
+  const status = host.querySelector(".model-viewer-status");
+  const setStatus = (t) => { if (status) status.textContent = t; };
+  setStatus("Loading viewer…");
+
+  let THREE, OrbitControls, OBJLoader, MTLLoader;
+  try {
+    const V = "https://cdn.jsdelivr.net/npm/three@0.186.1";
+    [THREE, { OrbitControls }, { OBJLoader }, { MTLLoader }] = await Promise.all([
+      import(/* @vite-ignore */ `${V}/+esm`),
+      import(`${V}/examples/jsm/controls/OrbitControls.js/+esm`),
+      import(`${V}/examples/jsm/loaders/OBJLoader.js/+esm`),
+      import(`${V}/examples/jsm/loaders/MTLLoader.js/+esm`),
+    ]);
+  } catch (err) {
+    host.classList.remove("is-loading");
+    host.classList.add("is-error");
+    setStatus("Could not load the 3D viewer.");
+    console.error("[model-viewer] three.js failed to load:", err);
+    return;
+  }
+
+  const width = host.clientWidth || 640;
+  const height = host.clientHeight || 360;
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, DPR_CAP));
+  renderer.setSize(width, height);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+
+  // OBJ/MTL carries no PBR information, so the lighting has to come from here.
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x404050, 2.0));
+  const key = new THREE.DirectionalLight(0xffffff, 1.6);
+  key.position.set(5, 10, 7.5);
+  scene.add(key);
+  const fill = new THREE.DirectionalLight(0xffffff, 0.5);
+  fill.position.set(-6, 3, -4);
+  scene.add(fill);
+
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.08;
+  controls.enablePan = true;
+
+  const onLoaded = (object) => {
+    scene.add(object);
+    frameObject(THREE, object, camera, controls);
+    const seats = parseSeats(host);
+    if (seats.length) setupSeats(THREE, host, seats, scene, camera, renderer, object);
+    host.classList.remove("is-loading");
+    host.classList.add("is-ready");
+    if (status) status.remove();
+    host.querySelector(".model-facade")?.remove();
+    host.appendChild(renderer.domElement);
+  };
+
+  const onError = () => {
+    host.classList.remove("is-loading");
+    host.classList.add("is-error");
+    setStatus("Could not load the model.");
+  };
+
+  const onProgress = (e) => {
+    if (e.lengthComputable) {
+      setStatus("Loading model… " + Math.round((e.loaded / e.total) * 100) + "%");
+    }
+  };
+
+  const mtlUrl = host.getAttribute("data-mtl");
+  const objLoader = new OBJLoader();
+
+  if (mtlUrl) {
+    // Materials first: OBJ references them by name, so they must be registered
+    // on the loader before the geometry is parsed.
+    new MTLLoader()
+      .setResourcePath(mtlUrl.replace(/[^/]+$/, ""))
+      .load(mtlUrl, (materials) => {
+        materials.preload();
+        objLoader.setMaterials(materials);
+        objLoader.load(modelUrl, onLoaded, onProgress, onError);
+      }, undefined, () => {
+        // A missing .mtl should not block the geometry.
+        objLoader.load(modelUrl, onLoaded, onProgress, onError);
+      });
+  } else {
+    objLoader.load(modelUrl, onLoaded, onProgress, onError);
+  }
+
+  const resize = () => {
+    const w = host.clientWidth, h = host.clientHeight;
+    if (!w || !h) return;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+  };
+  new ResizeObserver(resize).observe(host);
+
+  renderer.setAnimationLoop(() => {
+    controls.update();
+    renderer.render(scene, camera);
+  });
+}
+
+const activate = (e) => {
+  const host = e.target.closest?.(".model-viewer");
+  if (!host || host.classList.contains("is-ready") || host.classList.contains("is-loading")) return;
+  if (e.type === "keydown" && e.key !== "Enter" && e.key !== " ") return;
+  e.preventDefault();
+  mount(host);
+};
+
+document.addEventListener("click", activate);
+document.addEventListener("keydown", activate);
+</script>

@@ -1,0 +1,32 @@
+---
+title: "Cinema"
+subtitle: "Interactive 3D model"
+description: >
+  A cinema auditorium shown in the browser. Drag to orbit, scroll to zoom —
+  the model is only downloaded once you click. Pick a highlighted seat to hear
+  the same cello passage as it sounds from there.
+date: 2026-10-14
+model: /assets/models/cinema.obj
+# No `mtl:` — the Blender export's .mtl is empty and the OBJ has no usemtl
+# statements, so the viewer's own lighting does all the work.
+poster: /images/models/cinema.jpg
+kind: Scene
+categories: [Model]
+# Listening positions. `position` is [x, y, z] in the OBJ's coordinates, at
+# roughly seated ear height. Rows count back from the screen (row 1 is nearest);
+# seats count from the -x side wall. All clips are the same passage and length,
+# so switching seats keeps the playback position.
+seats:
+  - label: "Row 1, seat 8"
+    position: [1.66, -0.79, 3.58]
+    audio: /assets/audio/cinema/cello_r1s8.m4a
+  - label: "Row 4, seat 5"
+    position: [-0.70, 0.52, -0.69]
+    audio: /assets/audio/cinema/cello_r4s5.m4a
+  - label: "Row 6, seat 3"
+    position: [-2.28, 1.76, -3.57]
+    audio: /assets/audio/cinema/cello_r6s3.m4a
+  - label: "Row 7, seat 1"
+    position: [-3.85, 2.38, -5.00]
+    audio: /assets/audio/cinema/cello_r7s1.m4a
+---

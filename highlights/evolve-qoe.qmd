@@ -48,7 +48,3 @@ The project website is the canonical home for all of these:
   exploration behaviour ([DOI](https://doi.org/10.1145/3573381.3596155))
 
 [Visit the project website →](https://qoevave.github.io/)
-
-::: {.callout-note appearance="simple"}
-Full citations for the outputs above are in the [CV](../cv.qmd#publications).
-:::

@@ -22,6 +22,12 @@ about:
       text: Institution
       href: https://www.audiolabs-erlangen.de/fau/assistant/robotham
 listing:
+  - id: models
+    contents: models
+    template: _templates/model-row.ejs
+    sort: "date desc"
+    categories: false
+    feed: false
   - id: media
     contents: media
     template: _templates/media-row.ejs
@@ -49,6 +55,7 @@ format:
   html: 
     include-after-body:
       - partials/video-facade.html
+      - partials/model-viewer.html
     include-in-header:
       - text: |
           <link rel="stylesheet"
@@ -113,6 +120,9 @@ Whether or not something is listed below, feel free to reach out via my email.
 :::: {.media-section}
 ::: {.highlight-section-head}
 ## Media
+:::
+
+::: {#models}
 :::
 
 ::: {#media}
