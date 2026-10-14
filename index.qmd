@@ -1,5 +1,5 @@
 ---
-title: "Thomas M. Robotham"
+title: "Thomas M. Robotham, Dr.-Ing."
 affiliation: International Audio Laboratories Erlangen
 subtitle: "<i class='bi bi-envelope'></i> [thomas.robotham@audiolabs-erlangen.de](mailto:thomas.robotham@audiolabs-erlangen.de)"
 image: images/profile.jpg

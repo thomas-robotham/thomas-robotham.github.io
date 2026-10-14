@@ -317,6 +317,14 @@ body.quarto-dark {
 /* Quarto renders the document `subtitle` between the name and the social
    links in the about block, which is where the contact line lives. Default
    `.lead` styling is too large for an email address, so tone it down. */
+/* The name under the profile photo. Bootstrap's 2rem h1 is too wide for the
+   42% trestles column and wrapped onto two lines; balance keeps the break even
+   on narrow screens where it still has to wrap. */
+.quarto-about-trestles .about-entity .title {
+  font-size: 1.65rem;
+  text-wrap: balance;
+}
+
 .quarto-about-trestles .about-entity .subtitle {
   font-size: 0.82rem;
   font-weight: 400;
