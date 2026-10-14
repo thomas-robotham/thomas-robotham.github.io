@@ -194,6 +194,29 @@ function setupSeats(THREE, host, seats, scene, camera, renderer, object) {
   });
 }
 
+// The sound source: a dark grey sphere, marker only -- not clickable.
+function addSource(THREE, host, scene, object) {
+  let source;
+  try {
+    source = JSON.parse(decodeURIComponent(host.getAttribute("data-source") || "null"));
+  } catch (err) {
+    console.error("[model-viewer] bad data-source:", err);
+    return;
+  }
+  if (!source || !Array.isArray(source.position) || source.position.length !== 3) return;
+
+  const size = new THREE.Box3().setFromObject(object)
+    .getBoundingSphere(new THREE.Sphere()).radius;
+  const marker = new THREE.Mesh(
+    new THREE.SphereGeometry(size * 0.024, 24, 16),
+    // Lit (not basic) so the grey reads as a sphere against the dark stage.
+    new THREE.MeshStandardMaterial({ color: 0x3a3a3a, roughness: 0.5, depthTest: false, transparent: true })
+  );
+  marker.position.fromArray(source.position);
+  marker.renderOrder = 10;
+  scene.add(marker);
+}
+
 async function mount(host) {
   const modelUrl = host.getAttribute("data-model");
   if (!modelUrl) return;
@@ -247,6 +270,7 @@ async function mount(host) {
   const onLoaded = (object) => {
     scene.add(object);
     frameObject(THREE, object, camera, controls);
+    addSource(THREE, host, scene, object);
     const seats = parseSeats(host);
     if (seats.length) setupSeats(THREE, host, seats, scene, camera, renderer, object);
     host.classList.remove("is-loading");

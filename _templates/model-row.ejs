@@ -12,14 +12,14 @@
    page load. That matters more than for video, because OBJ is a plain-text
    format and gets large quickly. */
 %><div class="model-list">
-<% for (const item of items) { const model = String(item.model || "").trim(); const mtl = String(item.mtl || "").trim(); const poster = String(item.poster || "").trim(); const meta = [item.kind, item.venue].filter(Boolean).join(" · "); const subtitle = String(item.subtitle || "").trim(); const seats = Array.isArray(item.seats) ? item.seats : []; item.desc = String(item.description || "").replace(/<!--[\s\S]*?-->/g, "").trim(); %><div class="model-row">
+<% for (const item of items) { const model = String(item.model || "").trim(); const mtl = String(item.mtl || "").trim(); const poster = String(item.poster || "").trim(); const meta = [item.kind, item.venue].filter(Boolean).join(" · "); const subtitle = String(item.subtitle || "").trim(); const seats = Array.isArray(item.seats) ? item.seats : []; const source = item.source && Array.isArray(item.source.position) ? item.source : null; item.desc = String(item.description || "").replace(/<!--[\s\S]*?-->/g, "").trim(); %><div class="model-row">
 <div class="model-row-body">
 <% if (meta) { %><p class="model-row-meta"><%= meta %></p>
 <% } %><h3 class="model-row-title"><%= item.title %></h3>
 <% if (subtitle) { %><p class="model-row-subtitle"><%= subtitle %></p>
 <% } %><% if (item.desc) { %><div class="model-row-desc"><%- item.desc %></div>
-<% } %><p class="model-row-note">Click to load &middot; drag to orbit &middot; scroll to zoom<% if (seats.length) { %> &middot; pick a seat to listen (headphones recommended)<% } %></p>
+<% } %><p class="model-row-note">Click to load &middot; drag to orbit &middot; scroll to zoom<% if (seats.length) { %> &middot; pick a seat to listen (currentl mono)<% } %></p>
 </div>
-<div class="model-row-viewer"><div class="model-viewer" data-model="<%- model %>"<% if (mtl) { %> data-mtl="<%- mtl %>"<% } %><% if (seats.length) { %> data-seats="<%- encodeURIComponent(JSON.stringify(seats)) %>"<% } %> role="button" tabindex="0" aria-label="Load interactive 3D model: <%= item.title %>"><div class="model-facade"><% if (poster) { %><img src="<%- poster %>" alt="" loading="lazy"><% } %><span class="model-facade-cue" aria-hidden="true"></span></div><p class="model-viewer-status"></p></div></div>
+<div class="model-row-viewer"><div class="model-viewer" data-model="<%- model %>"<% if (mtl) { %> data-mtl="<%- mtl %>"<% } %><% if (seats.length) { %> data-seats="<%- encodeURIComponent(JSON.stringify(seats)) %>"<% } %><% if (source) { %> data-source="<%- encodeURIComponent(JSON.stringify(source)) %>"<% } %> role="button" tabindex="0" aria-label="Load interactive 3D model: <%= item.title %>"><div class="model-facade"><% if (poster) { %><img src="<%- poster %>" alt="" loading="lazy"><% } %><span class="model-facade-cue" aria-hidden="true"></span></div><p class="model-viewer-status"></p></div></div>
 </div>
 <% } %></div>

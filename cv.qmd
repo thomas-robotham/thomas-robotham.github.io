@@ -37,7 +37,7 @@ Download a PDF version of the CV
 
 | Dates | Title | Institution | Key Responsibilities |
 |---|---|---|---|
-| 2026 - Present | Post-doctoral Researcher | AudioLabs Erlangen (FAU) |  |
+| 2026 - Present | Post-doctoral Researcher | AudioLabs Erlangen (FAU) | Building in-house statistical knowledge base |
 | 2020–2021 | Senior Engineer | Fraunhofer IIS | Organization and coordination of listening tests for MPEG-I standardization |
 | 2017–2020 | Research Associate | Fraunhofer IIS | Research on auditory perception and behaviour in 6-DoF VR environments |
 | 2016–2017 | Research Intern | Fraunhofer IIS | Experimental design and statistical analysis for subjective audio quality evaluation |

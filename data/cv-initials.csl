@@ -1348,6 +1348,14 @@
           <!-- `collection-title` is for any serial with multiple series (e.g. 'second series') -->
           <text text-case="title" variable="collection-title"/>
         </group>
+        <!-- Conference location after the proceedings title. APA 7 drops it, but
+             it is kept here for the CV. Pandoc maps BibTeX `address` to
+             `publisher-place`. -->
+        <choose>
+          <if type="paper-conference">
+            <text variable="publisher-place"/>
+          </if>
+        </choose>
         <group>
           <text font-style="italic" variable="volume"/>
           <group delimiter=", " prefix="(" suffix=")">

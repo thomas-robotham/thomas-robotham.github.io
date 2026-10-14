@@ -4,7 +4,8 @@ subtitle: "Interactive 3D model"
 description: >
   A cinema auditorium shown in the browser. Drag to orbit, scroll to zoom —
   the model is only downloaded once you click. Pick a highlighted seat to hear
-  the same cello passage as it sounds from there.
+  the same cello passage as it sounds from there. The current playback is in mono,
+  but will soon be extended to include binaural audio reproduction at each listener position.
 date: 2026-10-14
 model: /assets/models/cinema.obj
 # No `mtl:` — the Blender export's .mtl is empty and the OBJ has no usemtl
@@ -12,6 +13,11 @@ model: /assets/models/cinema.obj
 poster: /images/models/cinema.jpg
 kind: Scene
 categories: [Model]
+# Sound source, shown as a dark grey sphere. Centred between the side walls,
+# 1.73 above the stage floor, near the front edge of the stage.
+source:
+  label: "Source"
+  position: [-0.28, 0.47, 6.30]
 # Listening positions. `position` is [x, y, z] in the OBJ's coordinates, at
 # roughly seated ear height. Rows count back from the screen (row 1 is nearest);
 # seats count from the -x side wall. All clips are the same passage and length,
