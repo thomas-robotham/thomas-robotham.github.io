@@ -1,0 +1,40 @@
+<%
+/* Media: videos and interactive 3D models in ONE list, sorted by date, so an
+   entry's `date:` sets its place among all of them. (They used to be two
+   listings, models then videos, which ignored dates across the two.)
+
+   An entry with `video:` is drawn as a video row: information left, video
+   right (click-to-load facade, partials/video-facade.html), optionally with
+   `model:` (+ `mtl:`, `model-poster:`, `camera:`) shown under the video.
+   An entry without `video:` is a model row: information left, 3D viewer right
+   (click-to-load facade, partials/model-viewer.html), with the model-only
+   options `seats:`, `source:`, `speaker:` and `credit:`.
+
+   Same Pandoc constraints as the other templates -- Quarto's EJS has no
+   newline-trimming tag, and Pandoc reads indentation as a code block, blank
+   lines as paragraph breaks, and only recognises BLOCK-level tags opening a
+   line. So each control tag starts a line followed by real content, and no
+   line opens with an inline element such as <a> or <button>. */
+%><div class="media-rows-list">
+<% for (const item of items) { const vid = String(item.video || "").trim(); const meta = [item.kind, item.venue].filter(Boolean).join(" · "); const subtitle = String(item.subtitle || "").trim(); const model = String(item.model || "").trim(); const mtl = String(item.mtl || "").trim(); const modelPoster = String(item["model-poster"] || "").trim(); const view = item.camera && Array.isArray(item.camera.position) && Array.isArray(item.camera.target) ? item.camera : null; item.desc = String(item.description || "").replace(/<!--[\s\S]*?-->/g, "").trim(); const poster = String(item.poster || "").trim(); const credit = String(item.credit || "").trim(); const seats = Array.isArray(item.seats) ? item.seats : []; const source = item.source && Array.isArray(item.source.position) ? item.source : null; const speaker = item.speaker && Array.isArray(item.speaker.range) ? item.speaker : null; if (vid) { %><div class="media-row">
+<div class="media-row-body">
+<% if (meta) { %><p class="media-row-meta"><%= meta %></p>
+<% } %><h3 class="media-row-title"><%= item.title %></h3>
+<% if (subtitle) { %><p class="media-row-subtitle"><%= subtitle %></p>
+<% } %><% if (item.desc) { %><div class="media-row-desc"><%- item.desc %></div>
+<% } %><% if (item.headphones) { %><p class="media-row-note">Headphones recommended</p>
+<% } %></div>
+<div class="media-row-video"><div class="video-facade" data-video-id="<%= vid %>" data-video-title="<%= item.title %>" role="button" tabindex="0" aria-label="Play video: <%= item.title %>"><img src="<%- item.poster %>" alt="" loading="lazy"><span class="video-facade-play" aria-hidden="true"></span></div><% if (model) { %><div class="model-viewer" data-model="<%- model %>"<% if (mtl) { %> data-mtl="<%- mtl %>"<% } %><% if (view) { %> data-camera="<%- encodeURIComponent(JSON.stringify(view)) %>"<% } %> role="button" tabindex="0" aria-label="Load interactive 3D model: <%= item.title %>"><div class="model-facade"><% if (modelPoster) { %><img src="<%- modelPoster %>" alt="" loading="lazy"><% } %><span class="model-facade-cue" aria-hidden="true"></span></div><p class="model-viewer-status"></p></div><p class="media-row-model-note">Interactive model: click to load &middot; drag to orbit &middot; scroll to zoom</p><% } %></div>
+</div>
+<% } else { %><div class="model-row">
+<div class="model-row-body">
+<% if (meta) { %><p class="model-row-meta"><%= meta %></p>
+<% } %><h3 class="model-row-title"><%= item.title %></h3>
+<% if (subtitle) { %><p class="model-row-subtitle"><%= subtitle %></p>
+<% } %><% if (item.desc) { %><div class="model-row-desc"><%- item.desc %></div>
+<% } %><% if (credit) { %><p class="model-row-credit"><%= credit %></p>
+<% } %><p class="model-row-note">Click to load<% if (!(view && view.fixed)) { %> &middot; drag to orbit &middot; scroll to zoom<% } %><% if (seats.length) { %> &middot; pick a seat to listen <% } %></p>
+</div>
+<div class="model-row-viewer"><div class="model-viewer<% if (speaker) { %> has-speaker<% } %>" data-model="<%- model %>"<% if (mtl) { %> data-mtl="<%- mtl %>"<% } %><% if (seats.length) { %> data-seats="<%- encodeURIComponent(JSON.stringify(seats)) %>"<% } %><% if (view) { %> data-camera="<%- encodeURIComponent(JSON.stringify(view)) %>"<% } %><% if (speaker) { %> data-speaker="<%- encodeURIComponent(JSON.stringify(speaker)) %>"<% } %><% if (source) { %> data-source="<%- encodeURIComponent(JSON.stringify(source)) %>"<% } %> role="button" tabindex="0" aria-label="Load interactive 3D model: <%= item.title %>"><div class="model-facade"><% if (poster) { %><img src="<%- poster %>" alt="" loading="lazy"><% } %><span class="model-facade-cue" aria-hidden="true"></span></div><p class="model-viewer-status"></p></div></div>
+</div>
+<% } } %></div>

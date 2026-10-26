@@ -6,6 +6,17 @@ description: >
 date: 2026-09-24
 video: 7vZm7C0DI5E
 poster: /images/media/seminar-room-virtual-acoustics.jpg
+# Interactive model shown under the video (Draco-compressed glTF, see
+# partials/model-viewer.html).
+model: /assets/models/seminar-room-virtual-acoustics.glb
+model-poster: /images/models/seminar-room-virtual-acoustics.png
+# Starting view, in model coordinates (metres, Y up). The target is inside the
+# room, on the line from the camera through the middle group of absorber panels
+# on the corridor wall, so that group is centred left-right and orbiting pivots
+# around the room. Re-render the poster from the same view if this changes.
+camera:
+  position: [8.05, 5.09, 11.76]
+  target: [1.68, 1.00, 5.39]
 kind: Demo
 venue: ""
 headphones: true

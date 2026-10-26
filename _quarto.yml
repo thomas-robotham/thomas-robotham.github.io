@@ -11,6 +11,8 @@ project:
     - assets/models/**
     # Only the web-encoded clips; the source WAVs stay out of the site.
     - assets/audio/**/*.m4a
+    - assets/js/**
+    - assets/data/**
 
 website:
   title: "T. M. Robotham"

@@ -1,0 +1,44 @@
+---
+title: "Bass Reflex Loudspeaker"
+subtitle: "Thiele/Small vented-box model"
+description: >
+  Calculation, simulation, and then measurement of a vented loudspeaker designed from the 
+  driver's Thiele/Small parameters. Drag the port length and
+  hear the box retune. The music is filtered live through Small's vented-box
+  model of this enclosure. You'll probably need some headphones or decent speakers recommended to hear the low end.
+# Shown as its own line under the description.
+# TODO: confirm title, source link and exact licence before publishing.
+credit: "Music: “Groovy Trap” by Caslo (excerpt, mono), licensed under CC BY-NC."
+date: 2016-10-26
+model: /assets/models/bass-reflex-loudspeaker.glb
+# Thumbnail before the model loads: same angle as the fixed view below, but
+# centred and filling the frame (camera [-0.713, -0.167, 0.326] looking at
+# [0.009, 0.293, -0.011], no panel shift), so it differs from the loaded view.
+poster: /images/models/bass-reflex-loudspeaker.png
+kind: Model
+categories: [Model]
+# Fixed view (no orbit/zoom): pitch -30 degrees (looking up from below) and
+# yaw -65 degrees (from the speaker's left), so the speaker is turned towards
+# the control panel, 1.4 m away. Position and target were then shifted 4 cm
+# sideways together, to centre the speaker in the space left of the panel.
+# The viewer shifts the picture left by half the panel's width (0.30 of the
+# viewer width).
+camera:
+  position: [-1.114, -0.390, 0.499]
+  target: [-0.015, 0.310, -0.013]
+  fixed: true
+# Port-length simulation (partials/speaker-sim.html, assets/js/vented-box.js).
+# Driver and box parameters default to the thesis design in vented-box.js
+# (Eminence Alpha-6A, Vb = 14.84 L, 7 cm vent, QL = 7); override under `params:`.
+speaker:
+  vent: adjustablevent          # vent object in the .glb, origin at the baffle
+  mesh-length-cm: 4.898         # its length at scale 1
+  range: [4.9, 12.8]            # the lengths physically measured
+  measured: [4.9, 7, 10, 12.8]  # slider ticks; the slider snaps to these
+  # Near-field driver and port responses at those lengths, from the thesis REW
+  # files (Artefact Results/Sub files/Raw REQ files, Test2-5).
+  measurements: /assets/data/bass-reflex-measured.json
+  start: 4.9
+  design: 4.9                   # calculated vent length, drawn as a reference
+  audio: /assets/audio/loudspeaker/caslo-groovy-trap-loop.m4a
+---

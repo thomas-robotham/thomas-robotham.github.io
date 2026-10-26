@@ -2,9 +2,8 @@
 title: "Cinema"
 subtitle: "Interactive 3D model"
 description: >
-  A cinema auditorium shown in the browser. Drag to orbit, scroll to zoom —
-  the model is only downloaded once you click. Pick a highlighted seat to hear
-  the same cello passage as it sounds from there. The current playback is in mono,
+  A cinema auditorium shown in the browser. Drag to orbit, scroll to zoom.
+  Pick a highlighted seat to hear the same cello passage as it sounds from there. The current playback is in mono,
   but will soon be extended to include binaural audio reproduction at each listener position.
 date: 2026-10-14
 model: /assets/models/cinema.obj

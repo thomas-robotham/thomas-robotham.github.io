@@ -1,0 +1,341 @@
+<script type="module">
+// Bass-reflex add-on for the 3D viewer (partials/model-viewer.html).
+//
+// A model entry with a `speaker:` block gets, once its model has loaded:
+//   - a port-length slider that scales the vent mesh and retunes the box,
+//   - looping playback through the box response (vented or sealed),
+//   - a live plot of the response, with the measured near-field driver and
+//     port responses (assets/data/bass-reflex-measured.json) overlaid when the
+//     slider is on a length that was measured. The slider snaps to those.
+//
+// The panel overlays the right of the viewer, and the camera's projection is
+// shifted (setViewOffset) so the model sits centred in the space to its left
+// while orbiting still pivots around it. When the viewer is too narrow for
+// both (phones), the panel moves below the viewer instead.
+//
+// The maths is assets/js/vented-box.js (the thesis model, Small's 4th-order
+// vented box), turned into two IIR sections per setting. IIRFilterNode
+// coefficients are fixed at creation, so each change builds a new filter
+// chain and crossfades to it; dragging the slider rebuilds at most every
+// REBUILD_MS.
+
+const REBUILD_MS = 60;
+const XFADE = 0.04;          // s, crossfade between filter chains
+const HEADROOM = 0.7;        // about -3 dB: the loop is mastered to 0 dBFS
+const PLOT = { fMin: 20, fMax: 1000, dbMin: -24, dbMax: 6 };
+const OVERLAY_MIN_WIDTH = 420;   // px of viewer width needed to overlay the panel
+const SNAP_CM = 0.25;            // slider snaps to a measured length within this
+
+function parseSpeaker(host) {
+  try {
+    return JSON.parse(decodeURIComponent(host.getAttribute("data-speaker") || "null"));
+  } catch (err) {
+    console.error("[speaker-sim] bad data-speaker:", err);
+    return null;
+  }
+}
+
+const el = (tag, props = {}, ...children) => {
+  const n = Object.assign(document.createElement(tag), props);
+  children.forEach((c) => n.append(c));
+  return n;
+};
+
+document.addEventListener("model-viewer:ready", async (e) => {
+  const host = e.target;
+  const cfg = parseSpeaker(host);
+  if (!cfg) return;
+
+  let VB;
+  try {
+    VB = await import("/assets/js/vented-box.js");
+  } catch (err) {
+    console.error("[speaker-sim] could not load the box model:", err);
+    return;
+  }
+  const params = { ...VB.DESIGN, ...(cfg.params || {}) };
+  const [lMin, lMax] = cfg.range;
+  const vent = e.detail.object.getObjectByName(cfg.vent);
+  if (!vent) console.warn("[speaker-sim] no object named", cfg.vent);
+
+  // Measured curves: small, so fetched now; the plot just skips them until here.
+  let measured = null;
+  if (cfg.measurements) {
+    fetch(cfg.measurements)
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+      .then((j) => { measured = j; update(); })
+      .catch((err) => console.error("[speaker-sim] could not load", cfg.measurements, err));
+  }
+  const measuredAt = (L) => {
+    if (!measured || mode !== "vented") return null;
+    const key = Object.keys(measured.lengths).find((k) => Math.abs(Number(k) - L) < 0.05);
+    return key ? measured.lengths[key] : null;
+  };
+
+  // ---- UI -----------------------------------------------------------------
+  const play = el("button", { type: "button", className: "speaker-play", textContent: "Play" });
+  play.setAttribute("aria-pressed", "false");
+
+  // One button that toggles the enclosure; its label is the current state.
+  const toggle = el("button", { type: "button", className: "speaker-mode" });
+
+  const sliderId = `speaker-port-${Math.random().toString(36).slice(2, 8)}`;
+  const ticks = el("datalist", { id: `${sliderId}-ticks` },
+    ...(cfg.measured || []).map((v) => el("option", { value: v })));
+  const slider = el("input", {
+    type: "range", id: sliderId, min: lMin, max: lMax, step: 0.1,
+    value: cfg.start ?? lMin, className: "speaker-slider",
+  });
+  slider.setAttribute("list", ticks.id);
+  // Every text line has a fixed one-line height (no wrapping), so the panel
+  // and the plot never shift as the numbers change.
+  const label = el("label", { htmlFor: sliderId, className: "speaker-label" });
+  const tuningText = el("span", { className: "speaker-tuning" });
+  const portHead = el("div", { className: "speaker-port-head" }, label, tuningText);
+  const readout = el("p", { className: "speaker-readout" });
+  readout.setAttribute("aria-live", "polite");
+
+  const canvas = el("canvas", { className: "speaker-plot" });
+  canvas.setAttribute("role", "img");
+
+  // Legend swatches drawn to match the plot's strokes.
+  const swatch = (color, dash = "", width = 1.5) =>
+    `<svg width="18" height="6" aria-hidden="true"><line x1="0" y1="3" x2="18" y2="3" stroke="${color}" stroke-width="${width}" stroke-dasharray="${dash}"/></svg>`;
+  const legend = el("ul", { className: "speaker-legend" });
+  legend.innerHTML = [
+    [swatch("var(--accent)", "", 2), "Model"],
+    [swatch("currentColor", "4 3"), `Designed (${(cfg.design ?? lMin).toFixed(1)} cm)`],
+    [swatch("var(--measured)"), "Measured driver", "is-measured"],
+    [swatch("var(--measured)", "5 2"), "Measured port", "is-measured"],
+  ].map(([s, t, c = ""]) => `<li class="${c}">${s}${t}</li>`).join("");
+
+  const panel = el("div", { className: "speaker-panel" },
+    el("div", { className: "speaker-controls" }, play, toggle),
+    el("div", { className: "speaker-port" }, portHead, slider, ticks),
+    readout, canvas, legend);
+
+  // Inside the viewer when there is room, otherwise below it.
+  const { camera } = e.detail;
+  function place() {
+    const w = host.clientWidth, h = host.clientHeight;
+    const overlay = w >= OVERLAY_MIN_WIDTH;
+    if (overlay && panel.parentElement !== host) host.append(panel);
+    if (!overlay && panel.parentElement === host) host.after(panel);
+    panel.classList.toggle("is-overlay", overlay);
+    host.classList.toggle("has-overlay", overlay);
+    // Shift the picture left by half the panel width, so the model is centred
+    // in the free area. Runs after the viewer's own resize handler.
+    if (overlay && w && h) camera.setViewOffset(w, h, panel.offsetWidth / 2, 0, w, h);
+    else camera.clearViewOffset();
+    draw();
+  }
+
+  // ---- State --------------------------------------------------------------
+  let mode = "vented";
+  const length = () => Number(slider.value);
+  const tuning = () => (mode === "vented" ? VB.ventTuning(length(), params) : 0);
+
+  // ---- Plot ---------------------------------------------------------------
+
+  function draw() {
+    // Tick labels and reference curves use the readout's grey (its colour at
+    // its opacity), read on every draw so a light/dark switch is followed.
+    const hs = getComputedStyle(host);
+    const accent = hs.getPropertyValue("--accent").trim() || "#e2762a";
+    const blue = hs.getPropertyValue("--measured").trim() || "#2a6fd6";
+    const rs = getComputedStyle(readout);
+    const ink = rs.color;
+    const inkAlpha = Number(rs.opacity) || 0.8;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    if (!w || !h) return;
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    const g = canvas.getContext("2d");
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    g.clearRect(0, 0, w, h);
+
+    const pad = { l: 30, r: 8, t: 8, b: 18 };
+    const lx = (f) => pad.l + ((Math.log10(f / PLOT.fMin)) / Math.log10(PLOT.fMax / PLOT.fMin)) * (w - pad.l - pad.r);
+    const ly = (db) => pad.t + ((PLOT.dbMax - db) / (PLOT.dbMax - PLOT.dbMin)) * (h - pad.t - pad.b);
+
+    g.font = "10px system-ui, sans-serif";
+    g.lineWidth = 1;
+    g.strokeStyle = ink; g.fillStyle = ink;
+    g.globalAlpha = 0.18;
+    for (const f of [20, 50, 100, 200, 500, 1000]) { g.beginPath(); g.moveTo(lx(f), pad.t); g.lineTo(lx(f), h - pad.b); g.stroke(); }
+    for (let db = PLOT.dbMin; db <= PLOT.dbMax; db += 6) { g.beginPath(); g.moveTo(pad.l, ly(db)); g.lineTo(w - pad.r, ly(db)); g.stroke(); }
+    g.globalAlpha = inkAlpha;
+    g.textAlign = "center";
+    for (const [f, t] of [[20, "20"], [50, "50"], [100, "100"], [200, "200"], [500, "500"], [1000, "1k Hz"]]) g.fillText(t, lx(f), h - 5);
+    g.textAlign = "right";
+    for (let db = PLOT.dbMin; db <= PLOT.dbMax; db += 12) g.fillText(`${db}`, pad.l - 4, ly(db) + 3);
+    g.textAlign = "left";
+    g.fillText("dB", 2, pad.t + 8);
+
+    const curve = (fb, style, width, dash = [], alpha = 1) => {
+      g.save();
+      g.strokeStyle = style; g.lineWidth = width; g.setLineDash(dash); g.globalAlpha = alpha;
+      g.beginPath();
+      for (let i = 0; i <= 200; i++) {
+        const f = PLOT.fMin * (PLOT.fMax / PLOT.fMin) ** (i / 200);
+        const y = ly(Math.max(PLOT.dbMin - 2, VB.responseDb(f, fb, params)));
+        i ? g.lineTo(lx(f), y) : g.moveTo(lx(f), y);
+      }
+      g.stroke(); g.restore();
+    };
+
+    // Reference: the designed box (calculated vent).
+    curve(VB.ventTuning(cfg.design ?? lMin, params), ink, 1.25, [4, 3], inkAlpha);
+
+    // Measured near-field driver and port, at a measured length only.
+    const m = measuredAt(length());
+    if (m) {
+      const trace = (ys, dash) => {
+        g.save(); g.strokeStyle = blue; g.lineWidth = 1.25; g.setLineDash(dash); g.globalAlpha = 1;
+        g.beginPath();
+        measured.grid.forEach((f, i) => {
+          if (f < PLOT.fMin || f > PLOT.fMax) return;
+          const y = ly(Math.max(PLOT.dbMin - 2, Math.min(PLOT.dbMax + 2, ys[i])));
+          i ? g.lineTo(lx(f), y) : g.moveTo(lx(f), y);
+        });
+        g.stroke(); g.restore();
+      };
+      trace(m.driver, []);
+      trace(m.port, [5, 2]);
+    }
+
+    const fb = tuning();
+    curve(fb, accent, 2);
+    if (fb > 0) {
+      g.save(); g.strokeStyle = accent; g.globalAlpha = 0.6; g.setLineDash([2, 3]);
+      g.beginPath(); g.moveTo(lx(fb), pad.t); g.lineTo(lx(fb), h - pad.b); g.stroke(); g.restore();
+    }
+    canvas.setAttribute("aria-label", readout.textContent);
+  }
+
+  function update() {
+    const L = length();
+    if (vent) vent.scale.z = L / cfg["mesh-length-cm"];
+    label.textContent = `Port length: ${L.toFixed(1)} cm`;
+    slider.disabled = mode !== "vented";
+    toggle.textContent = mode === "vented" ? "Vented" : "Sealed";
+    toggle.setAttribute("aria-label",
+      mode === "vented" ? "Enclosure: vented. Switch to sealed" : "Enclosure: sealed. Switch to vented");
+    const fb = tuning();
+    const f3 = VB.f3(fb, params);
+    // f_b and f_c set like inline maths, without pulling MathJax into the page.
+    const sym = (s) => `<span class="speaker-math"><i>f</i><sub><i>${s}</i></sub></span>`;
+    const m = measuredAt(L);
+    // Above the slider: length and (calculated) cut-off. Below it: calculated
+    // and measured tuning side by side; "–" keeps the line when there is none.
+    tuningText.innerHTML = (mode === "vented" ? "" : ", sealed") +
+      `, ${sym("c")} = ${f3.toFixed(0)} Hz`;
+    readout.innerHTML = mode === "vented"
+      ? `Calculated ${sym("b")} = ${fb.toFixed(1)} Hz, measured ${sym("b")} = ${m ? `${m.fb.toFixed(1)} Hz` : "–"}`
+      : `Calculated ${sym("b")} = –, measured ${sym("b")} = –`;
+    legend.classList.toggle("has-measured", Boolean(m));
+    draw();
+    scheduleRebuild();
+  }
+
+  // ---- Audio --------------------------------------------------------------
+  let ctx = null, buffer = null, source = null, master = null, chain = null;
+  let rebuildTimer = 0, lastRebuild = 0;
+
+  function makeChain() {
+    const out = ctx.createGain();
+    out.gain.value = 0;
+    const nodes = VB.filterSections(tuning(), ctx.sampleRate, params)
+      .map((s) => new IIRFilterNode(ctx, s));
+    const head = nodes[0];
+    nodes.forEach((n, i) => n.connect(nodes[i + 1] || out));
+    out.connect(master);
+    return { input: head, out, nodes };
+  }
+
+  function rebuild() {
+    lastRebuild = performance.now();
+    if (!ctx || !source) return;
+    const next = makeChain();
+    source.connect(next.input);
+    const t = ctx.currentTime;
+    next.out.gain.setValueAtTime(0, t);
+    next.out.gain.linearRampToValueAtTime(1, t + XFADE);
+    if (chain) {
+      const old = chain;
+      old.out.gain.setValueAtTime(old.out.gain.value, t);
+      old.out.gain.linearRampToValueAtTime(0, t + XFADE);
+      setTimeout(() => {
+        try { source?.disconnect(old.input); } catch {}
+        old.nodes.forEach((n) => n.disconnect());
+        old.out.disconnect();
+      }, XFADE * 1000 + 50);
+    }
+    chain = next;
+  }
+
+  function scheduleRebuild() {
+    clearTimeout(rebuildTimer);
+    const wait = Math.max(0, REBUILD_MS - (performance.now() - lastRebuild));
+    rebuildTimer = setTimeout(rebuild, wait);
+  }
+
+  async function start() {
+    ctx ??= new AudioContext();
+    if (ctx.state === "suspended") await ctx.resume();
+    if (!buffer) {
+      play.textContent = "Loading…";
+      play.disabled = true;
+      try {
+        const res = await fetch(cfg.audio);
+        if (!res.ok) throw new Error(res.status);
+        buffer = await ctx.decodeAudioData(await res.arrayBuffer());
+      } catch (err) {
+        console.error("[speaker-sim] could not load", cfg.audio, err);
+        play.textContent = "Audio unavailable";
+        return;
+      } finally {
+        play.disabled = false;
+      }
+    }
+    master = ctx.createGain();
+    master.gain.value = HEADROOM;
+    master.connect(ctx.destination);
+    source = ctx.createBufferSource();
+    source.buffer = buffer;
+    source.loop = true;
+    chain = null;
+    rebuild();
+    source.start();
+    play.textContent = "Stop";
+    play.setAttribute("aria-pressed", "true");
+  }
+
+  function stop() {
+    if (!source) return;
+    const [s, m] = [source, master];
+    m.gain.setTargetAtTime(0, ctx.currentTime, 0.02);
+    s.stop(ctx.currentTime + 0.1);
+    setTimeout(() => m.disconnect(), 200);
+    source = null; chain = null;
+    play.textContent = "Play";
+    play.setAttribute("aria-pressed", "false");
+  }
+
+  play.addEventListener("click", () => (source ? stop() : start()));
+  slider.addEventListener("input", () => {
+    // Snap onto a measured length when close, so its data is easy to find.
+    const v = Number(slider.value);
+    const near = (cfg.measured || []).find((x) => Math.abs(x - v) < SNAP_CM);
+    if (near !== undefined && near !== v) slider.value = near;
+    update();
+  });
+  toggle.addEventListener("click", () => { mode = mode === "vented" ? "sealed" : "vented"; update(); });
+  new ResizeObserver(draw).observe(canvas);
+  new ResizeObserver(place).observe(host);
+  // Quarto's light/dark toggle swaps classes on <body>: redraw in the new grey.
+  new MutationObserver(draw).observe(document.body, { attributes: true, attributeFilter: ["class"] });
+  place();
+  update();
+});
+</script>

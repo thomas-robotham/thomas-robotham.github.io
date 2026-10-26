@@ -1,5 +1,5 @@
 <script type="module">
-// Click-to-load three.js viewer for OBJ models.
+// Click-to-load three.js viewer for OBJ and glTF (.glb/.gltf) models.
 //
 // Nothing is fetched until a visitor presses play: not three.js (~600 KB), not
 // the model, not its textures. Until then the page shows a local poster. This
@@ -7,7 +7,10 @@
 // tens of megabytes.
 //
 // Each viewer is a .model-viewer element carrying data-model (required),
-// data-mtl (optional) and data-poster.
+// data-mtl (optional, OBJ only), data-camera (optional starting view) and
+// data-poster. The loader is picked from the
+// model's extension. glTF is preferred for anything large: it is binary and
+// Draco-compressed, so the seminar room is 5 MB as .glb against 62 MB as OBJ.
 //
 // NO IMPORT MAP: Quarto loads quarto.js and tabsets.js as module scripts in
 // <head>, long before anything we can inject. Once module loading has begun a
@@ -15,15 +18,17 @@
 // specifiers never resolved. Instead these import jsDelivr's +esm builds, which
 // resolve the bare specifier server-side.
 //
-// All four MUST come from the same /npm/three@VERSION/+esm URL that the addon
+// All of them MUST come from the same /npm/three@VERSION/+esm URL that the addon
 // builds themselves import, or the loaders would get a second copy of three and
 // its classes would not match the scene's.
 
 const DPR_CAP = 2;   // retina is enough; beyond this costs frames for nothing
 
-function frameObject(THREE, object, camera, controls) {
+function frameObject(THREE, object, camera, controls, view) {
   // Fit the camera to the object's bounding sphere, so any model arrives
   // centred and fully in view regardless of its authored scale or origin.
+  // An entry's `camera:` (position + target, model coordinates) overrides the
+  // fit; the bounding sphere still sets the clip planes and zoom limit.
   const box = new THREE.Box3().setFromObject(object);
   if (box.isEmpty()) return;
 
@@ -31,16 +36,34 @@ function frameObject(THREE, object, camera, controls) {
   const fov = camera.fov * (Math.PI / 180);
   const distance = (sphere.radius / Math.sin(fov / 2)) * 1.15;
 
-  camera.position.copy(sphere.center).add(
-    new THREE.Vector3(distance * 0.7, distance * 0.45, distance * 0.7)
-  );
+  if (view) {
+    camera.position.fromArray(view.position);
+    controls.target.fromArray(view.target);
+  } else {
+    camera.position.copy(sphere.center).add(
+      new THREE.Vector3(distance * 0.7, distance * 0.45, distance * 0.7)
+    );
+    controls.target.copy(sphere.center);
+  }
   camera.near = Math.max(distance / 1000, 0.01);
   camera.far = distance * 10;
   camera.updateProjectionMatrix();
 
-  controls.target.copy(sphere.center);
   controls.maxDistance = distance * 4;
   controls.update();
+  // `fixed: true` holds the authored view: no orbit, zoom or pan.
+  if (view?.fixed) controls.enabled = false;
+}
+
+function parseCamera(host) {
+  try {
+    const view = JSON.parse(decodeURIComponent(host.getAttribute("data-camera") || "null"));
+    const ok = (v) => Array.isArray(v) && v.length === 3 && v.every(Number.isFinite);
+    return view && ok(view.position) && ok(view.target) ? view : null;
+  } catch (err) {
+    console.error("[model-viewer] bad data-camera:", err);
+    return null;
+  }
 }
 
 function parseSeats(host) {
@@ -226,15 +249,27 @@ async function mount(host) {
   const setStatus = (t) => { if (status) status.textContent = t; };
   setStatus("Loading viewer…");
 
-  let THREE, OrbitControls, OBJLoader, MTLLoader;
+  // Only fetch the loaders this model's format needs.
+  const isGltf = /\.(glb|gltf)(\?|#|$)/i.test(modelUrl);
+  const V = "https://cdn.jsdelivr.net/npm/three@0.186.1";
+
+  let THREE, OrbitControls, OBJLoader, MTLLoader, GLTFLoader, DRACOLoader;
   try {
-    const V = "https://cdn.jsdelivr.net/npm/three@0.186.1";
-    [THREE, { OrbitControls }, { OBJLoader }, { MTLLoader }] = await Promise.all([
+    [THREE, { OrbitControls }] = await Promise.all([
       import(/* @vite-ignore */ `${V}/+esm`),
       import(`${V}/examples/jsm/controls/OrbitControls.js/+esm`),
-      import(`${V}/examples/jsm/loaders/OBJLoader.js/+esm`),
-      import(`${V}/examples/jsm/loaders/MTLLoader.js/+esm`),
     ]);
+    if (isGltf) {
+      [{ GLTFLoader }, { DRACOLoader }] = await Promise.all([
+        import(`${V}/examples/jsm/loaders/GLTFLoader.js/+esm`),
+        import(`${V}/examples/jsm/loaders/DRACOLoader.js/+esm`),
+      ]);
+    } else {
+      [{ OBJLoader }, { MTLLoader }] = await Promise.all([
+        import(`${V}/examples/jsm/loaders/OBJLoader.js/+esm`),
+        import(`${V}/examples/jsm/loaders/MTLLoader.js/+esm`),
+      ]);
+    }
   } catch (err) {
     host.classList.remove("is-loading");
     host.classList.add("is-error");
@@ -253,7 +288,8 @@ async function mount(host) {
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
 
-  // OBJ/MTL carries no PBR information, so the lighting has to come from here.
+  // Neither OBJ nor these glTF exports carry lights or an environment map, so
+  // the lighting has to come from here.
   scene.add(new THREE.HemisphereLight(0xffffff, 0x404050, 2.0));
   const key = new THREE.DirectionalLight(0xffffff, 1.6);
   key.position.set(5, 10, 7.5);
@@ -269,12 +305,19 @@ async function mount(host) {
 
   const onLoaded = (object) => {
     scene.add(object);
-    frameObject(THREE, object, camera, controls);
+    frameObject(THREE, object, camera, controls, parseCamera(host));
     addSource(THREE, host, scene, object);
     const seats = parseSeats(host);
     if (seats.length) setupSeats(THREE, host, seats, scene, camera, renderer, object);
+    // Hook for model-specific add-ons (e.g. partials/speaker-sim.html), which
+    // then share this page's three.js instead of loading their own.
+    host.dispatchEvent(new CustomEvent("model-viewer:ready", {
+      bubbles: true,
+      detail: { THREE, scene, object, camera, renderer, controls },
+    }));
     host.classList.remove("is-loading");
     host.classList.add("is-ready");
+    host.classList.toggle("is-fixed", !controls.enabled);
     if (status) status.remove();
     host.querySelector(".model-facade")?.remove();
     host.appendChild(renderer.domElement);
@@ -293,9 +336,16 @@ async function mount(host) {
   };
 
   const mtlUrl = host.getAttribute("data-mtl");
-  const objLoader = new OBJLoader();
 
-  if (mtlUrl) {
+  if (isGltf) {
+    // Draco-compressed meshes need the decoder (a small wasm module), which
+    // DRACOLoader fetches from this folder on first use.
+    const draco = new DRACOLoader().setDecoderPath(`${V}/examples/jsm/libs/draco/gltf/`);
+    new GLTFLoader()
+      .setDRACOLoader(draco)
+      .load(modelUrl, (gltf) => { onLoaded(gltf.scene); draco.dispose(); }, onProgress, onError);
+  } else if (mtlUrl) {
+    const objLoader = new OBJLoader();
     // Materials first: OBJ references them by name, so they must be registered
     // on the loader before the geometry is parsed.
     new MTLLoader()
@@ -309,7 +359,7 @@ async function mount(host) {
         objLoader.load(modelUrl, onLoaded, onProgress, onError);
       });
   } else {
-    objLoader.load(modelUrl, onLoaded, onProgress, onError);
+    new OBJLoader().load(modelUrl, onLoaded, onProgress, onError);
   }
 
   const resize = () => {
