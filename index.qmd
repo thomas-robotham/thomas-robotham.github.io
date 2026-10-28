@@ -104,7 +104,7 @@ My research focuses on the perceptual and cognitive evaluation of how humans exp
 :::
 
 ::: {.highlight-section-head}
-## Student Positions
+## Open Student Positions
 :::
 
 ::: {.positions-invite}
@@ -117,7 +117,7 @@ Whether or not something is listed below, feel free to reach out via my email.
 
 :::: {.media-section}
 ::: {.highlight-section-head}
-## Media
+## Audiovisual Media
 :::
 
 ::: {#media}

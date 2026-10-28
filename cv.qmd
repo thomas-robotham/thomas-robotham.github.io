@@ -23,28 +23,36 @@ Contact: *thomas.robotham@audiolabs-erlangen.de*
 
 Download a PDF version of the CV
 
+
+
+
+
+## Work Experience
+
+| Dates | Title | Institution | Description |
+|---|---|---|---|
+| 2026 - Present | Post-doctoral Researcher | AudioLabs Erlangen (FAU) | Studying how people perceive virtual acoustic and advanced audio systems in interactive audiovisual environments, alongside developing in-house statistical knowledge for quality evaluation |
+| 2021 - 2026 | Scientific Researcher | AudioLabs Erlangen (FAU) | Designed and built a spatial audio evaluation framework for perception, behavior, and cognition in XR, released several datasets and tools for 3-DoF and 6-DoF research, supervised students, and produced several scientific articles with awards and nominations. |
+| 2020–2021 | Senior Engineer | Fraunhofer IIS | Orchestrated in-house listening tests for MPEG-I standardization, provided input documents, and participated in ad hoc discussions. |
+| 2017–2020 | Research Associate | Fraunhofer IIS | Advanced audio research, development, and psychoacoustic quality evaluation for audio technologies. |
+| 2016–2017 | Research Intern | Fraunhofer IIS | Research into panning algorithms for 3D audio and next-generation audio systems for ISO ITU-R |
+| 2014–2015 | Part-time Academic | University of Huddersfield | Teaching seminars and workshops for modules Audio Technology and Concert Hall and Location Recording |
+| 2012–2014 | Audio Engineer | The Leadmill Ltd. | In-house engineer responsible for in-house lighting and sound equipment |
+
+: {tbl-colwidths="[13,17,15,55]"}
+
+
+
 ## Education
 
 | Dates | Degree | Institution | 
 |---|---|---|
-| 2021–2026 | PhD Student | Friedrich-Alexander Universität Erlangen-Nürnberg </br><span style="font-size:0.9em;"> International Audio Laboratories Erlangen</span> </br> <span style="font-size:0.8em;"> Dissertation: *Spatial Audio Perception in Interactive Virtual Reality: Quality Evaluation with Behavioral and Cognitive Insightss* </span>| 
+| 2021–2026 | PhD Dr.-Ing. | Friedrich-Alexander Universität Erlangen-Nürnberg </br><span style="font-size:0.9em;"> International Audio Laboratories Erlangen</span> </br> <span style="font-size:0.8em;"> Dissertation: *Spatial Audio Perception in Interactive Virtual Reality: Quality Evaluation with Behavioral and Cognitive Insightss* </span>| 
 | 2014–2016 | M.Sc. (Res) Acoustics & Psychoacoustics | University of Huddersfield </br><span style="font-size:0.9em;"> Applied Psychoacoustics Lab</span> </br> <span style="font-size:0.8em;"> Thesis: *The Effects of a Vertical Reflection on the Relationship Between Listener Preference and Timbral and Spatial Attributes* </span>| 
 | 2010–2014 | B.Sc. Music Technology & Audio Systems | University of Huddersfield </br><span style="font-size:0.9em;"> School of Computing and Engineering</span> </br> <span style="font-size:0.8em;"> Thesis: *An Investigation Into the Validity and Effectiveness of Thiele and Small Parameters in the Design and Manufacture of a Vented Loudspeaker Cabinet* </span>| 
 
+
 : {tbl-colwidths="[13,32,55]"}
-
-## Work Experience
-
-| Dates | Title | Institution | Key Responsibilities |
-|---|---|---|---|
-| 2026 - Present | Post-doctoral Researcher | AudioLabs Erlangen (FAU) | Building in-house statistical knowledge base |
-| 2020–2021 | Senior Engineer | Fraunhofer IIS | Organization and coordination of listening tests for MPEG-I standardization |
-| 2017–2020 | Research Associate | Fraunhofer IIS | Research on auditory perception and behaviour in 6-DoF VR environments |
-| 2016–2017 | Research Intern | Fraunhofer IIS | Experimental design and statistical analysis for subjective audio quality evaluation |
-| 2014–2015 | Part-time Academic | University of Huddersfield | Delivered seminars and lab sessions for audio technology courses |
-| 2012–2014 | Audio Engineer | The Leadmill Ltd. | Live audio and lighting engineering for events |
-
-: {tbl-colwidths="[13,17,15,55]"}
 
 
 ## Talks, Presentations, and Demonstrations
