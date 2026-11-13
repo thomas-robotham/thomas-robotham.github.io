@@ -18,3 +18,7 @@
 .Rhistory
 .RData
 .Renviron
+
+# Hard assets
+assets/audio/**/*.wav
+assets/audio/**/*.mp3
