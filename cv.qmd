@@ -21,12 +21,6 @@ toc-location: left
 
 Contact: *thomas.robotham@audiolabs-erlangen.de*
 
-Download a PDF version of the CV
-
-
-
-
-
 ## Work Experience
 
 | Dates | Title | Institution | Description |
@@ -79,19 +73,27 @@ Download a PDF version of the CV
 
 ## Teaching & Supervision
 
+<!-- Mark a row as still running with [Ongoing]{.ongoing}, e.g. in the Year
+     cell. It shows as a circular-arrow icon; screen readers read "Ongoing". -->
+::: {.cv-key}
+[Ongoing]{.ongoing .ongoing-key}
+:::
+
 | Year | Institution | Activity |
 |---|---|---|
-| 2026 | Audiolabs Erlangen (IIS) | Master Thesis Supervision (joint w/ Dr. Albert G. Prinn) </br><span style="font-size:0.8em;"> *Objective and Perceptual Evaluation of a Virtual Acoustic Model of the Fraunhofer IIS Digital Cinema* </span> | 
+| 2026 [Ongoing]{.ongoing} | Fraunhofer IIS | HiWi (joint w/ Anna Leschanowsky) </br><span style="font-size:0.8em;"> *Hörtests zur Beurteilung der Audioqualität - Listening test evaluation of audio quality* </span> | 
+| 2026 [Ongoing]{.ongoing} | Audiolabs Erlangen (FAU) | HiWi (joint w/ Dr. Albert G. Prinn) </br><span style="font-size:0.8em;"> *Audio Rendering for Virtual Reality Systems* </span> | 
+| 2026 | Audiolabs Erlangen (FAU) | Master Thesis Supervision (joint w/ Dr. Albert G. Prinn) </br><span style="font-size:0.8em;"> *Objective and Perceptual Evaluation of a Virtual Acoustic Model of the Fraunhofer IIS Digital Cinema* </span> | 
 | 2025, 2026 | Audiolabs Erlangen (FAU) | Guest lecture: Virtual Acoustics </br><span style="font-size:0.8em;"> *Perceptual Evaluation of Virtual Acoustics + interactive demonstration* </span> | 
 | 2021–2023, 2026 | Audiolabs Erlangen (FAU) | Audio Processing Seminar supervision | 
 | 2023 | Audiolabs Erlangen (FAU) | Bachelor Thesis supervision </br><span style="font-size:0.8em;"> *Influence of Cognitive Load on the Formation of Quality Judgment in Interactive VR Environments* </span>  | 
 | 2022 | Audiolabs Erlangen (FAU) | Master Thesis supervision </br><span style="font-size:0.8em;"> *The Influence of Spatial and Stereo Background Music on Cognitive Load* </span>  | 
 | 2021 | Audiolabs Erlangen (FAU) | Bachelor Thesis supervision (joint w/ Dr.-Ing Alexander Adami) </br><span style="font-size:0.8em;"> *Prototyping a Collaborative Interface for Augmented Reality Research* </span> | 
-| 2021 | Audiolabs Erlangen (IIS) | Student research placement </br><span style="font-size:0.8em;"> *VR implementation for evaluation framework* </span> | 
-| 2020-2021 | Audiolabs Erlangen (IIS) | Student research placement </br><span style="font-size:0.8em;"> *VR implementation of evaluation framework* mechanics </span> | 
-| 2019-2020 | Audiolabs Erlangen (IIS) | Student research placement </br><span style="font-size:0.8em;"> *XR software development for interactive evaluations* </span> | 
-| 2018-2019 | Audiolabs Erlangen (IIS) | Student research placement </br><span style="font-size:0.8em;"> *Perceptual evaluations of advanced audio rendering systems* </span> | 
-| 2017-2018 | Audiolabs Erlangen (IIS) | Student research placement </br><span style="font-size:0.8em;"> *Perceptual evaluations of advanced audio rendering systems* </span> | 
+| 2021 | Fraunhofer IIS | Student research placement </br><span style="font-size:0.8em;"> *VR implementation for evaluation framework* </span> | 
+| 2020-2021 | Fraunhofer IIS | Student research placement </br><span style="font-size:0.8em;"> *VR implementation of evaluation framework* mechanics </span> | 
+| 2019-2020 | Fraunhofer IIS | Student research placement </br><span style="font-size:0.8em;"> *XR software development for interactive evaluations* </span> | 
+| 2018-2019 | Fraunhofer IIS | Student research placement </br><span style="font-size:0.8em;"> *Perceptual evaluations of advanced audio rendering systems* </span> | 
+| 2017-2018 | Fraunhofer IIS | Student research placement </br><span style="font-size:0.8em;"> *Perceptual evaluations of advanced audio rendering systems* </span> | 
 
 : {tbl-colwidths="[13,32,55]"}
 

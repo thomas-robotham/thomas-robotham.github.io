@@ -1,0 +1,64 @@
+---
+title: "Legal Notice (Impressum)"
+toc: false
+search: false
+---
+
+<!-- Information under § 5 DDG (Digitale-Dienste-Gesetz, formerly § 5 TMG) and
+     § 18 (2) MStV. -->
+
+## Provider
+
+Thomas M. Robotham\
+c/o International Audio Laboratories Erlangen\
+Am Wolfsmantel 33\
+91058 Erlangen\
+Germany
+
+## Contact
+
+Email: [thomas.robotham@audiolabs-erlangen.de](mailto:thomas.robotham@audiolabs-erlangen.de)\
+Phone: [+49 9131 776-6747](tel:+4991317766747)
+
+## Responsible for content under § 18 (2) MStV
+
+Thomas M. Robotham, address as above.
+
+## Nature of this website
+
+This is a personal website. It presents my own research, publications and
+teaching offers. Views expressed here are my own and are not official
+statements of the International Audio Laboratories Erlangen, the
+Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU) or the Fraunhofer
+Institute for Integrated Circuits IIS.
+
+## Liability for content
+
+I take care that the content of this site is accurate and up to date, but I
+cannot guarantee that it is complete, correct or current. As a service
+provider I am responsible for my own content under the general laws
+(§ 7 (1) DDG). I am not obliged to monitor third-party information that is
+transmitted or stored, or to look for signs of illegal activity
+(§§ 8 to 10 DDG). If I become aware of a legal violation, I will remove the
+content concerned promptly.
+
+## Liability for links
+
+This site links to external websites over whose content I have no control.
+The provider or operator of a linked page is always responsible for its
+content. Linked pages were checked for apparent legal violations when the link
+was set, and none were found. If I become aware of a violation, I will remove
+the link promptly.
+
+## Copyright
+
+Unless stated otherwise, the text, images, videos and 3D models on this site
+are my own work and are protected by German copyright law. Third-party content
+is marked as such, with its licence where one applies (for example, music
+released under CC BY-NC). Published papers remain under the copyright or
+licence stated by their publisher.
+
+## Privacy
+
+How this site handles personal data is described in the
+[privacy policy](privacy.qmd).

@@ -51,13 +51,10 @@ toc: false
 format: 
   html: 
     include-after-body:
+      - partials/media-carousel.html
       - partials/video-facade.html
       - partials/model-viewer.html
       - partials/speaker-sim.html
-    include-in-header:
-      - text: |
-          <link rel="stylesheet"
-                href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
     grid:
       sidebar-width: 200px
       body-width: 1000px
@@ -113,6 +110,10 @@ Whether or not something is listed below, feel free to reach out via my email.
 :::
 
 ::: {#positions}
+:::
+
+::: {.positions-invite .positions-past}
+For a list of ongoing and previous student positions, teaching, and supervision, [please visit my CV](cv.qmd#teaching-supervision).
 :::
 
 :::: {.media-section}

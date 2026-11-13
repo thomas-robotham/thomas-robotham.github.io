@@ -8,15 +8,10 @@ description: >                      # 1-2 sentences, shown on the card
 
 date: 2026-01-01                    # date posted; newest first
 kind: Thesis | HiWi | Internship               # Bachelor's Thesis | Master's Thesis | HiWi | Internship
-# Timeline block -- any you set are grouped together on the card.
+# Shown in the line above the title, each only when set.
 start: "Flexible"
-duration: "t.b.d"                        # e.g. "6 months" -- fill in or delete
 location: "Erlangen, Germany"
 deadline: ""                        # shown as "Apply by" -- fill in or delete
-
-# ONE WORD naming the area (e.g. Perceptual, Technical, Software, Design).
-# Rendered beside the "Focus" label above the Venn.
-focus: "Behavioral"
 
 # The Venn: how effort splits across the three parts named by
 # `balance-labels` in index.qmd, in that order.

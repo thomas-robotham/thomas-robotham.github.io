@@ -11,22 +11,17 @@ date: 2026-01-01                       # date posted; controls ordering
 
 kind: Master's Thesis                  # eyebrow: Bachelor's / Master's Thesis, HiWi, Internship
 
-# Facts block -- any you set are grouped together on the card.
+# Shown in the line above the title, each only when set.
 start: "Flexible"                      # OPTIONAL
-duration: "6 months"                   # OPTIONAL
 location: "Erlangen, Germany"          # OPTIONAL
 deadline: ""                           # OPTIONAL - shown as "Apply by"
-
-# ONE WORD naming the area (e.g. Perceptual, Technical, Software, Design).
-# Rendered beside the "Focus" label above the Venn.
-focus: "Perceptual"
 
 # The Venn: how effort splits across the three parts named by
 # `balance-labels` in index.qmd, in that order.
 # Values: none | low | medium | high  (or 0-3). Delete the key for no Venn.
 balance: [low, high, medium]
 
-# Actions block. `apply` renders "Go to application"; "Read more" always links
+# Actions block. `apply` renders "Applications"; "Read more" always links
 # to this position's own page.
 apply: "mailto:thomas.robotham@audiolabs-erlangen.de?subject=Application:%20TOPIC%20HERE"
 

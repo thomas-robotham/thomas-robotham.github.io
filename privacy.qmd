@@ -1,0 +1,143 @@
+---
+title: "Privacy Policy (Datenschutzerklärung)"
+toc: true
+search: false
+# Body text at 8pt (see "Small print" in styles.css).
+body-classes: small-print
+---
+
+<!-- Written against what the site actually does as of November 2026: fonts,
+     icons and scripts are served from this site, and the only third parties
+     are the host and the click-to-load video and 3D viewer. If you add
+     analytics, a contact form, comments, new embeds or anything loaded from a
+     CDN, update the matching section (or add one). -->
+
+*Last updated: 13 November 2026*
+
+## 1. Controller
+
+The controller responsible for data processing on this website, under the
+EU General Data Protection Regulation (GDPR), is:
+
+Thomas M. Robotham\
+c/o International Audio Laboratories Erlangen\
+Am Wolfsmantel 33, 91058 Erlangen, Germany\
+Email: [thomas.robotham@audiolabs-erlangen.de](mailto:thomas.robotham@audiolabs-erlangen.de)\
+Phone: +49 9131 776-6747
+
+This is a private website. The institute address is used only as a postal
+address. The site is not operated by the International Audio Laboratories
+Erlangen, FAU or Fraunhofer IIS. Their own privacy policies apply to their own
+websites.
+
+## 2. Summary
+
+- This site uses no analytics, no tracking and no advertising, and sets no
+  cookies.
+- Like any website, it is delivered by a hosting provider, which processes
+  your IP address to do so (section 3).
+- Fonts, icons and scripts are served from this site itself. Opening a page
+  contacts no other server.
+- Videos and interactive 3D models load nothing from external servers until
+  you click them (section 5).
+
+## 3. Hosting and server log files
+
+This site is hosted on **GitHub Pages**, a service of GitHub, Inc., 88 Colin P.
+Kelly Jr. Street, San Francisco, CA 94107, USA. When you visit a page, GitHub
+processes the data your browser sends in order to deliver it. This includes
+your IP address, the date and time of the request, the page requested, your
+browser type and operating system, and the referring page. GitHub may store
+this information in server logs, for example for security purposes. I have no
+access to these logs.
+
+- **Legal basis:** Art. 6 (1) (f) GDPR. I have a legitimate interest in
+  presenting my website reliably and securely.
+- **Transfer to the USA:** GitHub is certified under the EU-U.S. Data Privacy
+  Framework (Art. 45 GDPR).
+- **More information:** [GitHub Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement)
+
+## 4. Cookies and local storage
+
+This site sets **no cookies**.
+
+Your browser's local storage keeps your display choices on your own device,
+for example light or dark mode. This information is never sent to me or to
+anyone else. You can delete it at any time in your browser settings. Storing
+it is strictly necessary for the function you requested (§ 25 (2) no. 2
+TDDDG).
+
+## 5. Videos and 3D models (click to load)
+
+**Videos** are hosted on YouTube, a service of Google Ireland Ltd., Gordon
+House, Barrow Street, Dublin 4, Ireland. A page with a video shows only a
+still image stored on this site. **No connection to YouTube is made until you
+click the play button.** The video then loads from youtube-nocookie.com, and
+Google receives your IP address and information about the page. Google may
+also set cookies or use similar technologies, and may transfer data to the
+USA. See the [Google privacy policy](https://policies.google.com/privacy).
+
+**Interactive 3D models** likewise show only a still image at first. When you
+click one, your browser loads the 3D viewer library (three.js) from jsDelivr,
+a service of Prospect One, Królewska 65A/1, 30-081 Kraków, Poland, delivered
+through Cloudflare and Fastly. jsDelivr receives your IP address and the usual
+request data (see section 3). See the
+[jsDelivr privacy policy](https://www.jsdelivr.com/terms/privacy-policy-jsdelivr-net).
+The model itself and any audio come from this site.
+
+- **Legal basis:** Your consent, given by clicking (Art. 6 (1) (a) GDPR;
+  § 25 (1) TDDDG). You can withdraw it at any time for the future by not
+  starting further videos and by reloading the page.
+
+## 6. External links
+
+This site links to other websites, for example LinkedIn, Google Scholar,
+ORCID, ResearchGate, publishers and doi.org. No data is sent to them until you
+follow a link. From then on, the privacy policy of that site applies.
+
+## 7. Contacting me by email
+
+If you email me, for example about a student position, I process the data you
+send. This includes your email address, your name, your message and any
+attachments such as a CV. I use it only to answer your enquiry and to handle
+your application.
+
+- **Legal basis:** Art. 6 (1) (b) GDPR where the enquiry relates to a
+  potential position, otherwise Art. 6 (1) (f) GDPR. I have a legitimate
+  interest in answering enquiries.
+- **Storage:** I use my work address at the International Audio Laboratories
+  Erlangen (a joint institution of FAU and Fraunhofer IIS), so your email is
+  received and stored on the institute's mail systems. Enquiries are deleted
+  once they are no longer needed. Applications that are not successful are
+  deleted six months after the position is filled, unless you agree to a
+  longer period.
+
+## 8. Your rights
+
+Under the GDPR, you have the right to:
+
+- **access** the personal data I hold about you (Art. 15),
+- have it **corrected** (Art. 16) or **erased** (Art. 17),
+- have its processing **restricted** (Art. 18),
+- **data portability** (Art. 20),
+- **object** to processing based on Art. 6 (1) (f) (Art. 21),
+- **withdraw consent** at any time with effect for the future (Art. 7 (3)).
+
+To exercise these rights, email me at the address above.
+
+You also have the right to **lodge a complaint** with a data protection
+supervisory authority (Art. 77 GDPR). The authority responsible for me is:
+
+Bayerisches Landesamt für Datenschutzaufsicht (BayLDA)\
+Promenade 18, 91522 Ansbach, Germany\
+[www.lda.bayern.de](https://www.lda.bayern.de)
+
+<!-- BayLDA covers private persons in Bavaria. This site is run privately;
+     if that ever changes and it becomes part of official FAU duties, the
+     Bavarian State Commissioner for Data Protection (BayLfD) is responsible
+     instead, and FAU's data protection officer should be named here. -->
+
+## 9. Changes
+
+I will update this policy whenever the site changes in a way that affects
+personal data.

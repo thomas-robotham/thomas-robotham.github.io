@@ -13,6 +13,12 @@ project:
     - assets/audio/**/*.m4a
     - assets/js/**
     - assets/data/**
+    # Posters and carousel images. The media carousel draws them in the
+    # browser, so Quarto never sees them as <img> tags and would not copy them.
+    - images/media/**
+    - images/models/**
+    # Self-hosted fonts (Lato, Academicons): nothing is loaded from a CDN.
+    - assets/fonts/**
 
 website:
   title: "T. M. Robotham"
@@ -25,6 +31,26 @@ website:
         text: Highlights
       - href: cv.qmd
         text: CV
+  # Footer on every page: copyright and the legal links centred, contact icons
+  # on the right. Update the year when it turns over.
+  page-footer:
+    center:
+      - text: "© 2026 Thomas M. Robotham. All rights reserved."
+      - text: "Legal notice"
+        href: impressum.qmd
+      - text: "Privacy"
+        href: privacy.qmd
+    right:
+      - icon: envelope
+        href: mailto:thomas.robotham@audiolabs-erlangen.de
+        aria-label: Email
+      - icon: linkedin
+        href: https://www.linkedin.com/in/thomasrobotham/
+        aria-label: LinkedIn
+      - text: '<i class="ai ai-google-scholar" role="img" aria-label="Google Scholar"></i>'
+        href: https://scholar.google.de/citations?user=rEZgo9cAAAAJ&hl=en
+      - text: '<i class="ai ai-orcid" role="img" aria-label="ORCID"></i>'
+        href: https://orcid.org/0000-0002-2899-2916
 
 format:
   html:
@@ -32,10 +58,15 @@ format:
       # The first entry is the default mode; dark leads so the site opens dark.
       dark: [superhero, theme-dark.scss]
       light: [superhero, theme-light.scss]
-    css: styles.css
+    # Fonts first, so styles.css can rely on them. All are served from this
+    # site; see the privacy policy before adding anything from a CDN.
+    css:
+      - assets/fonts/lato/lato.css
+      - assets/fonts/academicons/academicons.min.css
+      - styles.css
     toc: true
-    include-in-header:
-          - text: |
-              <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    # Maths is converted to MathML when the site is built, which browsers draw
+    # natively -- no MathJax script fetched from a CDN.
+    html-math-method: mathml
 
   
