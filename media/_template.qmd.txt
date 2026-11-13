@@ -14,6 +14,16 @@ kind: Demo                         # Demo | Talk | Walkthrough | Presentation
 venue: ""                          # OPTIONAL - duration, event or year
 headphones: true                   # OPTIONAL - shows a "headphones" note
 categories: [Media]
+read-more: false                   # OPTIONAL - true shows a "Read more" link to this
+                                    # entry's own page; false or left out hides it
+# OPTIONAL - extra cards in the entry's carousel, after the video (and model).
+# Put the files in images/media/ (or images/models/) so they are published.
+# images:
+#   - src: /images/media/<slug>-1.jpg
+#     caption: "What the picture shows"
+#     alt: "Short description for screen readers"
 ---
 
-Optional longer write-up shown on this entry's own page.
+Longer write-up for this entry's own page ("Read more" on the home page).
+The page already shows the carousel under the title; add text, images or
+further media here.

@@ -214,8 +214,42 @@ body.quarto-dark {
   font-size: 0.67rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  opacity: 0.65;
   margin: 0 0 0.2rem;
+}
+
+/* Eyebrow above a title (highlight cards, media rows, student positions): the
+   kind in the accent colour, then venue / place / year. Items are separate
+   spans told apart by a thin vertical rule, not by a separator character.
+
+   Every item carries the rule on its left. The line is pulled left by one
+   rule's width and spacing, and that strip is clipped away, so whichever item
+   starts a line -- the first, or one that wrapped -- sits flush with the text
+   below and shows no stray rule. */
+.entry-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 0.15rem;
+  line-height: 1.3;
+  --meta-gap: 0.6em;
+  clip-path: inset(0 0 0 calc(2 * var(--meta-gap) + 1px));
+}
+
+p.entry-meta {
+  margin-left: calc(-2 * var(--meta-gap) - 1px);
+}
+
+.entry-meta > span {
+  opacity: 0.65;
+  margin-left: var(--meta-gap);
+  padding-left: var(--meta-gap);
+  border-left: 1px solid var(--rule-strong);
+}
+
+.entry-meta > .entry-meta-kind {
+  color: var(--accent);
+  font-weight: 600;
+  opacity: 1;
 }
 
 .highlight-card-title {
@@ -481,15 +515,15 @@ body.quarto-dark {
   min-width: 0;
 }
 
-.media-row-video {
+.media-row-media {
   flex: 0 0 var(--media-player-width);
+  min-width: 0;
 }
 
 .media-row-meta {
   font-size: 0.67rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  opacity: 0.65;
   margin: 0 0 0.2rem;
 }
 
@@ -581,25 +615,151 @@ body.quarto-dark {
   transform: scale(1.06);
 }
 
-/* An entry's interactive model, stacked under its video. */
-.media-row-video .model-viewer {
-  margin-top: 0.75rem;
+/* `credit:` line under the description (e.g. music attribution). */
+.media-row-credit {
+  font-size: 0.74rem;
+  opacity: 0.75;
+  margin: 0 0 0.4rem;
 }
 
-.media-row-model-note {
+/* Link to the entry's own page. */
+.media-row-more {
+  margin: 0.6rem 0 0;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.media-row-more a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.media-row-more a:hover,
+.media-row-more a:focus-visible {
+  color: var(--accent);
+}
+
+.media-row-more-arrow {
+  display: inline-block;
+  margin-left: 0.3rem;
+  transition: transform 0.18s ease;
+}
+
+.media-row-more a:hover .media-row-more-arrow,
+.media-row-more a:focus-visible .media-row-more-arrow {
+  transform: translateX(3px);
+}
+
+/* ---------------------------------------------------------------- */
+/* Media carousel (partials/media-carousel.html): an entry's video,  */
+/* 3D model and images as cards, one at a time.                      */
+/* ---------------------------------------------------------------- */
+
+/* Every card has the viewer's 16:10 box, so stepping between them does not
+   move the arrows. Video posters are cropped slightly to fit. */
+.media-carousel .video-facade,
+.media-carousel iframe,
+.media-image {
+  aspect-ratio: 16 / 10;
+}
+
+.media-carousel iframe {
+  width: 100%;
+  border: 0;
+  border-radius: 8px;
+  display: block;
+}
+
+.media-image {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface-3);
+}
+
+.media-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* the whole picture; the box shows around it */
+  display: block;
+}
+
+.media-carousel-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.media-carousel-arrow {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  display: inline-grid;
+  place-items: center;
+  font-size: 1.25rem;
+  line-height: 1;
+  padding-bottom: 0.15rem;   /* the guillemet sits low in its line box */
+  cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+
+.media-carousel-arrow:hover,
+.media-carousel-arrow:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.media-carousel-dots {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.media-carousel-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--rule-strong);
+  cursor: pointer;
+}
+
+.media-carousel-dot[aria-current="true"] {
+  background: var(--accent);
+}
+
+.media-carousel-counter {
+  font-size: 0.72rem;
+  opacity: 0.65;
+  min-width: 6.5rem;
+  text-align: center;
+}
+
+/* "3D model" and "1 / 2" set apart by a thin rule rather than a dot. */
+.media-carousel-counter-kind {
+  margin-right: 0.5em;
+  padding-right: 0.5em;
+  border-right: 1px solid var(--rule-strong);
+}
+
+.media-carousel-note {
   font-size: 0.72rem;
   opacity: 0.6;
   margin: 0.35rem 0 0;
   text-align: center;
 }
 
-/* The iframe that replaces the facade on click. */
-.media-row-video iframe {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border: 0;
-  border-radius: 8px;
-  display: block;
+/* On an entry's own page: the carousel full width, under the title. */
+.media-page-media {
+  margin: 0.5rem 0 1rem;
 }
 
 @media (max-width: 767px) {
@@ -608,9 +768,9 @@ body.quarto-dark {
     align-items: stretch;
     gap: 0.9rem;
   }
-  .media-row-video {
+  .media-row-media {
     flex: none;
-    order: -1;   /* video first when stacked */
+    order: -1;   /* media first when stacked */
   }
 }
 
@@ -620,6 +780,10 @@ body.quarto-dark {
   }
   .video-facade:hover .video-facade-play {
     transform: none;
+  }
+  .media-row-more-arrow,
+  .media-carousel-arrow {
+    transition: none;
   }
 }
 
@@ -644,80 +808,86 @@ body.quarto-dark {
   background: var(--surface-1);
 }
 
-/* Left column: the readable content. */
+/* Two groups side by side: the text, and the actions right-aligned against
+   the column's edge (the line before the Venn). The actions are their own
+   group so their height never pushes the summary away from the title. */
 .position-main {
   flex: 1 1 0;
   min-width: 0;
-  padding: 0.9rem 1.1rem;
+  padding: 0.75rem 1.1rem;
   display: flex;
-  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem 1.25rem;
 }
 
-/* Facts row: type, start, duration, location, deadline reading across. */
-.position-facts {
+.position-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Eyebrow: kind, start, location, deadline on one line, set slightly apart
+   from the title below. Separators and colours come from .entry-meta, shared
+   with the highlight cards. */
+.position-meta {
+  font-size: 0.67rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 0.45rem;
+}
+
+/* Title, subtitle and summary read as one block. */
+.position-summary {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.5rem;
-  padding: 0.5rem 0.75rem;
-  margin-bottom: 0.7rem;
-  border-radius: 7px;
-  background: var(--surface-2);
+  flex-direction: column;
+  gap: 0.2rem;
 }
 
 .position-title {
   font-size: 1rem;
   line-height: 1.3;
-  margin: 0 0 0.15rem;
+  margin: 0;
 }
 
 .position-subtitle {
   font-size: 0.83rem;
   opacity: 0.75;
-  margin: 0 0 0.4rem;
+  margin: 0;
 }
 
 .position-desc {
   font-size: 0.85rem;
   line-height: 1.45;
   opacity: 0.85;
-  margin-bottom: 0.7rem;
 }
 
 .position-desc p {
   margin-bottom: 0;
 }
 
-/* Timeline facts grouped into a single block, so start/duration/deadline read
-   together rather than as loose lines. */
-.position-fact {
+/* Actions, stacked and right-aligned in the header row. */
+.position-links {
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
-  line-height: 1.3;
+  align-items: flex-end;
+  gap: 0.3rem;
+  margin: 0.1rem 0 0;
+  white-space: nowrap;
 }
 
-.position-fact-label {
-  font-size: 0.62rem;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  opacity: 0.6;
+/* On a phone the actions drop under the text, side by side. */
+@media (max-width: 575px) {
+  .position-main {
+    flex-direction: column;
+  }
+  .position-links {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.9rem;
+  }
 }
 
-.position-fact-value {
-  font-size: 0.83rem;
-  font-weight: 500;
-}
-
-/* Actions grouped together. */
-.position-links {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem 0.9rem;
-  margin: auto 0 0;
-  padding-top: 0.5rem;
-}
-
-/* Both actions share one style: "Go to application" and "Read more". */
+/* Both actions share one style: "Applications" and "Read more". */
 .position-link {
   font-size: 0.82rem;
   font-weight: 500;
@@ -739,11 +909,6 @@ body.quarto-dark {
 
 .position-link:hover .position-arrow {
   transform: translateX(3px);
-}
-
-/* Title sits at the very top of the card now that kind has moved down. */
-.position-title {
-  margin-top: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -774,8 +939,8 @@ body.quarto-dark {
   align-self: stretch;
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
-  padding: 0.65rem 0.9rem;
+  justify-content: center;
+  padding: 0.5rem 0.9rem;
   border-left: 1px solid var(--rule);
   background: var(--surface-2);
 }
@@ -784,32 +949,6 @@ body.quarto-dark .position-focus {
   --focus-1: #3987e5;
   --focus-2: #d95926;
   --focus-3: #199e70;
-}
-
-/* Heading: one word naming the area, sitting beside its label and centred. */
-.focus-heading {
-  margin: 0;
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.1rem 0.4rem;
-  text-align: center;
-}
-
-/* Label matches the value's font; only opacity separates them. */
-.focus-heading-label {
-  font-size: 0.8rem;
-  font-weight: 500;
-  line-height: 1.3;
-  opacity: 0.65;
-}
-
-.focus-heading-value {
-  font-size: 0.8rem;
-  font-weight: 500;
-  line-height: 1.3;
 }
 
 /* Figure row: diagram beside its legend, taking the height left over. */
@@ -829,15 +968,14 @@ body.quarto-dark .position-focus {
   align-items: center;
   justify-content: center;
   line-height: 0;
-  /* floor so a short card still shows a legible figure */
-  min-height: 96px;
 }
 
+/* A fixed height, so the figure fits the card rather than setting its height
+   (left to itself the SVG scales with the column's width). */
 .focus-venn {
-  height: 100%;
+  height: 88px;
   width: auto;
   max-width: 100%;
-  max-height: 100%;
   display: block;
 }
 
@@ -1019,77 +1157,16 @@ body:has(#category-filter.has-categories) #quarto-margin-sidebar {
   border-bottom-color: var(--accent);
 }
 
+/* The pointer to past positions, under the cards. */
+.positions-past {
+  margin-top: 1.1rem;
+  margin-bottom: 0;
+  max-width: none;
+}
+
 /* ---------------- */
 /* 3D model viewers */
 /* ---------------- */
-
-.model-list {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  margin-top: 1rem;
-  margin-bottom: 2rem;   /* the video list follows under the same heading */
-}
-
-/* Information left, viewer right. */
-.model-row {
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-}
-
-.model-row-body {
-  flex: 1 1 0;
-  min-width: 0;
-}
-
-.model-row-viewer {
-  flex: 0 0 var(--media-player-width);
-}
-
-.model-row-meta {
-  font-size: 0.67rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  opacity: 0.65;
-  margin: 0 0 0.2rem;
-}
-
-.model-row-title {
-  font-size: 1.05rem;
-  line-height: 1.25;
-  margin: 0 0 0.15rem;
-}
-
-.model-row-subtitle {
-  font-size: 0.85rem;
-  opacity: 0.75;
-  margin: 0 0 0.45rem;
-}
-
-.model-row-desc {
-  font-size: 0.86rem;
-  line-height: 1.45;
-  opacity: 0.85;
-  margin-bottom: 0.5rem;
-}
-
-.model-row-desc p {
-  margin-bottom: 0;
-}
-
-/* `credit:` line under the description (e.g. music attribution). */
-.model-row-credit {
-  font-size: 0.74rem;
-  opacity: 0.75;
-  margin: 0 0 0.4rem;
-}
-
-.model-row-note {
-  font-size: 0.76rem;
-  opacity: 0.6;
-  margin: 0;
-}
 
 /* The viewer host. Holds the poster facade first, then the WebGL canvas once
    the model has loaded; a fixed aspect keeps the layout from shifting. */
@@ -1214,18 +1291,6 @@ body:has(#category-filter.has-categories) #quarto-margin-sidebar {
 .model-seat.is-loading {
   opacity: 0.6;
   cursor: progress;
-}
-
-@media (max-width: 767px) {
-  .model-row {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.9rem;
-  }
-  .model-row-viewer {
-    flex: none;
-    order: -1;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1406,4 +1471,135 @@ body:has(#category-filter.has-categories) #quarto-margin-sidebar {
 
 .speaker-legend.has-measured .is-measured {
   visibility: visible;
+}
+
+/* ------------------ */
+/* CV: ongoing marker */
+/* ------------------ */
+
+/* [Ongoing]{.ongoing} in cv.qmd: a circular-arrow icon (Bootstrap Icons'
+   arrow-repeat, bundled with Quarto) in the accent colour. The word itself is
+   shrunk to nothing, so screen readers still announce "Ongoing" while the
+   eye sees only the icon. The key above the table (.ongoing-key) shows the
+   word beside the icon. */
+.ongoing {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  font-size: 0;
+  vertical-align: -0.1em;
+  margin-left: 0.3rem;
+  white-space: nowrap;
+}
+
+.ongoing::before {
+  content: "\f130";
+  font-family: "bootstrap-icons";
+  font-size: 0.85rem;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.cv-key {
+  display: flex;
+  justify-content: flex-end;
+  margin: -0.4rem 0 0.4rem;
+}
+
+.ongoing.ongoing-key {
+  font-size: 0.75rem;
+  margin-left: 0;
+  opacity: 0.8;
+}
+
+/* ------ */
+/* Footer */
+/* ------ */
+
+/* Quarto's page-footer (set in _quarto.yml): copyright and the legal links
+   centred, contact icons on the right. The empty left column is kept the same
+   width as the right one, so the centre group sits on the page's centre line.
+   Kept quiet so it reads as page furniture. */
+.nav-footer {
+  font-size: 0.78rem;
+  border-top: 1px solid var(--rule);
+}
+
+.nav-footer .nav-footer-left,
+.nav-footer .nav-footer-right {
+  flex: 1 1 0;
+}
+
+.nav-footer .nav-footer-center {
+  flex: 0 1 auto;
+  opacity: 0.7;
+}
+
+/* Centre items on one line, told apart by thin rules rather than dots. */
+.nav-footer .nav-footer-center .footer-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  row-gap: 0.2rem;
+  margin: 0;
+}
+
+.nav-footer .nav-footer-center .nav-item {
+  padding: 0 0.75em;
+  line-height: 1.2;
+}
+
+.nav-footer .nav-footer-center .nav-item + .nav-item {
+  border-left: 1px solid var(--rule-strong);
+}
+
+.nav-footer .nav-footer-center .nav-link {
+  padding: 0;
+}
+
+.nav-footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.nav-footer a:hover,
+.nav-footer a:focus-visible {
+  color: var(--accent);
+}
+
+/* Quarto wraps a linked text item in a <p>. */
+.nav-footer .nav-link p {
+  margin: 0;
+}
+
+.nav-footer .nav-footer-right .nav-link {
+  font-size: 0.95rem;
+  padding: 0.2rem 0.4rem;
+  opacity: 0.75;
+}
+
+.nav-footer .nav-footer-right .nav-link:hover,
+.nav-footer .nav-footer-right .nav-link:focus-visible {
+  opacity: 1;
+}
+
+/* ------------------------------ */
+/* Small print (privacy.qmd)      */
+/* ------------------------------ */
+
+/* A page that sets `body-classes: small-print` sets its body text at 8pt.
+   The title and the contents list keep their usual size; headings scale
+   with the text. */
+body.small-print #quarto-document-content > :not(#title-block-header) {
+  font-size: 8pt;
+}
+
+body.small-print #quarto-document-content h2 {
+  font-size: 1.45em;
+  margin-top: 1.6em;
+}
+
+body.small-print #quarto-document-content h3 {
+  font-size: 1.2em;
 }

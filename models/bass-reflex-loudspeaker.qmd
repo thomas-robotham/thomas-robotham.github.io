@@ -15,8 +15,12 @@ model: /assets/models/bass-reflex-loudspeaker.glb
 # centred and filling the frame (camera [-0.713, -0.167, 0.326] looking at
 # [0.009, 0.293, -0.011], no panel shift), so it differs from the loaded view.
 poster: /images/models/bass-reflex-loudspeaker.png
+# Line under the 3D viewer in the carousel; delete it to get the automatic one.
+note: "Click to load"
 kind: Model
 categories: [Model]
+# Show a "Read more" link to this entry's own page on the home page.
+read-more: true
 # Fixed view (no orbit/zoom): pitch -30 degrees (looking up from below) and
 # yaw -65 degrees (from the speaker's left), so the speaker is turned towards
 # the control panel, 1.4 m away. Position and target were then shifted 4 cm

@@ -10,8 +10,12 @@ model: /assets/models/cinema.obj
 # No `mtl:` — the Blender export's .mtl is empty and the OBJ has no usemtl
 # statements, so the viewer's own lighting does all the work.
 poster: /images/models/cinema.jpg
+# Line under the 3D viewer in the carousel; delete it to get the automatic one.
+note: "Click to load - drag to orbit - scroll to zoom - pick a seat to listen"
 kind: Scene
 categories: [Model]
+# Show a "Read more" link to this entry's own page on the home page.
+read-more: true
 # Sound source, shown as a dark grey sphere. Centred between the side walls,
 # 1.73 above the stage floor, near the front edge of the stage.
 source:

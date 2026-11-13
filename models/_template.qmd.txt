@@ -12,10 +12,22 @@ date: 2026-01-01                    # newest first
 model: /assets/models/<slug>.obj    # required
 mtl: /assets/models/<slug>.mtl      # OPTIONAL - materials; delete if none
 poster: /images/models/<slug>.jpg   # shown until the viewer is clicked
+note: ""                            # OPTIONAL - the line under the viewer; delete the
+                                    # line to keep "Click to load · drag to orbit · ..."
 
 kind: Model                         # Model | Scene | Prototype
 venue: ""                           # OPTIONAL - year, project or context
 categories: [Model]
+read-more: false                    # OPTIONAL - true shows a "Read more" link to this
+                                    # entry's own page; false or left out hides it
+# OPTIONAL - extra cards in the entry's carousel, after the model.
+# Put the files in images/media/ (or images/models/) so they are published.
+# images:
+#   - src: /images/models/<slug>-1.jpg
+#     caption: "What the picture shows"
+#     alt: "Short description for screen readers"
 ---
 
-Optional longer write-up shown on this entry's own page.
+Longer write-up for this entry's own page ("Read more" on the home page).
+The page already shows the carousel under the title; add text, images or
+further media here.

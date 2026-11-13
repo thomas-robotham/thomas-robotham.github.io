@@ -193,6 +193,9 @@ function setupSeats(THREE, host, seats, scene, camera, renderer, object) {
     show(i);
   }
 
+  // The carousel hid this card: stop the seat that is playing.
+  host.addEventListener("media:pause", stop);
+
   // Picking: a click on a marker selects it, but only if the pointer barely
   // moved -- otherwise it was an orbit drag that happened to end on a marker.
   const raycaster = new THREE.Raycaster();
@@ -371,10 +374,15 @@ async function mount(host) {
   };
   new ResizeObserver(resize).observe(host);
 
-  renderer.setAnimationLoop(() => {
+  const frame = () => {
     controls.update();
     renderer.render(scene, camera);
-  });
+  };
+  renderer.setAnimationLoop(frame);
+  // Sent by partials/media-carousel.html when this card is hidden and shown
+  // again: no point drawing frames nobody can see.
+  host.addEventListener("media:pause", () => renderer.setAnimationLoop(null));
+  host.addEventListener("media:resume", () => renderer.setAnimationLoop(frame));
 }
 
 const activate = (e) => {

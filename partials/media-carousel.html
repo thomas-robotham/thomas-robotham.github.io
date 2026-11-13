@@ -1,0 +1,185 @@
+<script>
+// Media carousel: one entry's video, 3D model and images as cards, stepped
+// through with arrows.
+//
+// Each .media-carousel carries data-cards, a URI-encoded JSON list of cards.
+// The home page writes it from _templates/media-all.ejs, an entry's own page
+// from filters/media-page.lua; both read the same front-matter fields, so the
+// cards look the same in both places. Card types:
+//
+//   { type: "video", id, title, poster }
+//   { type: "model", title, model, mtl, poster, camera, seats, source, speaker, note }
+//   { type: "image", src, alt, caption }
+//
+// The cards are built here, not in the templates, so the markup lives in one
+// place. The video facade (partials/video-facade.html) and the 3D viewer
+// (partials/model-viewer.html) both listen on document, so they pick up these
+// elements without any wiring.
+//
+// Leaving a card stops what it is playing: a started YouTube player is put
+// back to its poster, and a 3D viewer gets "media:pause" (seat audio and the
+// loudspeaker loop stop, rendering pauses) and "media:resume" on return.
+(function () {
+  var LABEL = { video: "Video", model: "3D model", image: "Image" };
+
+  function el(tag, attrs, children) {
+    var n = document.createElement(tag);
+    Object.keys(attrs || {}).forEach(function (k) {
+      if (attrs[k] === undefined || attrs[k] === null || attrs[k] === "") return;
+      if (k === "className") n.className = attrs[k];
+      else if (k === "text") n.textContent = attrs[k];
+      else n.setAttribute(k, attrs[k]);
+    });
+    (children || []).forEach(function (c) { if (c) n.append(c); });
+    return n;
+  }
+
+  var enc = function (v) { return v ? encodeURIComponent(JSON.stringify(v)) : ""; };
+
+  function videoCard(c) {
+    return el("div", {
+      className: "video-facade",
+      "data-video-id": c.id,
+      "data-video-title": c.title,
+      role: "button",
+      tabindex: "0",
+      "aria-label": "Play video: " + (c.title || ""),
+    }, [
+      c.poster ? el("img", { src: c.poster, alt: "", loading: "lazy" }) : null,
+      el("span", { className: "video-facade-play", "aria-hidden": "true" }),
+    ]);
+  }
+
+  function modelCard(c) {
+    return el("div", {
+      className: "model-viewer" + (c.speaker ? " has-speaker" : ""),
+      "data-model": c.model,
+      "data-mtl": c.mtl,
+      "data-camera": enc(c.camera),
+      "data-seats": c.seats && c.seats.length ? enc(c.seats) : "",
+      "data-source": enc(c.source),
+      "data-speaker": enc(c.speaker),
+      role: "button",
+      tabindex: "0",
+      "aria-label": "Load interactive 3D model: " + (c.title || ""),
+    }, [
+      el("div", { className: "model-facade" }, [
+        c.poster ? el("img", { src: c.poster, alt: "", loading: "lazy" }) : null,
+        el("span", { className: "model-facade-cue", "aria-hidden": "true" }),
+      ]),
+      el("p", { className: "model-viewer-status" }),
+    ]);
+  }
+
+  function imageCard(c) {
+    return el("a", { className: "media-image", href: c.src, target: "_blank", rel: "noopener" }, [
+      el("img", { src: c.src, alt: c.alt || c.caption || "", loading: "lazy" }),
+    ]);
+  }
+
+  // The line under the card: the image's caption, the entry's own `note:`
+  // for its model, or else how to use the model, worked out from its fields.
+  function noteFor(c) {
+    if (c.type === "image") return c.caption || "";
+    if (c.note) return c.note;
+    if (c.type !== "model") return "";
+    var fixed = c.camera && c.camera.fixed;
+    return "Click to load" + (fixed ? "" : ", drag to orbit, scroll to zoom") +
+      (c.seats && c.seats.length ? ", pick a seat to listen" : "");
+  }
+
+  var BUILD = { video: videoCard, model: modelCard, image: imageCard };
+
+  function setup(root) {
+    var cards;
+    try {
+      cards = JSON.parse(decodeURIComponent(root.getAttribute("data-cards") || "[]"));
+    } catch (err) {
+      console.error("[media-carousel] bad data-cards:", err);
+      return;
+    }
+    cards = cards.filter(function (c) { return BUILD[c.type]; });
+    if (!cards.length) { root.remove(); return; }
+
+    var stage = el("div", { className: "media-carousel-stage" });
+    var slides = cards.map(function (c, i) {
+      var s = el("div", {
+        className: "media-carousel-slide media-carousel-slide--" + c.type,
+        role: cards.length > 1 ? "group" : null,
+        "aria-roledescription": cards.length > 1 ? "slide" : null,
+        "aria-label": cards.length > 1 ? (i + 1) + " of " + cards.length + ": " + LABEL[c.type] : null,
+      }, [BUILD[c.type](c)]);
+      if (i) s.hidden = true;
+      stage.append(s);
+      return s;
+    });
+    var note = el("p", { className: "media-carousel-note" });
+    root.append(stage);
+
+    var current = 0;
+
+    function leave(i) {
+      var s = slides[i], c = cards[i];
+      if (c.type === "video" && s.querySelector("iframe")) {
+        s.replaceChildren(videoCard(c));          // stops the player
+      }
+      s.querySelectorAll(".model-viewer").forEach(function (v) {
+        v.dispatchEvent(new CustomEvent("media:pause"));
+      });
+    }
+
+    function show(i) {
+      i = (i + cards.length) % cards.length;
+      if (i !== current) {
+        leave(current);
+        slides[current].hidden = true;
+        slides[i].hidden = false;
+        slides[i].querySelectorAll(".model-viewer").forEach(function (v) {
+          v.dispatchEvent(new CustomEvent("media:resume"));
+        });
+        current = i;
+      }
+      var text = noteFor(cards[i]);
+      note.textContent = text;
+      note.hidden = !text;
+      if (counter) counter.replaceChildren(
+        el("span", { className: "media-carousel-counter-kind", text: LABEL[cards[i].type] }),
+        el("span", { text: (i + 1) + " / " + cards.length }));
+      dots.forEach(function (d, j) { d.setAttribute("aria-current", j === i ? "true" : "false"); });
+    }
+
+    var counter = null, dots = [];
+    if (cards.length > 1) {
+      root.classList.add("has-nav");
+      root.setAttribute("role", "region");
+      root.setAttribute("aria-roledescription", "carousel");
+      var prev = el("button", { type: "button", className: "media-carousel-arrow", "aria-label": "Previous", text: "‹" });
+      var next = el("button", { type: "button", className: "media-carousel-arrow", "aria-label": "Next", text: "›" });
+      counter = el("span", { className: "media-carousel-counter", "aria-live": "polite" });
+      dots = cards.map(function (c, i) {
+        var d = el("button", { type: "button", className: "media-carousel-dot", "aria-label": "Show " + LABEL[c.type] + " (" + (i + 1) + ")" });
+        d.addEventListener("click", function () { show(i); });
+        return d;
+      });
+      prev.addEventListener("click", function () { show(current - 1); });
+      next.addEventListener("click", function () { show(current + 1); });
+      var nav = el("div", { className: "media-carousel-nav" }, [
+        prev, el("span", { className: "media-carousel-dots" }, dots), counter, next,
+      ]);
+      // Arrow keys only while focus is on the controls: inside a card they
+      // belong to the card (the loudspeaker's slider uses them).
+      nav.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowLeft") { e.preventDefault(); show(current - 1); }
+        if (e.key === "ArrowRight") { e.preventDefault(); show(current + 1); }
+      });
+      root.append(nav);
+    }
+    root.append(note);
+    show(0);
+  }
+
+  function init() { document.querySelectorAll(".media-carousel[data-cards]").forEach(setup); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>

@@ -1,5 +1,8 @@
 /*-- scss:defaults --*/
 
+// Lato is served from this site (assets/fonts/lato), not Google Fonts.
+$web-font-path: false;
+
 // LIGHT MODE — warm off-white with a deep green accent.
 //
 // The two modes use different accent HUES, not just different shades: green on

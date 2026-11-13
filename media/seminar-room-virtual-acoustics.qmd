@@ -10,6 +10,8 @@ poster: /images/media/seminar-room-virtual-acoustics.jpg
 # partials/model-viewer.html).
 model: /assets/models/seminar-room-virtual-acoustics.glb
 model-poster: /images/models/seminar-room-virtual-acoustics.png
+# Line under the 3D viewer in the carousel; delete it to get the automatic one.
+note: "Click to load - drag to orbit - scroll to zoom"
 # Starting view, in model coordinates (metres, Y up). The target is inside the
 # room, on the line from the camera through the middle group of absorber panels
 # on the corridor wall, so that group is centred left-right and orbiting pivots
@@ -21,4 +23,6 @@ kind: Demo
 venue: ""
 headphones: true
 categories: [Media, Virtual Acoustics]
+# Show a "Read more" link to this entry's own page on the home page.
+read-more: true
 ---

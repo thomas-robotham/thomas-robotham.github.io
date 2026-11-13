@@ -7,3 +7,12 @@ format:
       sidebar-width: 200px
       body-width: 1000px
       margin-width: 100px
+    # The entry's media carousel at the top of its page (filters/media-page.lua)
+    # and the scripts that draw it -- the same ones the home page loads.
+    include-after-body:
+      - ../partials/media-carousel.html
+      - ../partials/video-facade.html
+      - ../partials/model-viewer.html
+      - ../partials/speaker-sim.html
+filters:
+  - ../filters/media-page.lua
