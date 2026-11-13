@@ -14,7 +14,8 @@ image-alt: >
 
 categories: [Paper, Perception, Virtual Acoustics]
 kind: Paper
-venue: "Forum Acusticum 2026 · Graz"
+venue: "Forum Acusticum 2026"
+location: "Graz"
 ---
 
 *The perceptual comparison of modal fields using an ecological task-based

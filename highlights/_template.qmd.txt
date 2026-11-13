@@ -14,6 +14,7 @@ image-alt: "Describe the image for screen readers"
 categories: [Paper, Spatial Audio] # shown as filters on highlights.qmd
 kind: Paper                        # Paper | Tool | Dataset | Project — card eyebrow
 venue: "QoMEX 2026"                # card eyebrow; falls back to the year if omitted
+location: ""                       # OPTIONAL - city, shown after the venue
 
 # STUB ENTRY: uncomment to make the card link straight out. The body below is
 # then ignored, and anyone landing on this page is forwarded to the same URL.

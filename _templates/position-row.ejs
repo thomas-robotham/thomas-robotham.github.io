@@ -1,9 +1,16 @@
 <%
-/* Open student positions. Everything textual sits in the left column -- title,
-   summary, a row of facts (type, start, duration, location, deadline), then the
-   actions. The focus Venn gets its own column on the right, filling the card's
-   full height. Cards are text only -- any figure belongs in the body of the
-   position's own page, added as ordinary markdown.
+/* Open student positions. The left column holds two groups side by side: the
+   text (eyebrow, then title, subtitle and summary kept together) and, in its
+   own group to the right, the actions -- "Applications", "Read more" --
+   right-aligned against the column's edge. Keeping the actions out of the
+   title's row means their height never pushes the summary down. The eyebrow carries the facts on one line, in the same style as
+   the highlight cards (.entry-meta): the kind in the accent colour, then
+   "Start ...", location and "Apply by ...", each only when set. A `|` inside
+   `kind` ("Thesis | HiWi") is shown as "/" so it does not read as one of the
+   eyebrow's own dividers. The balance Venn gets
+   its own column on the right, filling the card's full height. Cards are text
+   only -- any figure belongs in the body of the position's own page, added as
+   ordinary markdown.
 
    Same Pandoc constraints as the other templates -- Quarto's EJS has no
    newline-trimming tag, and Pandoc reads indentation as a code block, blank
@@ -15,10 +22,9 @@
    Markup here stays literal with interpolated values only: Quarto's EJS escapes
    HTML built up inside JS strings, so tags must be written out in the template.
 
-   TWO SEPARATE FIELDS, after the pattern on Sebastian Schlecht's students page:
+   THE VENN, after the pattern on Sebastian Schlecht's students page:
 
-     focus:   "Perceptual"             -- ONE WORD: what area the work is in
-     balance: [medium, high, medium]   -- the Venn: how effort splits three ways
+     balance: [medium, high, medium]   -- how effort splits three ways
 
    The three Venn part names come from the listing's template-params in index.qmd,
    so renaming them is a one-line change in one place:
@@ -26,9 +32,9 @@
      template-params:
        balance-labels: ["Theory", "Development", "Evaluation"]
 
-   Levels are none | low | medium | high, or numbers 0-3. Omit `balance` for no
-   Venn, omit `focus` for no heading, omit both and the column disappears.
-   A `focus:` given as an array is still read as a balance, so older entries work.
+   Levels are none | low | medium | high, or numbers 0-3. Omit `balance` and the
+   column disappears. A `focus:` given as an array is still read as a balance,
+   so older entries work; a one-word `focus:` and `duration:` are no longer shown.
 */
 const BALANCE_DEFAULT = ["Theory", "Development", "Evaluation"];
 const FOCUS_WORDS = { none: 0, low: 1, medium: 2, high: 3 };
@@ -50,27 +56,24 @@ function focusLevel(value) {
   return word === undefined ? 0 : word;
 }
 %><div class="position-list">
-<% for (const item of items) { const kind = String(item.kind || "").trim(); const subtitle = String(item.subtitle || "").trim(); item.desc = String(item.description || "").replace(/<!--[\s\S]*?-->/g, "").trim(); const start = String(item.start || "").trim(); const duration = String(item.duration || "").trim(); const location = String(item.location || "").trim(); const deadline = String(item.deadline || "").trim(); const hasFacts = Boolean(kind || start || duration || location || deadline); const apply = String(item.apply || "").trim(); const focusIsArray = Array.isArray(item.focus); const focusText = focusIsArray ? "" : String(item.focus || "").trim(); const balanceRaw = Array.isArray(item.balance) ? item.balance : (focusIsArray ? item.focus : null); const lv = balanceRaw ? [0,1,2].map(function (i) { return focusLevel(balanceRaw[i]); }) : null; const balanceAria = lv ? ("Balance of work: " + [0,1,2].map(function (i) { return balanceLabels[i] + " " + ["none","low","medium","high"][lv[i]]; }).join(", ")) : ""; %><div class="position-card">
+<% for (const item of items) { const kind = String(item.kind || "").split("|").map(function (k) { return k.trim(); }).filter(Boolean).join(" / "); const subtitle = String(item.subtitle || "").trim(); item.desc = String(item.description || "").replace(/<!--[\s\S]*?-->/g, "").trim(); const start = String(item.start || "").trim(); const location = String(item.location || "").trim(); const deadline = String(item.deadline || "").trim(); const facts = [start ? "Start " + start : "", location, deadline ? "Apply by " + deadline : ""].filter(Boolean); const apply = String(item.apply || "").trim(); const balanceRaw = Array.isArray(item.balance) ? item.balance : (Array.isArray(item.focus) ? item.focus : null); const lv = balanceRaw ? [0,1,2].map(function (i) { return focusLevel(balanceRaw[i]); }) : null; const balanceAria = lv ? ("Balance of work: " + [0,1,2].map(function (i) { return balanceLabels[i] + " " + ["none","low","medium","high"][lv[i]]; }).join(", ")) : ""; %><div class="position-card">
 <div class="position-main">
+<div class="position-text">
+<% if (kind || facts.length) { %><p class="position-meta entry-meta"><% if (kind) { %><span class="entry-meta-kind"><%= kind %></span><% } %><% for (const f of facts) { %><span class="entry-meta-item"><%= f %></span><% } %></p>
+<% } %><div class="position-summary">
 <h3 class="position-title"><%= item.title %></h3>
 <% if (subtitle) { %><p class="position-subtitle"><%= subtitle %></p>
 <% } %><% if (item.desc) { %><div class="position-desc"><%- item.desc %></div>
-<% } %><% if (hasFacts) { %><div class="position-facts">
-<% if (kind) { %><div class="position-fact"><span class="position-fact-label">Type</span><span class="position-fact-value"><%= kind %></span></div>
-<% } %><% if (start) { %><div class="position-fact"><span class="position-fact-label">Start</span><span class="position-fact-value"><%= start %></span></div>
-<% } %><% if (duration) { %><div class="position-fact"><span class="position-fact-label">Duration</span><span class="position-fact-value"><%= duration %></span></div>
-<% } %><% if (location) { %><div class="position-fact"><span class="position-fact-label">Location</span><span class="position-fact-value"><%= location %></span></div>
-<% } %><% if (deadline) { %><div class="position-fact"><span class="position-fact-label">Apply by</span><span class="position-fact-value"><%= deadline %></span></div>
 <% } %></div>
-<% } %><p class="position-links"><% if (apply) { %><a class="position-link" href="<%- apply %>" target="_blank" rel="noopener">Go to application<span class="position-arrow">&#8599;</span></a><% } %><a class="position-link" href="<%- item.path %>">Read more<span class="position-arrow">&#8594;</span></a></p>
 </div>
-<% if (lv || focusText) { %><div class="position-focus">
-<% if (focusText) { %><p class="focus-heading"><span class="focus-heading-label">Focus</span><span class="focus-heading-value"><%= focusText %></span></p>
-<% } %><% if (lv) { %><div class="focus-figure"><div class="focus-venn-wrap"><svg class="focus-venn" viewBox="10 10 80 78" role="img" aria-label="<%= balanceAria %>"><circle class="focus-circle focus-circle-1" cx="38" cy="38" r="<%= FOCUS_RADIUS[lv[0]] %>"></circle><circle class="focus-circle focus-circle-2" cx="62" cy="38" r="<%= FOCUS_RADIUS[lv[1]] %>"></circle><circle class="focus-circle focus-circle-3" cx="50" cy="60" r="<%= FOCUS_RADIUS[lv[2]] %>"></circle></svg></div>
+<p class="position-links"><% if (apply) { %><a class="position-link" href="<%- apply %>" target="_blank" rel="noopener">Applications<span class="position-arrow">&#8599;</span></a><% } %><a class="position-link" href="<%- item.path %>">Read more<span class="position-arrow">&#8594;</span></a></p>
+</div>
+<% if (lv) { %><div class="position-focus">
+<div class="focus-figure"><div class="focus-venn-wrap"><svg class="focus-venn" viewBox="10 10 80 78" role="img" aria-label="<%= balanceAria %>"><circle class="focus-circle focus-circle-1" cx="38" cy="38" r="<%= FOCUS_RADIUS[lv[0]] %>"></circle><circle class="focus-circle focus-circle-2" cx="62" cy="38" r="<%= FOCUS_RADIUS[lv[1]] %>"></circle><circle class="focus-circle focus-circle-3" cx="50" cy="60" r="<%= FOCUS_RADIUS[lv[2]] %>"></circle></svg></div>
 <div class="focus-legend">
 <% for (let i = 0; i < 3; i++) { %><div class="focus-legend-item focus-level-<%= lv[i] %>"><span class="focus-dot focus-dot-<%= i + 1 %>"></span><span class="focus-name"><%= balanceLabels[i] %></span></div>
 <% } %></div>
 </div>
-<% } %></div>
+</div>
 <% } %></div>
 <% } %></div>

@@ -25,12 +25,16 @@
       here, because Pandoc's smart punctuation rewrites the token's `--` and
       Quarto can no longer find it, so the token would show up as visible junk
       on the card. Stripping it below is what makes the field truly optional.
-      A whitespace-only value counts as absent for both fields. */
+      A whitespace-only value counts as absent for both fields.
+
+   EYEBROW: `kind`, then `venue` (or the year when there is no venue), then the
+   optional `location`, each in its own span. They are told apart by CSS
+   (.entry-meta in styles.css), not by separator characters. */
 %><div class="highlight-grid list">
-<% for (const item of items) { const external = Boolean(item.redirect); const href = external ? item.redirect : item.path; const d = item.date ? new Date(item.date) : null; const year = (d && !isNaN(d.valueOf())) ? d.getFullYear() : ""; const meta = [item.kind, item.venue || year].filter(Boolean).join(" · "); const cats = Array.isArray(item.categories) ? item.categories : (item.categories ? [item.categories] : []); const catData = cats.length ? btoa(encodeURIComponent(cats.join(","))) : ""; const subtitle = String(item.subtitle || "").trim(); item.desc = String(item.description || "").replace(/<!--[\s\S]*?-->/g, "").trim(); %><div class="highlight-card" data-categories="<%= catData %>">
+<% for (const item of items) { const external = Boolean(item.redirect); const href = external ? item.redirect : item.path; const d = item.date ? new Date(item.date) : null; const year = (d && !isNaN(d.valueOf())) ? d.getFullYear() : ""; const kind = String(item.kind || "").trim(); const details = [String(item.venue || "").trim() || year, String(item.location || "").trim()].filter(Boolean); const cats = Array.isArray(item.categories) ? item.categories : (item.categories ? [item.categories] : []); const catData = cats.length ? btoa(encodeURIComponent(cats.join(","))) : ""; const subtitle = String(item.subtitle || "").trim(); item.desc = String(item.description || "").replace(/<!--[\s\S]*?-->/g, "").trim(); %><div class="highlight-card" data-categories="<%= catData %>">
 <% if (item.image) { %><div class="highlight-card-media"><img src="<%- item.image %>" alt="<%= item['image-alt'] || item.title %>" loading="lazy"></div>
 <% } %><div class="highlight-card-body">
-<% if (meta) { %><p class="highlight-card-meta"><%= meta %></p>
+<% if (kind || details.length) { %><p class="highlight-card-meta entry-meta"><% if (kind) { %><span class="entry-meta-kind"><%= kind %></span><% } %><% for (const d of details) { %><span class="entry-meta-item"><%= d %></span><% } %></p>
 <% } %><h3 class="highlight-card-title"><%= item.title %></h3>
 <% if (subtitle) { %><p class="highlight-card-subtitle"><%= subtitle %></p>
 <% } %><% if (item.desc) { %><div class="highlight-card-desc"><%- item.desc %></div>
